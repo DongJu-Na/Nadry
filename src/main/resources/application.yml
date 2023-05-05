@@ -1,0 +1,34 @@
+spring:
+  profiles:
+    active: local
+  thymeleaf:
+    prefix : classpath:templates/
+    suffix : .html
+    cache : false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  devtools:
+    restart:
+      enabled: true
+server:
+  title: nadeul-local
+  port : 8080
+  
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  devtools:
+    restart:
+      enabled: true
+
+server:
+  title: nadeul-prod
+  port : 8081
+
+ 

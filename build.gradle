@@ -19,10 +19,26 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// spring
+	//implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	
+	// okhttp3
+	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
+	
+	// retrofit2
+	implementation group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.9.0'
+	
+	// jackson-databind
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
+	
+	implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
+	
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
