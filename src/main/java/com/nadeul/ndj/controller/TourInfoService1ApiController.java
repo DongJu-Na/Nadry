@@ -4,26 +4,35 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nadeul.ndj.service.KorService1ApiService;
+import com.nadeul.ndj.service.TourInfoService1ApiService;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author DONGJU
+ * 
+ */
 @Slf4j
 @RequestMapping("/api/v1/tour")
 @RestController
-public class KorService1ApiController {
+public class TourInfoService1ApiController {
 	
 	@Autowired
-	KorService1ApiService korService1ApiService;
+	TourInfoService1ApiService korService1ApiService;
 	
-	@PostMapping("/locationBasedList1")
-	public ResponseEntity<Map<String,Object>> locationBasedList1(@RequestBody Map<String, Object> requestParam) throws Exception {
-		return korService1ApiService.locationBasedList1(requestParam);
+	@PostMapping("/locationBasedList1/{lang}")
+	public ResponseEntity<Map<String,Object>> locationBasedList1(@PathVariable String lang, @RequestBody Map<String, Object> requestParam) throws Exception {
+		if(lang == null) {
+			lang = "kor";
+		}
+		return korService1ApiService.locationBasedList1(lang,requestParam);
 	}
 	
 	@PostMapping("/searchKeyword1")

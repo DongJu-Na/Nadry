@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.nadeul.ndj.api.KorService1Api;
+import com.nadeul.ndj.api.TourInfoService1Api;
 
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.ConnectionPool;
@@ -26,14 +26,14 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @Slf4j
 @Service
-public class KorService1ApiService {
+public class TourInfoService1ApiService {
 	
  private static final String BASE_URL = "http://apis.data.go.kr";
  
  
- final KorService1Api api;
+ final TourInfoService1Api api;
  
- public KorService1ApiService() {
+ public TourInfoService1ApiService() {
      ObjectMapper mapper = new ObjectMapper();
 			      mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			      mapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE);
@@ -50,12 +50,12 @@ public class KorService1ApiService {
              .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
              .build();
      
-	this.api =  retrofit.create(KorService1Api.class);
+	this.api =  retrofit.create(TourInfoService1Api.class);
 }
  
 	
- public ResponseEntity<Map<String,Object>> locationBasedList1(Map<String,Object> param){
-	Call<Map<String,Object>> call = api.locationBasedList1(param);
+ public ResponseEntity<Map<String,Object>> locationBasedList1(String lang , Map<String,Object> param){
+	Call<Map<String,Object>> call = api.locationBasedList1(lang,param);
 	return execute(call);
  }
  
