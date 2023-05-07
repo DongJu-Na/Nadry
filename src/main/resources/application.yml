@@ -5,6 +5,17 @@ spring:
     prefix : classpath:templates/
     suffix : .html
     cache : false
+    
+springdoc:
+  version: '0.1'
+  swagger-ui:
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+    use-root-path: true
+  show-actuator: true
+  
 application:
   security:
     jwt:
@@ -12,7 +23,7 @@ application:
       expiration: 86400000 # a day
       refresh-token:
         expiration: 604800000 # 7 days
-        
+
 ---
 spring:
   config:
