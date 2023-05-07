@@ -59,70 +59,70 @@ public class TourInfoService1ApiService {
 	return execute(call);
  }
  
- public ResponseEntity<Map<String,Object>> searchKeyword1(Map<String,Object> param){
-	Call<Map<String,Object>> call = api.searchKeyword1(param);
+ public ResponseEntity<Map<String,Object>> searchKeyword1(String lang , Map<String,Object> param){
+	Call<Map<String,Object>> call = api.searchKeyword1(lang,param);
 	return execute(call);
  }
  
- public ResponseEntity<Map<String,Object>> searchFestival1(Map<String,Object> param){
-	Call<Map<String,Object>> call = api.searchFestival1(param);
+ public ResponseEntity<Map<String,Object>> searchFestival1(String lang , Map<String,Object> param){
+	Call<Map<String,Object>> call = api.searchFestival1(lang,param);
 	return execute(call); 
  }
  
- public ResponseEntity<Map<String,Object>> searchStay1(Map<String,Object> param){
-	Call<Map<String,Object>> call = api.searchStay1(param);
+ public ResponseEntity<Map<String,Object>> searchStay1(String lang , Map<String,Object> param){
+	Call<Map<String,Object>> call = api.searchStay1(lang,param);
 	return execute(call); 
  }
  
- public ResponseEntity<Map<String,Object>> detailCommon1(Map<String,Object> param){
-	Call<Map<String,Object>> call = api.detailCommon1(param);
+ public ResponseEntity<Map<String,Object>> detailCommon1(String lang , Map<String,Object> param){
+	Call<Map<String,Object>> call = api.detailCommon1(lang,param);
 	return execute(call);
  }
  
- public ResponseEntity<Map<String,Object>> detailIntro1(Map<String,Object> param){
-	Call<Map<String,Object>> call = api.detailIntro1(param);
+ public ResponseEntity<Map<String,Object>> detailIntro1(String lang , Map<String,Object> param){
+	Call<Map<String,Object>> call = api.detailIntro1(lang,param);
 	return execute(call);
  }
  
- public ResponseEntity<Map<String,Object>> detailInfo1(Map<String,Object> param){
-	Call<Map<String,Object>> call = api.detailInfo1(param);
+ public ResponseEntity<Map<String,Object>> detailInfo1(String lang , Map<String,Object> param){
+	Call<Map<String,Object>> call = api.detailInfo1(lang,param);
 	return execute(call);
  }
  
- public ResponseEntity<Map<String,Object>> detailImage1(Map<String,Object> param){
-  Call<Map<String,Object>> call = api.detailImage1(param);
+ public ResponseEntity<Map<String,Object>> detailImage1(String lang , Map<String,Object> param){
+  Call<Map<String,Object>> call = api.detailImage1(lang,param);
   return execute(call);
  }
  
- public ResponseEntity<Map<String,Object>> areaBasedSyncList1(Map<String,Object> param){
-  Call<Map<String,Object>> call = api.areaBasedSyncList1(param);
+ public ResponseEntity<Map<String,Object>> areaBasedSyncList1(String lang , Map<String,Object> param){
+  Call<Map<String,Object>> call = api.areaBasedSyncList1(lang,param);
   return execute(call);
  }
  
- public ResponseEntity<Map<String,Object>> areaCode1(Map<String,Object> param){
-  Call<Map<String,Object>> call = api.areaCode1(param);
+ public ResponseEntity<Map<String,Object>> areaCode1(String lang , Map<String,Object> param){
+  Call<Map<String,Object>> call = api.areaCode1(lang,param);
   return execute(call);
  }
  
- public ResponseEntity<Map<String,Object>> detailPetTour1(Map<String,Object> param){
-  Call<Map<String,Object>> call = api.detailPetTour1(param);
+ public ResponseEntity<Map<String,Object>> detailPetTour1(String lang , Map<String,Object> param){
+  Call<Map<String,Object>> call = api.detailPetTour1(lang,param);
   return execute(call);
  }
  
- public ResponseEntity<Map<String,Object>> categoryCode1(Map<String,Object> param){
-  Call<Map<String,Object>> call = api.categoryCode1(param);
+ public ResponseEntity<Map<String,Object>> categoryCode1(String lang , Map<String,Object> param){
+  Call<Map<String,Object>> call = api.categoryCode1(lang,param);
   return execute(call);
  }
  
- public ResponseEntity<Map<String,Object>> areaBasedList1(Map<String,Object> param){
-  Call<Map<String,Object>> call = api.areaBasedList1(param);
+ public ResponseEntity<Map<String,Object>> areaBasedList1(String lang , Map<String,Object> param){
+  Call<Map<String,Object>> call = api.areaBasedList1(lang,param);
   return execute(call);
  }
  
  public ResponseEntity<Map<String,Object>> execute(Call<Map<String,Object>> call) {
     try {
         Response<Map<String,Object>> response = call.execute();
-        log.info("locationBasedList1 param > "  + response.toString());
+        log.info(this.getClass().toString() + " param > "  + response.toString());
         if (response.isSuccessful()) {
             return new ResponseEntity<>(response.body(), HttpStatus.OK);
         } else {

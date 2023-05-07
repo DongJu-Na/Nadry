@@ -29,70 +29,106 @@ public class TourInfoService1ApiController {
 	
 	@PostMapping("/locationBasedList1/{lang}")
 	public ResponseEntity<Map<String,Object>> locationBasedList1(@PathVariable String lang, @RequestBody Map<String, Object> requestParam) throws Exception {
-		if(lang == null) {
+		if(lang == null || lang.equals("")) {
 			lang = "kor";
 		}
 		return korService1ApiService.locationBasedList1(lang,requestParam);
 	}
 	
 	@PostMapping("/searchKeyword1")
-	public ResponseEntity<Map<String,Object>> searchKeyword1(@RequestBody Map<String, Object> requestParam) throws Exception {
-		return korService1ApiService.searchKeyword1(requestParam);
+	public ResponseEntity<Map<String,Object>> searchKeyword1(@PathVariable String lang, @RequestBody Map<String, Object> requestParam) throws Exception {
+		if(lang == null || lang.equals("")) {
+			lang = "kor";
+		}
+		return korService1ApiService.searchKeyword1(lang,requestParam);
 	}
 	
 	@PostMapping("/searchFestival1")
-	public ResponseEntity<Map<String,Object>> searchFestival1(@RequestBody Map<String, Object> requestParam) throws Exception {
-		return korService1ApiService.searchFestival1(requestParam);
+	public ResponseEntity<Map<String,Object>> searchFestival1(@PathVariable String lang, @RequestBody Map<String, Object> requestParam) throws Exception {
+		if(lang == null || lang.equals("")) {
+			lang = "kor";
+		}
+		return korService1ApiService.searchFestival1(lang,requestParam);
 	}
 	
 	@PostMapping("/searchStay1")
-	public ResponseEntity<Map<String,Object>> searchStay1(@RequestBody Map<String, Object> requestParam) throws Exception {
-		return korService1ApiService.searchStay1(requestParam);
+	public ResponseEntity<Map<String,Object>> searchStay1(@PathVariable String lang, @RequestBody Map<String, Object> requestParam) throws Exception {
+		if(lang == null || lang.equals("")) {
+			lang = "kor";
+		}
+		return korService1ApiService.searchStay1(lang,requestParam);
 	}
 	
 	@PostMapping("/detailCommon1")
-	public ResponseEntity<Map<String,Object>> detailCommon1(@RequestBody Map<String, Object> requestParam) throws Exception {
-		return korService1ApiService.detailCommon1(requestParam);
+	public ResponseEntity<Map<String,Object>> detailCommon1(@PathVariable String lang, @RequestBody Map<String, Object> requestParam) throws Exception {
+		if(lang == null || lang.equals("")) {
+			lang = "kor";
+		}
+		return korService1ApiService.detailCommon1(lang,requestParam);
 	}
 	
 	@PostMapping("/detailIntro1")
-	public ResponseEntity<Map<String,Object>> detailIntro1(@RequestBody Map<String, Object> requestParam) throws Exception {
-		return korService1ApiService.detailIntro1(requestParam);
+	public ResponseEntity<Map<String,Object>> detailIntro1(@PathVariable String lang, @RequestBody Map<String, Object> requestParam) throws Exception {
+		if(lang == null || lang.equals("")) {
+			lang = "kor";
+		}
+		return korService1ApiService.detailIntro1(lang,requestParam);
 	}
 	
 	@PostMapping("/detailInfo1")
-	public ResponseEntity<Map<String,Object>> detailInfo1(@RequestBody Map<String, Object> requestParam) throws Exception {
-		return korService1ApiService.detailIntro1(requestParam);
+	public ResponseEntity<Map<String,Object>> detailInfo1(@PathVariable String lang, @RequestBody Map<String, Object> requestParam) throws Exception {
+		if(lang == null || lang.equals("")) {
+			lang = "kor";
+		}
+		return korService1ApiService.detailIntro1(lang,requestParam);
 	}
 	
 	@PostMapping("/detailImage1")
-	public ResponseEntity<Map<String,Object>> detailImage1(@RequestBody Map<String, Object> requestParam) throws Exception {
-		return korService1ApiService.detailImage1(requestParam);
+	public ResponseEntity<Map<String,Object>> detailImage1(@PathVariable String lang, @RequestBody Map<String, Object> requestParam) throws Exception {
+		if(lang == null || lang.equals("")) {
+			lang = "kor";
+		}
+		return korService1ApiService.detailImage1(lang,requestParam);
 	}
 	
 	@PostMapping("/areaBasedSyncList1")
-	public ResponseEntity<Map<String,Object>> areaBasedSyncList1(@RequestBody Map<String, Object> requestParam) throws Exception {
-		return korService1ApiService.areaBasedSyncList1(requestParam);
+	public ResponseEntity<Map<String,Object>> areaBasedSyncList1(@PathVariable String lang, @RequestBody Map<String, Object> requestParam) throws Exception {
+		if(lang == null || lang.equals("")) {
+			lang = "kor";
+		}
+		return korService1ApiService.areaBasedSyncList1(lang,requestParam);
 	}
 	
 	@PostMapping("/areaCode1")
-	public ResponseEntity<Map<String,Object>> areaCode1(@RequestBody Map<String, Object> requestParam) throws Exception {
-		return korService1ApiService.areaCode1(requestParam);
+	public ResponseEntity<Map<String,Object>> areaCode1(@PathVariable String lang, @RequestBody Map<String, Object> requestParam) throws Exception {
+		if(lang == null || lang.equals("")) {
+			lang = "kor";
+		}
+		return korService1ApiService.areaCode1(lang,requestParam);
 	}
 	
 	@PostMapping("/detailPetTour1")
-	public ResponseEntity<Map<String,Object>> detailPetTour1(@RequestBody Map<String, Object> requestParam) throws Exception {
-		return korService1ApiService.detailPetTour1(requestParam);
+	public ResponseEntity<Map<String,Object>> detailPetTour1(@PathVariable String lang, @RequestBody Map<String, Object> requestParam) throws Exception {
+		if(lang == null || lang.equals("")) {
+			lang = "kor";
+		}
+		return korService1ApiService.detailPetTour1(lang,requestParam);
 	}
 	
 	@PostMapping("/categoryCode1")
-	public ResponseEntity<Map<String,Object>> categoryCode1(@RequestBody Map<String, Object> requestParam) throws Exception {
-		return korService1ApiService.categoryCode1(requestParam);
+	public ResponseEntity<Map<String,Object>> categoryCode1(@PathVariable String lang, @RequestBody Map<String, Object> requestParam) throws Exception {
+		if(lang == null || lang.equals("")) {
+			lang = "kor";
+		}
+		return korService1ApiService.categoryCode1(lang,requestParam);
 	}
 	
 	@PostMapping("/areaBasedList1")
-	public ResponseEntity<Map<String,Object>> areaBasedList1(@RequestBody Map<String, Object> requestParam) throws Exception {
-		return korService1ApiService.areaBasedList1(requestParam);
+	public ResponseEntity<Map<String,Object>> areaBasedList1(@PathVariable String lang, @RequestBody Map<String, Object> requestParam) throws Exception {
+		if(lang == null || lang.equals("")) {
+			lang = "kor";
+		}
+		return korService1ApiService.areaBasedList1(lang,requestParam);
 	}
 	
 
