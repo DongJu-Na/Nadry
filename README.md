@@ -1,7 +1,6 @@
 # nadeul
 여행
-![image](https://user-images.githubusercontent.com/79893048/236266314-c57834ac-47ca-47b9-830a-2a0cc9d81326.png)
-![image](https://user-images.githubusercontent.com/79893048/236225695-221d98b8-3c9a-4ead-b617-e64c3ff138c8.png)
+![image](https://user-images.githubusercontent.com/79893048/236670441-0ba3478a-bcdb-4fde-9061-adb10d18b90c.png)
 
 
 
