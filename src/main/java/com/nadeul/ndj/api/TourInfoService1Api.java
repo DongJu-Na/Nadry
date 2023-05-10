@@ -27,51 +27,51 @@ public interface TourInfoService1Api {
 	Call<Map<String,Object>> locationBasedList1(@Path("lang") String lang , @QueryMap Map<String, Object> param );
 	
 	//키워드 검색 조회
-	@GET("/B551011/KorService1/searchKeyword1")
+	@GET("/B551011/{lang}Service1/searchKeyword1")
 	Call<Map<String,Object>> searchKeyword1(@Path("lang") String lang , @QueryMap Map<String, Object> param);
 	
 	//행사정보조회
-	@GET("/B551011/KorService1/searchFestival1")
+	@GET("/B551011/{lang}Service1/searchFestival1")
 	Call<Map<String,Object>> searchFestival1(@Path("lang") String lang , @QueryMap Map<String, Object> param);
 	
 	//숙박정보조회
-	@GET("/B551011/KorService1/searchStay1")
+	@GET("/B551011/{lang}Service1/searchStay1")
 	Call<Map<String,Object>> searchStay1(@Path("lang") String lang , @QueryMap Map<String, Object> param);
 	
 	//공통정보조회
-	@GET("/B551011/KorService1/detailCommon1")
+	@GET("/B551011/{lang}Service1/detailCommon1")
 	Call<Map<String,Object>> detailCommon1(@Path("lang") String lang , @QueryMap Map<String, Object> param);
 
 	//소개정보조회
-	@GET("/B551011/KorService1/detailIntro1")
+	@GET("/B551011/{lang}Service1/detailIntro1")
 	Call<Map<String,Object>> detailIntro1(@Path("lang") String lang , @QueryMap Map<String, Object> param);
 	
 	//반복정보조회
-	@GET("/B551011/KorService1/detailInfo1")
+	@GET("/B551011/{lang}Service1/detailInfo1")
 	Call<Map<String,Object>> detailInfo1(@Path("lang") String lang , @QueryMap Map<String, Object> param);
 	
 	//이미지정보조회
-	@GET("/B551011/KorService1/detailImage1")
+	@GET("/B551011/{lang}Service1/detailImage1")
 	Call<Map<String,Object>> detailImage1(@Path("lang") String lang , @QueryMap Map<String, Object> param);
 	
 	//관광정보 동기화 목록 조회
-	@GET("/B551011/KorService1/areaBasedSyncList1")
+	@GET("/B551011/{lang}Service1/areaBasedSyncList1")
 	Call<Map<String,Object>> areaBasedSyncList1(@Path("lang") String lang , @QueryMap Map<String, Object> param);
 	
 	//지역코드 조회
-	@GET("/B551011/KorService1/areaCode1")
+	@GET("/B551011/{lang}Service1/areaCode1")
 	Call<Map<String,Object>> areaCode1(@Path("lang") String lang , @QueryMap Map<String, Object> param);
 	
 	//반려동물 동반 여행 정보
-	@GET("/B551011/KorService1/detailPetTour1")
+	@GET("/B551011/{lang}Service1/detailPetTour1")
 	Call<Map<String,Object>> detailPetTour1(@Path("lang") String lang , @QueryMap Map<String, Object> param);
 
 	//서비스분류코드조회
-	@GET("/B551011/KorService1/categoryCode1")
+	@GET("/B551011/{lang}Service1/categoryCode1")
 	Call<Map<String,Object>> categoryCode1(@Path("lang") String lang , @QueryMap Map<String, Object> param);
 	
 	//지역기반 관광정보조회
-	@GET("/B551011/KorService1/areaBasedList1")
+	@GET("/B551011/{lang}Service1/areaBasedList1")
 	Call<Map<String,Object>> areaBasedList1(@Path("lang") String lang , @QueryMap Map<String, Object> param);
 	
 	
