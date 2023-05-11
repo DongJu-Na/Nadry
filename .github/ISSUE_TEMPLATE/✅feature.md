@@ -7,16 +7,6 @@ assignees: ''
 
 ---
 
----
-
-name: Feature request
-about: Suggest an idea for this project
-title: ' OO 기능 요청'
-labels: ''
-assignees: ''
-
----
-
 ## 기능 요청사항
 
 ex) 로그인 기능이 필요해요.
