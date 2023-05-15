@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.util.AntPathMatcher;
+
+import java.util.Arrays;
 
 import com.nadeul.ndj.repository.TokenRepository;
 import com.nadeul.ndj.service.JwtService;
@@ -27,6 +30,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   private final JwtService jwtService;
   private final UserDetailsService userDetailsService;
   private final TokenRepository tokenRepository;
+  
+  private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
   @Override
   protected void doFilterInternal(
@@ -35,15 +40,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       @NonNull FilterChain filterChain
   ) throws ServletException, IOException {
   	// wihte list 통과 로직 
-    if (request.getServletPath().contains("/api/v1/tour")) {
-      filterChain.doFilter(request, response);
-      return;
-    }
+  
     final String authHeader = request.getHeader("Authorization");
     final String jwt;
     final String userEmail;
     // "Authorization" 헤더가 요청에 없거나 "Bearer "로 시작하지 않는 경우 통과 로직
-    if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
+    if( Arrays.asList(SecurityConfig.whiteListedRoutes).contains(request.getServletPath()) || authHeader == null || !authHeader.startsWith("Bearer ")
+    ) {
       filterChain.doFilter(request, response);
       return;
     }
