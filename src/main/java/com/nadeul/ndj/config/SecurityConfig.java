@@ -62,13 +62,8 @@ public class SecurityConfig {
         .csrf()
         .disable()
         .authorizeHttpRequests()
-        .requestMatchers(
-        		whiteListedRoutes
-        )
-          .permitAll()
-          .requestMatchers(PathRequest.toH2Console()).permitAll()
-         
-
+        .requestMatchers(whiteListedRoutes).permitAll()
+        .requestMatchers(PathRequest.toH2Console()).permitAll()
         .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
 
 
@@ -79,7 +74,6 @@ public class SecurityConfig {
         .requestMatchers(PathRequest.toH2Console()).permitAll()
 
        /* .requestMatchers("/api/v1/admin/**").hasRole(ADMIN.name())
-
         .requestMatchers(GET, "/api/v1/admin/**").hasAuthority(ADMIN_READ.name())
         .requestMatchers(POST, "/api/v1/admin/**").hasAuthority(ADMIN_CREATE.name())
         .requestMatchers(PUT, "/api/v1/admin/**").hasAuthority(ADMIN_UPDATE.name())
