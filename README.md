@@ -1,4 +1,7 @@
 # nadeul
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 여행
 ![image](https://user-images.githubusercontent.com/79893048/236670441-0ba3478a-bcdb-4fde-9061-adb10d18b90c.png)
 
@@ -81,3 +84,25 @@ https://github.com/MikeKovarik/exifr - 사진정보 읽는 라이브러리
 - 타기관 공공데이터 API 공동 활용(2차) -> 미세먼지 , 날씨 
 ○ 1차 심사 항목 : 공공데이터 활용 적절성, 기획력, 독창성, 시장성
 ○ 제안서 내 필수 정보(활용 API, 서비스 내용, 제안 배경, 기대효과 등)
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://djlife.tistory.com/"><img src="https://avatars.githubusercontent.com/u/79893048?v=4?s=100" width="100px;" alt="DongJu-Na"/><br /><sub><b>DongJu-Na</b></sub></a><br /><a href="https://github.com/DongJu-Na/nadeul/commits?author=DongJu-Na" title="Code">💻</a> <a href="https://github.com/DongJu-Na/nadeul/commits?author=DongJu-Na" title="Documentation">📖</a> <a href="#ideas-DongJu-Na" title="Ideas, Planning, & Feedback">🤔</a> <a href="#projectManagement-DongJu-Na" title="Project Management">📆</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
