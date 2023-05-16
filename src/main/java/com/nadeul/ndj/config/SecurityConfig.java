@@ -49,7 +49,7 @@ public class SecurityConfig {
   private final OAuth2LoginFailureHandler oAuth2LoginFailureHandler;
   
   public static final String[] whiteListedRoutes = new String[]{
-      "/api/v1/auth/**",
+      "/api/v1/**",
       "/v2/api-docs",
       "/v3/api-docs",
       "/v3/api-docs/**",
