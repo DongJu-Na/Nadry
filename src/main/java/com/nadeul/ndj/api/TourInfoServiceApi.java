@@ -20,7 +20,7 @@ import retrofit2.http.QueryMap;
  * 서어 관광정보서비스_GW - SpnService1
  * 노어 관광정보서비스_GW - RusService1
  */
-public interface TourInfoService1Api {
+public interface TourInfoServiceApi {
 	
 	//위치기반 관광정보조회
 	@GET("/B551011/{lang}Service1/locationBasedList1")

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nadeul.ndj.service.TourInfoService1ApiService;
+import com.nadeul.ndj.service.TourInfoServiceApiService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -29,10 +29,10 @@ import lombok.extern.slf4j.Slf4j;
 @Tag(name = "TourInfoService", description = "관광정보 서비스 API")
 @RequestMapping("/api/v1/tour")
 @RestController
-public class TourInfoService1ApiController {
+public class TourInfoServiceApiController {
 	
 	@Autowired
-	TourInfoService1ApiService korService1ApiService;
+	TourInfoServiceApiService korService1ApiService;
 	
 	@PostMapping("/locationBasedList1/{lang}")
 	@Operation(summary = "위치기반 관광정보 조회", description = "위치기반 관광정보파라미터 타입에 따라서 제목순,수정일순,등록일순 정렬검색목록을 조회하는 기능")

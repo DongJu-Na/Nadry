@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.nadeul.ndj.api.TourInfoService1Api;
+import com.nadeul.ndj.api.TourInfoServiceApi;
 
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.ConnectionPool;
@@ -26,14 +26,14 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @Slf4j
 @Service
-public class TourInfoService1ApiService {
+public class TourInfoServiceApiService {
 	
  private static final String BASE_URL = "http://apis.data.go.kr";
  
  
- final TourInfoService1Api api;
+ final TourInfoServiceApi api;
  
- public TourInfoService1ApiService() {
+ public TourInfoServiceApiService() {
      ObjectMapper mapper = new ObjectMapper();
 			      mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			      mapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE);
@@ -50,7 +50,7 @@ public class TourInfoService1ApiService {
              .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
              .build();
      
-	this.api =  retrofit.create(TourInfoService1Api.class);
+	this.api =  retrofit.create(TourInfoServiceApi.class);
 }
  
 	
