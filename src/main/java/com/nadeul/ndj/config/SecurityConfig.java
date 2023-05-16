@@ -28,6 +28,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
+import com.nadeul.ndj.handler.OAuth2LoginFailureHandler;
+import com.nadeul.ndj.handler.OAuth2LoginSuccessHandler;
 import com.nadeul.ndj.service.CustomOAuth2UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -43,6 +45,8 @@ public class SecurityConfig {
   private final AuthenticationProvider authenticationProvider;
   private final LogoutHandler logoutHandler;
   private final CustomOAuth2UserService customOAuth2UserService;
+  private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+  private final OAuth2LoginFailureHandler oAuth2LoginFailureHandler;
   
   public static final String[] whiteListedRoutes = new String[]{
       "/api/v1/auth/**",
@@ -56,19 +60,15 @@ public class SecurityConfig {
       "/swagger-ui/**",
       "/webjars/**",
       "/swagger-ui.html",
-      "/test",
-      "/login/oauth2/code/kakao/**",
-      "/oauth2/authorization/kakao"
-      
   };
   
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
-        .csrf().disable()
-        .formLogin().disable()
-        .httpBasic().disable()
+        .csrf().disable() // csrf 보안 사용 x
+        .formLogin().disable() // FormLogin 사용 x 
+        .httpBasic().disable() // httpBasic 사용 x 
         .authorizeHttpRequests()
         .requestMatchers(whiteListedRoutes).permitAll()
         .requestMatchers(PathRequest.toH2Console()).permitAll()
@@ -89,12 +89,11 @@ public class SecurityConfig {
 
 
         .anyRequest()
-          .authenticated()
-          .and()
-          .headers().frameOptions().sameOrigin()
-        	.and()
-          .sessionManagement()
-          .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .authenticated()
+        .and()
+        .headers().frameOptions().sameOrigin()
+        .and()
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션 사용하지 않으므로 STATELESS로 설정
         .and()
         .authenticationProvider(authenticationProvider)
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
@@ -104,6 +103,8 @@ public class SecurityConfig {
         .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
         .and()
         .oauth2Login()
+        .successHandler(oAuth2LoginSuccessHandler)
+        .failureHandler(oAuth2LoginFailureHandler)
         .userInfoEndpoint()
         .userService(customOAuth2UserService)
     ;

@@ -1,9 +1,6 @@
 package com.nadeul.ndj.service;
 
 import java.util.Collections;
-import java.util.Optional;
-
-import jakarta.transaction.Transactional;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -19,9 +16,11 @@ import com.nadeul.ndj.entity.User;
 import com.nadeul.ndj.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CustomOAuth2UserService extends DefaultOAuth2UserService{
 
 	private final UserRepository userRepository;
@@ -35,15 +34,26 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService{
 		
 		String registrationId = userRequest.getClientRegistration().getRegistrationId(); // 소셜 정보 가져옴
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName(); 
-        System.out.println("registrationId > " + registrationId);
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
-        System.out.println(attributes.toString());
-        return oAuth2User;
-        
-//         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(user.getRole().getKey())),
-//                attributes.getAttributes(),
-//        		attributes.getNameAttributeKey());
+        log.info("카카오 소셜 로그인 Data :  {}" , attributes.toString());
+        User user = saveOrUpdate(attributes);
+
+        return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(user.getRole().toString())),
+                attributes.getAttributes(),
+        		attributes.getNameAttributeKey());
         
 	}
+	
+  private User saveOrUpdate(OAuthAttributes attributes){
+  	User user = userRepository.findByEmail(attributes.getEmail())
+  	    .map(entity -> {
+  	        entity.update(attributes.getName());
+  	        return entity;
+  	    })
+  	    .orElse(attributes.toEntity());
+
+
+    return userRepository.save(user);
+  }
 	
 }
