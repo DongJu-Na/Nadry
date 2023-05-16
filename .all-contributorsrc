@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "newscool",
+      "name": "hands",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5013171?v=4",
+      "profile": "http://www.buzzr.co.kr",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "nadeul",
+  "projectOwner": "DongJu-Na"
+}
