@@ -2,9 +2,9 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-여행
-![image](https://user-images.githubusercontent.com/79893048/236670441-0ba3478a-bcdb-4fde-9061-adb10d18b90c.png)
 
+![image](https://github.com/DongJu-Na/nadeul/assets/79893048/53901795-bf64-42e0-9211-74cb9cd7ffcf)
+<b>이미지 출처 : hands님</b>
 
 ## Contributors ✨
 프로젝트 기여자 :
