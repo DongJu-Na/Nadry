@@ -4,7 +4,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ![image](https://github.com/DongJu-Na/nadeul/assets/79893048/53901795-bf64-42e0-9211-74cb9cd7ffcf)
-<b>이미지 출처 : hands님</b>
+<br/><b>(이미지 출처 : hands님)</b>
 
 ## Contributors ✨
 프로젝트 기여자 :
