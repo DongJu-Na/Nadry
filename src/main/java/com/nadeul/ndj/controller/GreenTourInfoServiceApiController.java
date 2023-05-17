@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nadeul.ndj.service.GreenTourInfoServiceApiService;
+import com.nadeul.ndj.service.GreenTourInfoService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GreenTourInfoServiceApiController {
 	
 	@Autowired
-	GreenTourInfoServiceApiService greenTourInfoServiceApiService;
+	GreenTourInfoService greenTourInfoServiceApiService;
 	
 	@PostMapping("/areaCode1")
 	@Operation(summary = "지역코드조회", description = "지역코드목록을 지역,시군구,읍면동 코드목록을 조회하는 기능")

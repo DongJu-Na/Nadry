@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nadeul.ndj.service.TourInfoServiceApiService;
+import com.nadeul.ndj.service.TourInfoService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TourInfoServiceApiController {
 	
 	@Autowired
-	TourInfoServiceApiService korService1ApiService;
+	TourInfoService tourInfoService;
 	
 	@PostMapping("/locationBasedList1/{lang}")
 	@Operation(summary = "위치기반 관광정보 조회", description = "위치기반 관광정보파라미터 타입에 따라서 제목순,수정일순,등록일순 정렬검색목록을 조회하는 기능")
@@ -73,7 +73,7 @@ public class TourInfoServiceApiController {
 		if(lang == null || lang.equals("")) {
 			lang = "kor";
 		}
-		return korService1ApiService.locationBasedList1(lang,requestParam);
+		return tourInfoService.locationBasedList1(lang,requestParam);
 	}
 	
 	@PostMapping("/searchKeyword1/{lang}")
@@ -118,7 +118,7 @@ public class TourInfoServiceApiController {
 		if(lang == null || lang.equals("")) {
 			lang = "kor";
 		}
-		return korService1ApiService.searchKeyword1(lang,requestParam);
+		return tourInfoService.searchKeyword1(lang,requestParam);
 	}
 	
 	@PostMapping("/searchFestival1/{lang}")
@@ -157,7 +157,7 @@ public class TourInfoServiceApiController {
 		if(lang == null || lang.equals("")) {
 			lang = "kor";
 		}
-		return korService1ApiService.searchFestival1(lang,requestParam);
+		return tourInfoService.searchFestival1(lang,requestParam);
 	}
 	
 	@PostMapping("/searchStay1/{lang}")
@@ -192,7 +192,7 @@ public class TourInfoServiceApiController {
 		if(lang == null || lang.equals("")) {
 			lang = "kor";
 		}
-		return korService1ApiService.searchStay1(lang,requestParam);
+		return tourInfoService.searchStay1(lang,requestParam);
 	}
 	
 	@PostMapping("/detailCommon1/{lang}")
@@ -236,7 +236,7 @@ public class TourInfoServiceApiController {
 		if(lang == null || lang.equals("")) {
 			lang = "kor";
 		}
-		return korService1ApiService.detailCommon1(lang,requestParam);
+		return tourInfoService.detailCommon1(lang,requestParam);
 	}
 	
 	@PostMapping("/detailIntro1/{lang}")
@@ -266,7 +266,7 @@ public class TourInfoServiceApiController {
 		if(lang == null || lang.equals("")) {
 			lang = "kor";
 		}
-		return korService1ApiService.detailIntro1(lang,requestParam);
+		return tourInfoService.detailIntro1(lang,requestParam);
 	}
 	
 	@PostMapping("/detailInfo1/{lang}")
@@ -296,7 +296,7 @@ public class TourInfoServiceApiController {
 		if(lang == null || lang.equals("")) {
 			lang = "kor";
 		}
-		return korService1ApiService.detailIntro1(lang,requestParam);
+		return tourInfoService.detailIntro1(lang,requestParam);
 	}
 	
 	@PostMapping("/detailImage1/{lang}")
@@ -328,7 +328,7 @@ public class TourInfoServiceApiController {
 		if(lang == null || lang.equals("")) {
 			lang = "kor";
 		}
-		return korService1ApiService.detailImage1(lang,requestParam);
+		return tourInfoService.detailImage1(lang,requestParam);
 	}
 	
 	@PostMapping("/areaBasedSyncList1/{lang}")
@@ -374,7 +374,7 @@ public class TourInfoServiceApiController {
 		if(lang == null || lang.equals("")) {
 			lang = "kor";
 		}
-		return korService1ApiService.areaBasedSyncList1(lang,requestParam);
+		return tourInfoService.areaBasedSyncList1(lang,requestParam);
 	}
 	
 	@PostMapping("/areaCode1/{lang}")
@@ -402,7 +402,7 @@ public class TourInfoServiceApiController {
 		if(lang == null || lang.equals("")) {
 			lang = "kor";
 		}
-		return korService1ApiService.areaCode1(lang,requestParam);
+		return tourInfoService.areaCode1(lang,requestParam);
 	}
 	
 	@PostMapping("/detailPetTour1/{lang}")
@@ -430,7 +430,7 @@ public class TourInfoServiceApiController {
 		if(lang == null || lang.equals("")) {
 			lang = "kor";
 		}
-		return korService1ApiService.detailPetTour1(lang,requestParam);
+		return tourInfoService.detailPetTour1(lang,requestParam);
 	}
 	
 	@PostMapping("/categoryCode1/{lang}")
@@ -463,7 +463,7 @@ public class TourInfoServiceApiController {
 		if(lang == null || lang.equals("")) {
 			lang = "kor";
 		}
-		return korService1ApiService.categoryCode1(lang,requestParam);
+		return tourInfoService.categoryCode1(lang,requestParam);
 	}
 	
 	@PostMapping("/areaBasedList1/{lang}")
@@ -507,7 +507,7 @@ public class TourInfoServiceApiController {
 		if(lang == null || lang.equals("")) {
 			lang = "kor";
 		}
-		return korService1ApiService.areaBasedList1(lang,requestParam);
+		return tourInfoService.areaBasedList1(lang,requestParam);
 	}
 	
 

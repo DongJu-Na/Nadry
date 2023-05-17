@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nadeul.ndj.service.BarrierFreeTourInfoServiceApiService;
-import com.nadeul.ndj.service.TourInfoServiceApiService;
+import com.nadeul.ndj.service.BarrierFreeTourInfoService;
+import com.nadeul.ndj.service.TourInfoService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BarrierFreeTourInfoServiceApiController {
 	
 	@Autowired
-	BarrierFreeTourInfoServiceApiService barrierFreeTourInfoService;
+	BarrierFreeTourInfoService barrierFreeTourInfoService;
 	
 	@PostMapping("/areaCode1")
 	@Operation(summary = "지역코드조회", description = "지역코드목록을 지역,시군구,읍면동 코드목록을 조회하는 기능")

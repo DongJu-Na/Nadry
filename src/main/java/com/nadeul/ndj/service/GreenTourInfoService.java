@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.nadeul.ndj.api.BarrierFreeTourInfoServiceApi;
+import com.nadeul.ndj.api.GreenTourInfoServiceApi;
 
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.ConnectionPool;
@@ -26,14 +26,14 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @Slf4j
 @Service
-public class BarrierFreeTourInfoServiceApiService {
+public class GreenTourInfoService {
 	
  private static final String BASE_URL = "http://apis.data.go.kr";
  
  
- final BarrierFreeTourInfoServiceApi api;
+ final GreenTourInfoServiceApi api;
  
- public BarrierFreeTourInfoServiceApiService() {
+ public GreenTourInfoService() {
      ObjectMapper mapper = new ObjectMapper();
 			      mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			      mapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE);
@@ -50,64 +50,24 @@ public class BarrierFreeTourInfoServiceApiService {
              .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
              .build();
      
-		this.api =  retrofit.create(BarrierFreeTourInfoServiceApi.class);
+		this.api =  retrofit.create(GreenTourInfoServiceApi.class);
 	}
  
  public ResponseEntity<Map<String,Object>> areaCode1(Map<String,Object> param){
 	  Call<Map<String,Object>> call = api.areaCode1(param);
 	  return execute(call);
  }
-
-	public ResponseEntity<Map<String,Object>> categoryCode1(Map<String,Object> param){
-		  Call<Map<String,Object>> call = api.categoryCode1(param);
-		  return execute(call);
-	}
-	
-	public ResponseEntity<Map<String,Object>> areaBasedList1(Map<String,Object> param){
-		  Call<Map<String,Object>> call = api.areaBasedList1(param);
-		  return execute(call);
-	}
-	
-	public ResponseEntity<Map<String,Object>> locationBasedList1(Map<String,Object> param){
-		Call<Map<String,Object>> call = api.locationBasedList1(param);
-		return execute(call);
-	}
-	
-	public ResponseEntity<Map<String,Object>> searchKeyword1(Map<String,Object> param){
-		Call<Map<String,Object>> call = api.searchKeyword1(param);
-		return execute(call);
-	}
-	
-	public ResponseEntity<Map<String,Object>> detailCommon1(Map<String,Object> param){
-		Call<Map<String,Object>> call = api.detailCommon1(param);
-		return execute(call);
-	}
-	
-	public ResponseEntity<Map<String,Object>> detailIntro1(Map<String,Object> param){
-		Call<Map<String,Object>> call = api.detailIntro1(param);
-		return execute(call);
-	}
-	
-	public ResponseEntity<Map<String,Object>> detailInfo1(Map<String,Object> param){
-		Call<Map<String,Object>> call = api.detailInfo1(param);
-		return execute(call);
-	}
-	
-	public ResponseEntity<Map<String,Object>> detailImage1(Map<String,Object> param){
-	 Call<Map<String,Object>> call = api.detailImage1(param);
-	 return execute(call);
-	}
-	
-	public ResponseEntity<Map<String,Object>> detailWithTour1(Map<String,Object> param){
-		  Call<Map<String,Object>> call = api.detailWithTour1(param);
-		  return execute(call);
-	}
-	
-	public ResponseEntity<Map<String,Object>> areaBasedSyncList1(Map<String,Object> param){
-		  Call<Map<String,Object>> call = api.areaBasedSyncList1(param);
-		  return execute(call);
-	}
  
+ public ResponseEntity<Map<String,Object>> areaBasedList1(Map<String,Object> param){
+	  Call<Map<String,Object>> call = api.areaBasedList1(param);
+	  return execute(call);
+}
+ 
+ public ResponseEntity<Map<String,Object>> areaBasedSyncList1(Map<String,Object> param){
+	  Call<Map<String,Object>> call = api.areaBasedSyncList1(param);
+	  return execute(call);
+}
+
  
  public ResponseEntity<Map<String,Object>> execute(Call<Map<String,Object>> call) {
     try {

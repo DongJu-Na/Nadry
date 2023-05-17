@@ -26,14 +26,14 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @Slf4j
 @Service
-public class TourInfoServiceApiService {
+public class TourInfoService {
 	
  private static final String BASE_URL = "http://apis.data.go.kr";
  
  
  final TourInfoServiceApi api;
  
- public TourInfoServiceApiService() {
+ public TourInfoService() {
      ObjectMapper mapper = new ObjectMapper();
 			      mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			      mapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE);
