@@ -22,6 +22,7 @@ public class Trip {
   private Integer memId;
   
   private Integer posX;
+  
   private Integer posY;
   
   
