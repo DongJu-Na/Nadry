@@ -33,11 +33,11 @@ public class AuthenticationService {
 
   public AuthenticationResponse register(RegisterRequest request) {
     var member = Member.builder()
-        .firstname(request.getFirstname())
-        .lastname(request.getLastname())
+        .name(request.getName())
         .email(request.getEmail())
         .password(passwordEncoder.encode(request.getPassword()))
         .role(request.getRole())
+        .birthDay(request.getBirthDay())
         .build();
     var savedUser = repository.save(member);
     var jwtToken = jwtService.generateToken(member);
@@ -68,9 +68,9 @@ public class AuthenticationService {
         .build();
   }
 
-  private void saveUserToken(Member user, String jwtToken) {
+  private void saveUserToken(Member member, String jwtToken) {
     var token = Token.builder()
-        .user(user)
+        .user(member)
         .token(jwtToken)
         .tokenType(TokenType.BEARER)
         .expired(false)

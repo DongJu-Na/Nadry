@@ -31,10 +31,10 @@ public class Member implements UserDetails {
   @Id
   @GeneratedValue
   private Integer id;
-  private String firstname;
-  private String lastname;
+  private String name;
   private String email;
   private String password;
+  private String birthDay;
 
   @Enumerated(EnumType.STRING)
   private Role role;
@@ -77,8 +77,8 @@ public class Member implements UserDetails {
     return true;
   }
 
-  public Member update(String firstname) {
-    this.firstname = firstname;
+  public Member update(String name) {
+    this.name = name;
     return this;
   }
   
