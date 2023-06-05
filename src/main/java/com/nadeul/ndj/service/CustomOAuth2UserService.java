@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.nadeul.ndj.dto.OAuthAttributes;
 import com.nadeul.ndj.entity.Member;
-import com.nadeul.ndj.repository.UserRepository;
+import com.nadeul.ndj.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CustomOAuth2UserService extends DefaultOAuth2UserService{
 
-	private final UserRepository userRepository;
+	private final MemberRepository userRepository;
 	
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {

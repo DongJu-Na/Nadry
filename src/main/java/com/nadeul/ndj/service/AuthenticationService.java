@@ -1,6 +1,7 @@
 package com.nadeul.ndj.service;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,7 +17,7 @@ import com.nadeul.ndj.entity.Token;
 import com.nadeul.ndj.entity.Member;
 import com.nadeul.ndj.model.TokenType;
 import com.nadeul.ndj.repository.TokenRepository;
-import com.nadeul.ndj.repository.UserRepository;
+import com.nadeul.ndj.repository.MemberRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,13 +26,27 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-  private final UserRepository repository;
+  private final MemberRepository repository;
   private final TokenRepository tokenRepository;
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
 
   public AuthenticationResponse register(RegisterRequest request) {
+	  
+    String email = request.getEmail();
+    
+    // 중복 이메일 확인
+    Optional<Member> existingMember = repository.findByEmail(email);
+    if (existingMember.isPresent()) {
+        // 중복된 이메일이 있을 경우 토큰 발급 x
+    	// 에러코드 에러메세지 공통 정의 필요
+    	 return AuthenticationResponse.builder()
+    		        .accessToken(null)
+    		            .refreshToken(null)
+    		        .build();
+    }
+    
     var member = Member.builder()
         .name(request.getName())
         .email(request.getEmail())

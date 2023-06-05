@@ -1,6 +1,6 @@
 package com.nadeul.ndj.config;
 
-import com.nadeul.ndj.repository.UserRepository;
+import com.nadeul.ndj.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-  private final UserRepository repository;
+  private final MemberRepository repository;
 
   @Bean
   public UserDetailsService userDetailsService() {
