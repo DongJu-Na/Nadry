@@ -27,7 +27,7 @@ public class Post {
   
   private String content;
   
-  private int like;
+  private int likes;
   
   private String delYn;
   

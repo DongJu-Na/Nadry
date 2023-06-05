@@ -25,8 +25,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "_user")
-public class User implements UserDetails {
+@Table
+public class Member implements UserDetails {
 
   @Id
   @GeneratedValue
@@ -77,7 +77,7 @@ public class User implements UserDetails {
     return true;
   }
 
-  public User update(String firstname) {
+  public Member update(String firstname) {
     this.firstname = firstname;
     return this;
   }

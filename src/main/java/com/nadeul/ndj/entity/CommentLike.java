@@ -27,7 +27,7 @@ public class CommentLike {
   
   private Integer cmId;
   
-  private int like;
+  private int likes;
   
   private Date likeDate;
   

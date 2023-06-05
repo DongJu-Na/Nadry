@@ -13,7 +13,7 @@ import com.nadeul.ndj.dto.AuthenticationRequest;
 import com.nadeul.ndj.dto.AuthenticationResponse;
 import com.nadeul.ndj.dto.RegisterRequest;
 import com.nadeul.ndj.entity.Token;
-import com.nadeul.ndj.entity.User;
+import com.nadeul.ndj.entity.Member;
 import com.nadeul.ndj.model.TokenType;
 import com.nadeul.ndj.repository.TokenRepository;
 import com.nadeul.ndj.repository.UserRepository;
@@ -32,16 +32,16 @@ public class AuthenticationService {
   private final AuthenticationManager authenticationManager;
 
   public AuthenticationResponse register(RegisterRequest request) {
-    var user = User.builder()
+    var member = Member.builder()
         .firstname(request.getFirstname())
         .lastname(request.getLastname())
         .email(request.getEmail())
         .password(passwordEncoder.encode(request.getPassword()))
         .role(request.getRole())
         .build();
-    var savedUser = repository.save(user);
-    var jwtToken = jwtService.generateToken(user);
-    var refreshToken = jwtService.generateRefreshToken(user);
+    var savedUser = repository.save(member);
+    var jwtToken = jwtService.generateToken(member);
+    var refreshToken = jwtService.generateRefreshToken(member);
     saveUserToken(savedUser, jwtToken);
     return AuthenticationResponse.builder()
         .accessToken(jwtToken)
@@ -68,7 +68,7 @@ public class AuthenticationService {
         .build();
   }
 
-  private void saveUserToken(User user, String jwtToken) {
+  private void saveUserToken(Member user, String jwtToken) {
     var token = Token.builder()
         .user(user)
         .token(jwtToken)
@@ -79,7 +79,7 @@ public class AuthenticationService {
     tokenRepository.save(token);
   }
 
-  private void revokeAllUserTokens(User user) {
+  private void revokeAllUserTokens(Member user) {
     var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
     if (validUserTokens.isEmpty())
       return;

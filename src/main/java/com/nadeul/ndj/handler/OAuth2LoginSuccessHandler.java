@@ -8,7 +8,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.nadeul.ndj.entity.User;
+import com.nadeul.ndj.entity.Member;
 import com.nadeul.ndj.model.Role;
 import com.nadeul.ndj.service.JwtService;
 
@@ -33,7 +33,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         		log.info("oAuth2User 정보 : {} " , oAuth2User.toString());
 
             // User의 Role이 GUEST일 경우 처음 요청한 회원이므로 회원가입 페이지로 리다이렉트
-            if(((User) oAuth2User).getRole() == Role.USER) {
+            if(((Member) oAuth2User).getRole() == Role.USER) {
                 // String accessToken = jwtService.createAccessToken(oAuth2User.getEmail());
                 // response.addHeader(jwtService.getAccessHeader(), "Bearer " + accessToken);
                 // response.sendRedirect("oauth2/sign-up"); // 프론트의 회원가입 추가 정보 입력 폼으로 리다이렉트

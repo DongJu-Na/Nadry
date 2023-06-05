@@ -2,7 +2,7 @@ package com.nadeul.ndj.dto;
 
 import java.util.Map;
 
-import com.nadeul.ndj.entity.User;
+import com.nadeul.ndj.entity.Member;
 import com.nadeul.ndj.model.Role;
 
 import lombok.Builder;
@@ -44,8 +44,8 @@ public class OAuthAttributes {
                 .build();
     }
     
-    public User toEntity(){
-        return User.builder()
+    public Member toEntity(){
+        return Member.builder()
                 .email(email)
                 .role(Role.USER)
                 .build();

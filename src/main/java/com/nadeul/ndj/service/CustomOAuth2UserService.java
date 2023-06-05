@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.nadeul.ndj.dto.OAuthAttributes;
-import com.nadeul.ndj.entity.User;
+import com.nadeul.ndj.entity.Member;
 import com.nadeul.ndj.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService{
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName(); 
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
         log.info("카카오 소셜 로그인 Data :  {}" , attributes.toString());
-        User user = saveOrUpdate(attributes);
+        Member user = saveOrUpdate(attributes);
 
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(user.getRole().toString())),
                 attributes.getAttributes(),
@@ -44,8 +44,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService{
         
 	}
 	
-  private User saveOrUpdate(OAuthAttributes attributes){
-  	User user = userRepository.findByEmail(attributes.getEmail())
+  private Member saveOrUpdate(OAuthAttributes attributes){
+  	Member user = userRepository.findByEmail(attributes.getEmail())
   	    .map(entity -> {
   	        entity.update(attributes.getName());
   	        return entity;
