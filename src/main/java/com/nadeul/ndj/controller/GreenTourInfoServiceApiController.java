@@ -39,7 +39,7 @@ public class GreenTourInfoServiceApiController {
 					+ "\"pageNo\" : \"1\",\r\n"
 					+ "\"MobileOS\" : \"ETC\",\r\n"
 					+ "\"MobileApp\" : \"AppTest\" , \r\n"
-					+ "\"serviceKey\" : \"서비스키\",\r\n"
+					+ "\"serviceKey\" : \"인증키\",\r\n"
 					+ "\"_type\" : \"json\",\r\n"
 					+ " \"areaCode\" : \"1\"\r\n"
 					+ "}" , description = "numOfRows	한페이지결과수	선택<br/>"
