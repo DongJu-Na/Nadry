@@ -42,7 +42,6 @@ public class ServiceAspect {
 	        if (!requestParam.containsKey("serviceKey") || (requestParam.get("serviceKey") == null || requestParam.get("serviceKey").toString().isEmpty())) {
 	        	requestParam.put("serviceKey", tourApiKey);
 	        }
-	        System.out.println("RequestBody 값: " + requestParam);
 	    }
 			
     }
