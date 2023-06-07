@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Tag(name = "DurunubiServiceApi", description = "두루누비 정보 서비스 API")
-@RequestMapping("/api/v1/Durunubi")
+@RequestMapping("/api/v1/durunubi")
 @RestController
 public class DurunubiServiceApiController {
 	
