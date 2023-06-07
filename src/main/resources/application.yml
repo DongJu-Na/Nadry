@@ -6,7 +6,7 @@ spring:
     suffix : .html
     cache : false
   config:
-    import: oauth2.yml
+    import: oauth2.yml,apiKey.yml
 
 application:
   security:
