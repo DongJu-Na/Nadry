@@ -4,12 +4,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import com.nadeul.ndj.dto.RegisterRequest;
 import com.nadeul.ndj.model.Role;
 import com.nadeul.ndj.service.AuthenticationService;
 
 @SpringBootApplication
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class NdjApplication {
 
 	public static void main(String[] args) {
