@@ -29,3 +29,6 @@
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
 심사 이후 계획 추가 업무 배당 건 .
+- 디자인 레이아웃 구성
+- 스탬프 & 포인트 로직
+- 아이디 찾기 비밀번호 찾기 고려
