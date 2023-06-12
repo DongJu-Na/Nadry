@@ -11,22 +11,24 @@ package com.nadeul.ndj.enums;
 
 public enum ApiResponseEnum {
 	
-  SUCCESS(200, "Success"),
-  BAD_REQUEST(400, "Bad Request"),
-  UNAUTHORIZED(401, "Unauthorized"),
-  FORBIDDEN(403, "Forbidden"),
-  NOT_FOUND(404, "Not Found"),
-  INTERNAL_SERVER_ERROR(500, "Internal Server Error");
+  SUCCESS("0000", "성공"),
+  BAD_REQUEST("0001", "Bad Request"),
+  UNAUTHORIZED("0002", "Unauthorized"),
+  FORBIDDEN("0003", "Forbidden"),
+  NOT_FOUND("0004", "Not Found"),
+  INTERNAL_SERVER_ERROR("0005", "Internal Server Error"),
+	VALIDATION_FAILED("0006","필드가 빈 값이거나 올바르지 않습니다."),
+	DUPLICATION("0007","중복되었습니다.");
 
-  private final int code;
+  private final String code;
   private final String message;
 
-  ApiResponseEnum(int code, String message) {
+  ApiResponseEnum(String code, String message) {
       this.code = code;
       this.message = message;
   }
 
-  public int getCode() {
+  public String getCode() {
       return code;
   }
 
