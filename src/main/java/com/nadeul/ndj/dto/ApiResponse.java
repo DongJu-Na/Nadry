@@ -65,8 +65,8 @@ public class ApiResponse<T> {
             .resultCode(responseEnum.getCode())
             .resultMsg(responseEnum.getMessage())
             .data(data)
-            .accessToken(null)
-            .refreshToken(null)
+            .accessToken(jwtToken)
+            .refreshToken(refreshToken)
             .build();
   }
   
