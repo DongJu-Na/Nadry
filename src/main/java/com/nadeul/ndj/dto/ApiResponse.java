@@ -1,5 +1,7 @@
 package com.nadeul.ndj.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +24,9 @@ public class ApiResponse<T> {
   private String resultCode;
   private String resultMsg;
   private T data;
-  private String Token;
+  @JsonProperty("access_token")
+  private String accessToken;
+  @JsonProperty("refresh_token")
+  private String refreshToken;
   
 }
