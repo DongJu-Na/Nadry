@@ -1,6 +1,7 @@
 package com.nadeul.ndj.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.nadeul.ndj.enums.ApiResponseEnum;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,5 +29,46 @@ public class ApiResponse<T> {
   private String accessToken;
   @JsonProperty("refresh_token")
   private String refreshToken;
+  
+  public static <T> ApiResponse<T> errorResponse(ApiResponseEnum responseEnum) {
+    return ApiResponse.<T>builder()
+            .resultCode(responseEnum.getCode())
+            .resultMsg(responseEnum.getMessage())
+            .data(null)
+            .accessToken(null)
+            .refreshToken(null)
+            .build();
+  }
+  
+  public static <T> ApiResponse<T> failResponse(ApiResponseEnum responseEnum , String AddonMsg) {
+    return ApiResponse.<T>builder()
+            .resultCode(responseEnum.getCode())
+            .resultMsg(AddonMsg + " " + responseEnum.getMessage())
+            .data(null)
+            .accessToken(null)
+            .refreshToken(null)
+            .build();
+  }
+  
+  public static <T> ApiResponse<T> successResponse(ApiResponseEnum responseEnum , T data) {
+    return ApiResponse.<T>builder()
+            .resultCode(responseEnum.getCode())
+            .resultMsg(responseEnum.getMessage())
+            .data(data)
+            .accessToken(null)
+            .refreshToken(null)
+            .build();
+  }
+  
+  public static <T> ApiResponse<T> successResponse(ApiResponseEnum responseEnum , T data , String jwtToken,String refreshToken) {
+    return ApiResponse.<T>builder()
+            .resultCode(responseEnum.getCode())
+            .resultMsg(responseEnum.getMessage())
+            .data(data)
+            .accessToken(null)
+            .refreshToken(null)
+            .build();
+  }
+  
   
 }
