@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nadeul.ndj.dto.ApiResponse;
 import com.nadeul.ndj.dto.AuthenticationRequest;
-import com.nadeul.ndj.dto.AuthenticationResponse;
+import com.nadeul.ndj.dto.MemberDto;
 import com.nadeul.ndj.dto.RegisterRequest;
+import com.nadeul.ndj.enums.ApiResponseEnum;
 import com.nadeul.ndj.service.AuthenticationService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,19 +25,35 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-public class AuthenticationController {
+public class AuthenticationController<T> {
 
-  private final AuthenticationService service;
+  private final AuthenticationService<T> service;
 
   @PostMapping("/register")
   @Operation(summary = "회원 가입", description = "나들이 플랫폼 사용자 등록")
-  public ResponseEntity<AuthenticationResponse> register( @RequestBody RegisterRequest request ) {
+  public ResponseEntity<ApiResponse<T>> register( @RequestBody RegisterRequest request ) {
+  	if(request.getEmail() == null || request.getEmail().toString().equals("")) {
+  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"이메일"));
+  	}
+  	
+  	if(request.getName() == null || request.getName().toString().equals("")) {
+  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"이름"));
+  	}
+  	
+  	if(request.getPassword() == null || request.getPassword().toString().equals("")) {
+  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"비밀번호"));
+  	}
+  	
+  	if(request.getBirthDay() == null || request.getBirthDay().toString().equals("")) {
+  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"생일"));
+  	}
+  	
     return ResponseEntity.ok(service.register(request));
   }
   
   @PostMapping("/authenticate")
   @Operation(summary = "로그인", description = "나들이 서비스 인증")
-  public ResponseEntity<AuthenticationResponse> authenticate( @RequestBody AuthenticationRequest request ) {
+  public ResponseEntity<ApiResponse<MemberDto>> authenticate( @RequestBody AuthenticationRequest request ) {
     return ResponseEntity.ok(service.authenticate(request));
   }
 

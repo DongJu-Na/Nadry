@@ -10,14 +10,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nadeul.ndj.dto.ApiResponse;
 import com.nadeul.ndj.dto.AuthenticationRequest;
 import com.nadeul.ndj.dto.AuthenticationResponse;
+import com.nadeul.ndj.dto.MemberDto;
 import com.nadeul.ndj.dto.RegisterRequest;
-import com.nadeul.ndj.entity.Token;
 import com.nadeul.ndj.entity.Member;
+import com.nadeul.ndj.entity.Token;
+import com.nadeul.ndj.enums.ApiResponseEnum;
 import com.nadeul.ndj.model.TokenType;
-import com.nadeul.ndj.repository.TokenRepository;
 import com.nadeul.ndj.repository.MemberRepository;
+import com.nadeul.ndj.repository.TokenRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,26 +28,22 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationService {
+public class AuthenticationService<T> {
   private final MemberRepository repository;
   private final TokenRepository tokenRepository;
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
 
-  public AuthenticationResponse register(RegisterRequest request) {
-	  
+  public ApiResponse<T> register(RegisterRequest request) {
     String email = request.getEmail();
     
     // 중복 이메일 확인
     Optional<Member> existingMember = repository.findByEmail(email);
     if (existingMember.isPresent()) {
         // 중복된 이메일이 있을 경우 토큰 발급 x
-    	// 에러코드 에러메세지 공통 정의 필요
-    	 return AuthenticationResponse.builder()
-    		        .accessToken(null)
-    		            .refreshToken(null)
-    		        .build();
+    	  // 에러코드 에러메세지 공통 정의 필요
+    			return ApiResponse.failResponse(ApiResponseEnum.DUPLICATION,"이메일이");
     }
     
     var member = Member.builder()
@@ -58,13 +57,11 @@ public class AuthenticationService {
     var jwtToken = jwtService.generateToken(member);
     var refreshToken = jwtService.generateRefreshToken(member);
     saveUserToken(savedUser, jwtToken);
-    return AuthenticationResponse.builder()
-        .accessToken(jwtToken)
-            .refreshToken(refreshToken)
-        .build();
+    
+    return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,null,jwtToken,refreshToken);
   }
 
-  public AuthenticationResponse authenticate(AuthenticationRequest request) {
+  public ApiResponse<MemberDto> authenticate(AuthenticationRequest request) {
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
             request.getEmail(),
@@ -77,10 +74,16 @@ public class AuthenticationService {
     var refreshToken = jwtService.generateRefreshToken(user);
     revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
-    return AuthenticationResponse.builder()
-        .accessToken(jwtToken)
-            .refreshToken(refreshToken)
-        .build();
+    
+    MemberDto memberDto = new MemberDto();
+    					memberDto.setId(user.getId());
+    					memberDto.setName(user.getName());
+    					memberDto.setEmail(user.getEmail());
+    					memberDto.setPassword(user.getPassword());
+    					memberDto.setBirthDay(user.getBirthDay());
+    					memberDto.setRole(user.getRole());
+    
+    return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,memberDto,jwtToken,refreshToken);
   }
 
   private void saveUserToken(Member member, String jwtToken) {
