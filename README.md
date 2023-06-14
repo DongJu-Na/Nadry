@@ -6,6 +6,10 @@
 ![image](https://github.com/DongJu-Na/nadeul/assets/79893048/53901795-bf64-42e0-9211-74cb9cd7ffcf)
 <br/><b>(이미지 출처 : hands님)</b>
 
+## CI & CD
+![architecture drawio](https://github.com/DongJu-Na/Nadry/assets/79893048/e29ad48a-50a9-496d-83ef-2a7c00d51ac6)
+
+
 ## Contributors ✨
 프로젝트 기여자 :
 
