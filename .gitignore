@@ -40,4 +40,5 @@ out/
 ### seceret ###
 oauth2.yml
 apiKey.yml
+database.yml
 
