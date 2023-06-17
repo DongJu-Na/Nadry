@@ -6,7 +6,7 @@ spring:
     suffix : .html
     cache : false
   config:
-    import: oauth2.yml,apiKey.yml
+    import: oauth2.yml,apiKey.yml,database.yml
 
 application:
   security:
@@ -40,28 +40,6 @@ spring:
     restart:
       enabled: true
       
-  h2:
-    console:
-      enabled: true
-
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: create-drop
-    properties:
-      hibernate:
-        naming:
-          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        format_sql: true
-        show_sql: true
-    defer-datasource-initialization: true
-    
 server:
   title: nadeul-local
   port : 8082
