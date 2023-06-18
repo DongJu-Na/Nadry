@@ -39,6 +39,8 @@ public class Post {
   
   private String updateBy;
   
+  private String contentId;
+  
 		
 		
 }
