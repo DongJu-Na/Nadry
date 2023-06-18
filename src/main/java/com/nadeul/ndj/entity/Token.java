@@ -25,7 +25,7 @@ public class Token {
 
   @Id
   @GeneratedValue
-  public Integer id;
+  public Integer tkId;
 
   @Column(unique = true)
   public String token;
@@ -38,6 +38,6 @@ public class Token {
   public boolean expired;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
-  public Member user;
+  @JoinColumn(name = "mem_id")
+  public Member member;
 }

@@ -11,9 +11,9 @@ import com.nadeul.ndj.entity.Token;
 public interface TokenRepository extends JpaRepository<Token, Integer> {
 
   @Query(value = """
-      select t from Token t inner join Member m\s
-      on t.user.id = m.id\s
-      where m.id = :id and (t.expired = false or t.revoked = false)\s
+      SELECT t FROM Token t
+		INNER JOIN t.member m
+	WHERE m.memId = :id AND (t.expired = false OR t.revoked = false)
       """)
   List<Token> findAllValidTokenByUser(@Param("id") Integer id);
 
