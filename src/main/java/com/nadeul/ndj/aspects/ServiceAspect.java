@@ -34,13 +34,21 @@ public class ServiceAspect {
 		    }
 			}
 			
-			 if(requestParam != null) {
+		if(requestParam != null) {
 	        if (!requestParam.containsKey("_type") || (requestParam.get("_type") == null || requestParam.get("_type").toString().isEmpty())) {
 	        	requestParam.put("_type", "json");
 	        }
 
 	        if (!requestParam.containsKey("serviceKey") || (requestParam.get("serviceKey") == null || requestParam.get("serviceKey").toString().isEmpty())) {
 	        	requestParam.put("serviceKey", tourApiKey);
+	        }
+	        
+	        if (!requestParam.containsKey("MobileApp") || (requestParam.get("MobileApp") == null || requestParam.get("MobileApp").toString().isEmpty())) {
+	        	requestParam.put("MobileApp", "NADRY");
+	        }
+	        
+	        if (!requestParam.containsKey("MobileOS") || (requestParam.get("MobileOS") == null || requestParam.get("MobileOS").toString().isEmpty())) {
+	        	requestParam.put("MobileOS", "ETC");
 	        }
 	    }
 			
