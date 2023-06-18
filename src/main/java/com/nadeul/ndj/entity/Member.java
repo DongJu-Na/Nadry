@@ -30,7 +30,7 @@ public class Member implements UserDetails {
 
   @Id
   @GeneratedValue
-  private Integer id;
+  private Integer memId;
   private String name;
   private String email;
   private String password;

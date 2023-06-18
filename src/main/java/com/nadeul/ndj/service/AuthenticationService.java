@@ -76,7 +76,7 @@ public class AuthenticationService<T> {
     saveUserToken(user, jwtToken);
     
     MemberDto memberDto = new MemberDto();
-    					memberDto.setId(user.getId());
+    					memberDto.setId(user.getMemId());
     					memberDto.setName(user.getName());
     					memberDto.setEmail(user.getEmail());
     					memberDto.setPassword(user.getPassword());
@@ -98,7 +98,7 @@ public class AuthenticationService<T> {
   }
 
   private void revokeAllUserTokens(Member user) {
-    var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
+    var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getMemId());
     if (validUserTokens.isEmpty())
       return;
     validUserTokens.forEach(token -> {
