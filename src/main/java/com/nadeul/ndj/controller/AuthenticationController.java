@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nadeul.ndj.dto.ApiResponse;
+import com.nadeul.ndj.dto.AuthenticationEmailDto;
 import com.nadeul.ndj.dto.AuthenticationRequest;
 import com.nadeul.ndj.dto.MemberDto;
 import com.nadeul.ndj.dto.RegisterRequest;
@@ -56,11 +57,17 @@ public class AuthenticationController<T> {
   public ResponseEntity<ApiResponse<MemberDto>> authenticate( @RequestBody AuthenticationRequest request ) {
     return ResponseEntity.ok(service.authenticate(request));
   }
-
+  
   @PostMapping("/refresh-token")
   @Operation(summary = "리프레시 토큰", description = "리프레시 토큰으로 액세스 토큰 갱신")
   public void refreshToken( HttpServletRequest request, HttpServletResponse response ) throws IOException {
     service.refreshToken(request, response);
+  }
+
+  @PostMapping("/emailCheck")
+  @Operation(summary = "이메일 중복 검사", description = "이메일 중복 여부 검사")
+  public ApiResponse<T> emailCheck( @RequestBody AuthenticationEmailDto request ) throws IOException {
+	return service.emailCheck(request);
   }
 
 

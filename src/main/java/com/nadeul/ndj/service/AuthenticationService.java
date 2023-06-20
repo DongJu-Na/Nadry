@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nadeul.ndj.dto.ApiResponse;
+import com.nadeul.ndj.dto.AuthenticationEmailDto;
 import com.nadeul.ndj.dto.AuthenticationRequest;
 import com.nadeul.ndj.dto.AuthenticationResponse;
 import com.nadeul.ndj.dto.MemberDto;
@@ -132,4 +133,18 @@ public class AuthenticationService<T> {
       }
     }
   }
+  
+  public ApiResponse<T> emailCheck(AuthenticationEmailDto request) {
+	    String email = request.getEmail();
+
+	    // 중복 이메일 확인
+	    Optional<Member> existingMember = repository.findByEmail(email);
+	    if (existingMember.isPresent()) {
+	        // 중복된 이메일이 있을 경우
+	        return ApiResponse.failResponse(ApiResponseEnum.DUPLICATION, "이메일이 중복되었습니다.");
+	    } else {
+	        return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null, null, null);
+	    }
+	}
+  
 }
