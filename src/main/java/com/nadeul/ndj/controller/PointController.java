@@ -1,23 +1,38 @@
 package com.nadeul.ndj.controller;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nadeul.ndj.dto.ApiResponse;
+import com.nadeul.ndj.dto.AuthenticationRequest;
+import com.nadeul.ndj.dto.PointEarnDto;
+import com.nadeul.ndj.service.PointService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+
+@Tag(name = "PointService", description = "인증/인가 서비스 API")
 @RestController
 @RequestMapping("/api/v2/point")
-public class PointController {
-  private static final int EARTH_RADIUS = 6371; // 지구의 반지름 (단위: km)
+@RequiredArgsConstructor
+public class PointController<T> {
   
-  // 위도 경도 계산
-  public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-    double dLat = Math.toRadians(lat2 - lat1);
-    double dLon = Math.toRadians(lon2 - lon1);
-    double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    double distance = EARTH_RADIUS * c * 1000.0; // km를 m로 변환
-    return distance;
+	private final PointService service;
+	
+  @PostMapping("/earn")
+  @Operation(summary = "포인트 적립", description = "나드리 포인트 적립")
+  public ResponseEntity<ApiResponse<PointEarnDto>> earn( @RequestBody AuthenticationRequest request ) {
+    return ResponseEntity.ok(null);
+  }
+  
+  @PostMapping("/use")
+  @Operation(summary = "포인트 사용", description = "나드리 포인트 사용")
+  public ResponseEntity<ApiResponse<T>> use( @RequestBody AuthenticationRequest request ) {
+    return ResponseEntity.ok(null);
   }
   
 }
