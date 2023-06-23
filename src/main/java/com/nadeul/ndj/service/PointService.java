@@ -2,6 +2,9 @@ package com.nadeul.ndj.service;
 
 import org.springframework.stereotype.Service;
 
+import com.nadeul.ndj.dto.ApiResponse;
+import com.nadeul.ndj.dto.PointEarnDto;
+import com.nadeul.ndj.enums.ApiResponseEnum;
 import com.nadeul.ndj.repository.PointHistoryRepository;
 import com.nadeul.ndj.repository.PointRepository;
 
@@ -9,10 +12,16 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class PointService {
+public class PointService<T> {
 	private static final int EARTH_RADIUS = 6371; // 지구의 반지름 (단위: km)
 	private final PointRepository pointRepository;
 	private final PointHistoryRepository pointHistoryRepository;
+	
+	public ApiResponse<T> register(PointEarnDto dto) {
+		
+    return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,null,null,null);
+  }
+
 	
 	
   // 위도 경도 계산
