@@ -1,6 +1,7 @@
 package com.nadeul.ndj.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v2/point")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('USER')")
 public class PointController<T> {
   
 	private final PointService<T> service;
