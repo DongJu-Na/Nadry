@@ -45,7 +45,10 @@ public class Member implements UserDetails {
   @OneToMany(mappedBy = "member")
   private List<Token> tokens;
   
-  @OneToOne(mappedBy = "member")
+  @OneToMany(mappedBy = "memId")
+  private List<Trip> trips;
+  
+  @OneToOne(mappedBy = "memId")
   private Point point;
 
   @Override
