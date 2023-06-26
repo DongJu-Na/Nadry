@@ -1,5 +1,7 @@
 package com.nadeul.ndj.entity;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -25,6 +27,9 @@ public class Trip {
   
   private Float posY;
   
+  private Date tripDate;
+  
+  private String contentId;
   
   
 }
