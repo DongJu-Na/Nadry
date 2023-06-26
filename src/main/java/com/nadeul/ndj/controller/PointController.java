@@ -21,14 +21,18 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v2/point")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('USER')")
+@PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MANAGER')")
 public class PointController<T> {
   
 	private final PointService<T> service;
 	
   @PostMapping("/earn")
   @Operation(summary = "포인트 적립", description = "나드리 포인트 적립")
-  public ResponseEntity<ApiResponse<PointEarnDto>> earn( @RequestBody PointEarnDto request ) {
+  public ResponseEntity<ApiResponse<T>> earn( @RequestBody PointEarnDto request ) {
+  	
+  	if(request.getContentId() == null || request.getContentId().toString().equals("")) {
+  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"컨텐츠 아이디"));
+  	}
   	
   	if(request.getPosX() == null || request.getPosX().toString().equals("")) {
   		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"위도"));
@@ -38,7 +42,15 @@ public class PointController<T> {
   		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"경도"));
   	}
   	
-    return ResponseEntity.ok(null);
+  	if(request.getPosY() == null || request.getPosY().toString().equals("")) {
+  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"실제 위도"));
+  	}
+  	
+  	if(request.getPosY() == null || request.getPosY().toString().equals("")) {
+  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"실제 경도"));
+  	}
+  	
+    return ResponseEntity.ok(service.earn(request));
   }
   
   @PostMapping("/use")
