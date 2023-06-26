@@ -39,36 +39,54 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       @NonNull HttpServletResponse response,
       @NonNull FilterChain filterChain
   ) throws ServletException, IOException {
-  	// wihte list 통과 로직 
-  
+
     final String authHeader = request.getHeader("Authorization");
     final String jwt;
     final String userEmail;
-    // "Authorization" 헤더가 요청에 없거나 "Bearer "로 시작하지 않는 경우 통과 로직
-    if( Arrays.asList(SecurityConfig.whiteListedRoutes).contains(request.getServletPath()) || authHeader == null || !authHeader.startsWith("Bearer ")
-    ) {
-      filterChain.doFilter(request, response);
+  
+    
+    // white list 통과 로직
+	  if (SecurityConfig.whiteListedRoutes != null) {
+	      for (String path : SecurityConfig.whiteListedRoutes) {
+	          if (antPathMatcher.match(path, request.getServletPath())) {
+	              filterChain.doFilter(request, response);
+	              return;
+	          }
+	      }
+	  }
+    
+    // whilteList에 포함 되어 있지 않고  "Authorization" 헤더가 요청에 없거나 "Bearer "로 시작하지 않는 경우 401 반환
+    if(authHeader == null || !authHeader.startsWith("Bearer ") && !Arrays.asList(SecurityConfig.whiteListedRoutes).contains(request.getServletPath())) {
+    	response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
       return;
     }
+    
     jwt = authHeader.substring(7);
     userEmail = jwtService.extractUsername(jwt);
+  
     if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-      UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-      var isTokenValid = tokenRepository.findByToken(jwt)
-          .map(t -> !t.isExpired() && !t.isRevoked())
-          .orElse(false);
-      if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-            userDetails,
-            null,
-            userDetails.getAuthorities()
-        );
-        authToken.setDetails(
-            new WebAuthenticationDetailsSource().buildDetails(request)
-        );
-        SecurityContextHolder.getContext().setAuthentication(authToken);
-      }
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+        var isTokenValid = tokenRepository.findByToken(jwt)
+            .map(t -> !t.isExpired() && !t.isRevoked())
+            .orElse(false);
+      
+        if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                userDetails,
+                null,
+                userDetails.getAuthorities()
+            );
+            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(authToken);
+        } else {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
+            return;
+        }
+    } else {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
+        return;
     }
+  
     filterChain.doFilter(request, response);
   }
 }
