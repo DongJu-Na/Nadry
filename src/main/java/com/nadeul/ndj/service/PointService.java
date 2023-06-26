@@ -2,6 +2,7 @@ package com.nadeul.ndj.service;
 
 import java.util.Optional;
 
+import org.hibernate.Hibernate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,8 @@ import com.nadeul.ndj.repository.PointHistoryRepository;
 import com.nadeul.ndj.repository.PointRepository;
 import com.nadeul.ndj.repository.TripRepository;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -28,7 +31,7 @@ public class PointService<T> {
 	private final PointRepository pointRepository;
 	private final PointHistoryRepository pointHistoryRepository;
 	
-	
+	@Transactional
 	public ApiResponse<T> earn(PointEarnDto dto) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -37,7 +40,8 @@ public class PointService<T> {
 		if (principal instanceof UserDetails) {
 		    UserDetails userDetails = (UserDetails) principal;
 		    Member member = (Member) userDetails;
-		    
+		    System.out.println(member.toString());
+		    Hibernate.initialize(member.getTokens());
 				// process 0 거리가 유효거리 50m안으로 들어왔는지 체크
 				if(calculateDistance(dto.getRealPosX(), dto.getRealPosY(), dto.getPosX(), dto.getPosY()) < 50) {
 					return ApiResponse.failResponse(ApiResponseEnum.POSITION_UNAVAILABLE, ""); 
@@ -58,6 +62,7 @@ public class PointService<T> {
 				
 				// process 2 최종 포인트 merge 
 				var pointEt =  pointRepository.findByPoint(member);
+				 
 				
 				var point = Point.builder()
 						 .point(pointEt.map(p -> p.getPoint() + 10).orElse(0))
@@ -69,7 +74,7 @@ public class PointService<T> {
 				
 				// process 3 포인트 히스토리 Insert
 				var pointHistory = PointHistory.builder()
-						.poId(point.getPoId())
+						.poId(savePoint.getPoId())
 						.build();
 				
 				var savePointHistory = pointHistoryRepository.save(pointHistory);
