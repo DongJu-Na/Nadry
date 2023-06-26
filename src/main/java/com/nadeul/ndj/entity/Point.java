@@ -25,8 +25,8 @@ public class Point {
   private String blackYn;
   
   @OneToOne
-  @JoinColumn(name = "memId")
-  private Member member;
+  @JoinColumn(name = "mem_id")
+  private Member memId;
   
   public Point update(Integer point, String blackYn) {
     this.point = point;
