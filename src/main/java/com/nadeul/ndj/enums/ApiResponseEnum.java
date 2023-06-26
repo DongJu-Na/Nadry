@@ -18,7 +18,12 @@ public enum ApiResponseEnum {
   NOT_FOUND("0004", "Not Found"),
   INTERNAL_SERVER_ERROR("0005", "Internal Server Error"),
 	VALIDATION_FAILED("0006","필드가 빈 값이거나 올바르지 않습니다."),
-	DUPLICATION("0007","중복되었습니다.");
+	DUPLICATION("0007","중복되었습니다."),
+	INCONGRUITY("0008","데이터가 적합하지 않습니다."),
+	POSITION_UNAVAILABLE("0009","위치 정보가 유효하지 않습니다."),
+	
+	UNKNOWN_MEMBER("9998","로그인이 필요한 서비스 입니다."),
+	UNKNOWN_ERROR("9999","알 수 없는 오류가 발생했습니다.");
 
   private final String code;
   private final String message;
