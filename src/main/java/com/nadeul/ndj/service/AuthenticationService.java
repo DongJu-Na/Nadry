@@ -141,7 +141,7 @@ public class AuthenticationService<T> {
 	    Optional<Member> existingMember = repository.findByEmail(email);
 	    if (existingMember.isPresent()) {
 	        // 중복된 이메일이 있을 경우
-	        return ApiResponse.failResponse(ApiResponseEnum.DUPLICATION, "이메일이 중복되었습니다.");
+	        return ApiResponse.failResponse(ApiResponseEnum.DUPLICATION, "이메일이");
 	    } else {
 	        return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null, null, null);
 	    }
