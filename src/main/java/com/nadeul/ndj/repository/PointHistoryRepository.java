@@ -2,8 +2,8 @@ package com.nadeul.ndj.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.nadeul.ndj.entity.Point;
+import com.nadeul.ndj.entity.PointHistory;
 
-public interface PointHistoryRepository extends JpaRepository<Point, Integer> {
+public interface PointHistoryRepository extends JpaRepository<PointHistory, Integer> {
 	
 }
