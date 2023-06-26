@@ -14,6 +14,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,8 +28,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table
 public class Member implements UserDetails {
-
-  @Id
+	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
   @GeneratedValue
   private Integer memId;
   private String name;
@@ -41,6 +44,9 @@ public class Member implements UserDetails {
 
   @OneToMany(mappedBy = "member")
   private List<Token> tokens;
+  
+  @OneToOne(mappedBy = "member")
+  private Point point;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
