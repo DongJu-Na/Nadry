@@ -60,6 +60,7 @@ public class SecurityConfig {
       "/swagger-ui/**",
       "/webjars/**",
       "/swagger-ui.html",
+      "/h2-console/**"
   };
   
 
