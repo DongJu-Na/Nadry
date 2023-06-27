@@ -1,6 +1,7 @@
 package com.nadeul.ndj.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -21,12 +22,14 @@ public class Point {
   @GeneratedValue
   private Integer poId;
   
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "memId", insertable = true, updatable = true)
+  private Member member;
+  
   private Integer point;
   private String blackYn;
   
-  @OneToOne
-  @JoinColumn(name = "mem_id")
-  private Member memId;
+  
   
   public Point update(Integer point, String blackYn) {
     this.point = point;
