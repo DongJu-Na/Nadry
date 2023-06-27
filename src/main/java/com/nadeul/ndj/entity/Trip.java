@@ -25,8 +25,8 @@ public class Trip {
   private Integer tpId;
   
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "mem_id")
-  public Member memId;
+  @JoinColumn(name = "memId", insertable = true, updatable = true)
+  public Member member;
   
   private Float realPosX;
   
