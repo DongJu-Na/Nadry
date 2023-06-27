@@ -2,11 +2,11 @@ package com.nadeul.ndj.service;
 
 import java.util.Optional;
 
-import org.hibernate.Hibernate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nadeul.ndj.dto.ApiResponse;
 import com.nadeul.ndj.dto.PointEarnDto;
@@ -15,11 +15,10 @@ import com.nadeul.ndj.entity.Point;
 import com.nadeul.ndj.entity.PointHistory;
 import com.nadeul.ndj.entity.Trip;
 import com.nadeul.ndj.enums.ApiResponseEnum;
+import com.nadeul.ndj.repository.MemberRepository;
 import com.nadeul.ndj.repository.PointHistoryRepository;
 import com.nadeul.ndj.repository.PointRepository;
 import com.nadeul.ndj.repository.TripRepository;
-
-import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,6 +29,7 @@ public class PointService<T> {
 	private final TripRepository tripRepository;
 	private final PointRepository pointRepository;
 	private final PointHistoryRepository pointHistoryRepository;
+	private final MemberRepository memberRepository;
 	
 	@Transactional
 	public ApiResponse<T> earn(PointEarnDto dto) {
@@ -38,47 +38,53 @@ public class PointService<T> {
 		Object principal = authentication.getPrincipal();
 		
 		if (principal instanceof UserDetails) {
-		    UserDetails userDetails = (UserDetails) principal;
-		    Member member = (Member) userDetails;
-		    System.out.println(member.toString());
-		    Hibernate.initialize(member.getTokens());
-				// process 0 거리가 유효거리 50m안으로 들어왔는지 체크
-				if(calculateDistance(dto.getRealPosX(), dto.getRealPosY(), dto.getPosX(), dto.getPosY()) < 50) {
-					return ApiResponse.failResponse(ApiResponseEnum.POSITION_UNAVAILABLE, ""); 
+			String email = ((UserDetails) principal).getUsername();
+			Optional<Member>  optionalMember = memberRepository.findByEmail(email);
+				if (optionalMember.isPresent()) {
+			    // Member 엔티티를 사용하여 필요한 작업을 수행합니다.
+					// process 0 거리가 유효거리 50m안으로 들어왔는지 체크
+						if(calculateDistance(dto.getRealPosX(), dto.getRealPosY(), dto.getPosX(), dto.getPosY()) < 50) {
+							return ApiResponse.failResponse(ApiResponseEnum.POSITION_UNAVAILABLE, ""); 
+						}
+				    
+				    // process 1 여행 이력 Insert
+						var trip = Trip.builder()
+									.member(optionalMember.get())
+									.posX(dto.getPosX())
+									.posY(dto.getPosY())
+									.realPosX(dto.getRealPosX())
+									.realPosY(dto.getRealPosY())
+									.tripDate(dto.getTripDate())
+									.contentId(dto.getContentId())
+									.build();
+						
+						var saveTripHistory = tripRepository.save(trip);
+						// process 2 최종 포인트 merge 
+						var pointEt =  pointRepository.findByMemberMemId(optionalMember.get().getMemId());
+						 
+						var point = pointEt.map(p -> {
+					    p.setPoint(p.getPoint() + 10);
+					    return p;
+						}).orElseGet(() -> {
+						    var newPoint = Point.builder()
+						            .point(10)
+						            .member(optionalMember.get())
+						            .blackYn("N")
+						            .build();
+						    return newPoint;
+						});
+						
+						var savePoint = pointRepository.save(point);
+						// process 3 포인트 히스토리 Insert
+						var pointHistory = PointHistory.builder()
+								.poId(savePoint.getPoId())
+								.build();
+						
+						var savePointHistory = pointHistoryRepository.save(pointHistory);
+				} else {
+				    // Member가 존재하지 않는 경우 처리 로직을 작성합니다.
+						return ApiResponse.failResponse(ApiResponseEnum.UNKNOWN_MEMBER, ""); 
 				}
-		    
-		    // process 1 여행 이력 Insert
-				var trip = Trip.builder()
-							.memId(member)
-							.posX(dto.getPosX())
-							.posY(dto.getPosY())
-							.realPosX(dto.getRealPosX())
-							.realPosY(dto.getRealPosY())
-							.tripDate(dto.getTripDate())
-							.contentId(dto.getContentId())
-							.build();
-				
-				var saveTripHistory = tripRepository.save(trip);
-				
-				// process 2 최종 포인트 merge 
-				var pointEt =  pointRepository.findByPoint(member);
-				 
-				
-				var point = Point.builder()
-						 .point(pointEt.map(p -> p.getPoint() + 10).orElse(0))
-             .memId(member)
-             .blackYn(pointEt.flatMap(p -> Optional.ofNullable(p.getBlackYn())).orElse("N"))
-             .build();
-				
-				var savePoint = pointRepository.save(point);
-				
-				// process 3 포인트 히스토리 Insert
-				var pointHistory = PointHistory.builder()
-						.poId(savePoint.getPoId())
-						.build();
-				
-				var savePointHistory = pointHistoryRepository.save(pointHistory);
-				
 		} else {
 		    // principal이 UserDetails 타입이 아닌 경우 처리 로직 -> 응답 객체를 null 로 반환
 			return ApiResponse.failResponse(ApiResponseEnum.UNKNOWN_MEMBER, ""); 
