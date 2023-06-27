@@ -13,6 +13,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -42,13 +43,16 @@ public class Member implements UserDetails {
   @Enumerated(EnumType.STRING)
   private Role role;
 
-  @OneToMany(mappedBy = "member")
+  @OneToMany
+  @JoinColumn(name = "memId")
   private List<Token> tokens;
   
-  @OneToMany(mappedBy = "memId")
+  @OneToMany
+  @JoinColumn(name = "memId")
   private List<Trip> trips;
   
-  @OneToOne(mappedBy = "memId")
+  @OneToOne
+  @JoinColumn(name = "memId")
   private Point point;
 
   @Override
