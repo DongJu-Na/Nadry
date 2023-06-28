@@ -35,7 +35,6 @@ public class PointEarnDto {
 	private Float realPosY;
 	
 	@Schema(description = "여행 일자 yyyy-mm-dd")
-	
 	private Date tripDate;
 	
 	
