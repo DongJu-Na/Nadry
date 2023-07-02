@@ -1,5 +1,5 @@
 <template>
   <div>
-    Nadry
+    Nadry test
   </div>
 </template>
