@@ -29,6 +29,8 @@ public class Post {
   
   private int likes;
   
+  private int view;
+  
   private String delYn;
   
   private Date createDate;
