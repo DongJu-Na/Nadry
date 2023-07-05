@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nadeul.ndj.dto.PostDto;
 import com.nadeul.ndj.service.BoardService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,10 +23,10 @@ import lombok.RequiredArgsConstructor;
 public class BoardController {
 	
 	private final BoardService boardService;
-	/*
+		/*
     @PostMapping("/posts")
-    public ResponseEntity save(@RequestBody PostsDto.Request dto, @LoginUser UserDto.Response user) {
-        return ResponseEntity.ok(boardService.save(dto, user.getNickname()));
+    public ResponseEntity save(@RequestBody PostDto.Request dto) {
+        return ResponseEntity.ok(boardService.save(dto));
     }
 
     @GetMapping("/posts/{id}")
@@ -34,7 +35,7 @@ public class BoardController {
     }
 
     @PutMapping("/posts/{id}")
-    public ResponseEntity update(@PathVariable Long id, @RequestBody PostsDto.Request dto) {
+    public ResponseEntity update(@PathVariable Long id, @RequestBody PostDto.Request dto) {
         boardService.update(id, dto);
         return ResponseEntity.ok(id);
     }
@@ -45,5 +46,6 @@ public class BoardController {
         return ResponseEntity.ok(id);
     }
     */
+    
 	
 }
