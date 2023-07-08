@@ -1,14 +1,17 @@
 package com.nadeul.ndj.entity;
 
+import java.util.Date;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
 
 @Data
 @Builder
@@ -19,7 +22,7 @@ public class Board {
 	
   @Id
   @GeneratedValue
-  private Integer bdId;
+  private Integer boId;
   
   private String boardName;
   
@@ -35,6 +38,9 @@ public class Board {
   
   private String updateBy;
   
+  @OneToMany
+  @JoinColumn(name = "boId")
+  private List<Post> post;
 		
 		
 }
