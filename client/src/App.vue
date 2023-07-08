@@ -1,5 +1,3 @@
 <template>
-  <div>
-    Nadry test
-  </div>
+  <router-view></router-view>
 </template>
