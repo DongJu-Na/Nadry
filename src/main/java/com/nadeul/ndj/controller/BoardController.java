@@ -1,16 +1,14 @@
 package com.nadeul.ndj.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nadeul.ndj.dto.PostDto;
+import com.nadeul.ndj.dto.ApiResponse;
+import com.nadeul.ndj.entity.Board;
 import com.nadeul.ndj.service.BoardService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,32 +18,17 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/v1/board")
 @RequiredArgsConstructor
-public class BoardController {
+public class BoardController<T> {
 	
-	private final BoardService boardService;
-		/*
-    @PostMapping("/posts")
-    public ResponseEntity save(@RequestBody PostDto.Request dto) {
-        return ResponseEntity.ok(boardService.save(dto));
+	private final BoardService<T> boardService;
+	
+	@GetMapping("/list")
+    public ResponseEntity<ApiResponse<List<Board>>> list() {
+        return ResponseEntity.ok(boardService.list());
     }
+	
 
-    @GetMapping("/posts/{id}")
-    public ResponseEntity read(@PathVariable Long id) {
-        return ResponseEntity.ok(boardService.findById(id));
-    }
-
-    @PutMapping("/posts/{id}")
-    public ResponseEntity update(@PathVariable Long id, @RequestBody PostDto.Request dto) {
-        boardService.update(id, dto);
-        return ResponseEntity.ok(id);
-    }
-
-    @DeleteMapping("/posts/{id}")
-    public ResponseEntity delete(@PathVariable Long id) {
-        boardService.delete(id);
-        return ResponseEntity.ok(id);
-    }
-    */
+    
     
 	
 }

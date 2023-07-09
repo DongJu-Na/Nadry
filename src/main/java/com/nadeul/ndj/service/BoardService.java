@@ -1,66 +1,57 @@
 package com.nadeul.ndj.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
+
+import com.nadeul.ndj.dto.ApiResponse;
+import com.nadeul.ndj.entity.Board;
+import com.nadeul.ndj.enums.ApiResponseEnum;
+import com.nadeul.ndj.repository.BoardRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class BoardService {
-	/*
-  private final PostsRepository postsRepository;
-  private final UserRepository userRepository;
-
-  @Transactional
-  public Long save(PostsDto.Request dto, String nickname) {
-      User user = userRepository.findByNickname(nickname);
-      dto.setUser(user);
-      log.info("PostsService save() 실행");
-      Posts posts = dto.toEntity();
-      postsRepository.save(posts);
-
-      return posts.getId();
+public class BoardService<T> {
+	
+  private final BoardRepository boardRepository;
+  
+  public ApiResponse<List<Board>> list() {
+	  List<Board> data = boardRepository.findAllByDelYnOrderByBoIdAsc();
+	  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,data,null,null);
   }
-
-  @Transactional(readOnly = true)
-  public PostsDto.Response findById(Long id) {
-      Posts posts = postsRepository.findById(id).orElseThrow(() ->
-              new IllegalArgumentException("해당 게시글이 존재하지 않습니다. id: " + id));
-
-      return new PostsDto.Response(posts);
+  
+  public ApiResponse<Board> getBoardById(Integer id) {
+	  Optional<Board> boardOptional = boardRepository.findById(id);
+	  if (boardOptional.isPresent()) {
+		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, boardOptional.get(), null, null);
+	  }
+	  return ApiResponse.failResponse(ApiResponseEnum.NOT_FOUND, "");
   }
-
-  @Transactional
-  public void update(Long id, PostsDto.Request dto) {
-      Posts posts = postsRepository.findById(id).orElseThrow(() ->
-              new IllegalArgumentException("해당 게시글이 존재하지 않습니다. id=" + id));
-
-      posts.update(dto.getTitle(), dto.getContent());
+  
+  public ApiResponse<Board> createBoard(Board board) {
+	  Board createdBoard = boardRepository.save(board);
+	  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, createdBoard, null, null);
   }
-
-  @Transactional
-  public void delete(Long id) {
-      Posts posts = postsRepository.findById(id).orElseThrow(() ->
-              new IllegalArgumentException("해당 게시글이 존재하지 않습니다. id=" + id));
-
-      postsRepository.delete(posts);
+  
+  public ApiResponse<Board> updateBoard(Integer id, Board board) {
+	  Optional<Board> boardOptional = boardRepository.findById(id);
+	  if (boardOptional.isPresent()) {
+		  Board existingBoard = boardOptional.get();
+		  existingBoard.setBoardName(board.getBoardName());
+		  existingBoard.setManagerYn(board.getManagerYn());
+		  
+		  Board updatedBoard = boardRepository.save(existingBoard);
+		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, updatedBoard, null, null);
+	  }
+	  return ApiResponse.failResponse(ApiResponseEnum.NOT_FOUND, null);
   }
-
-  @Transactional
-  public int updateView(Long id) {
-      return postsRepository.updateView(id);
+  
+  public void deleteBoard(Integer id) {
+	  boardRepository.deleteById(id);
   }
-
-
-  @Transactional(readOnly = true)
-  public Page<Posts> pageList(Pageable pageable) {
-      return postsRepository.findAll(pageable);
-  }
-
-  @Transactional(readOnly = true)
-  public Page<Posts> search(String keyword, Pageable pageable) {
-      Page<Posts> postsList = postsRepository.findByTitleContaining(keyword, pageable);
-      return postsList;
-  }
-  */
+  
+    
 }
