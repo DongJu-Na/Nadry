@@ -1,12 +1,15 @@
 package com.nadeul.ndj.dto;
 import lombok.*;
 
+
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.nadeul.ndj.entity.Post;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+@Schema(description = "게시글 DTO")
 public class PostDto {
 	
     @Data
