@@ -44,16 +44,19 @@ dependencies {
 	implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
   	implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
     
-  	// jwt
-  	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-  	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
-  	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	// jwt
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
     
-    // openapi 
+  // openapi 
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.1.0'
 	
 	// Metadata Extractor
 	implementation group: 'com.drewnoakes', name: 'metadata-extractor', version: '2.18.0'
+	
+	//maria
+	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.1.4'
 	
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
