@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nadeul.ndj.dto.ApiResponse;
 import com.nadeul.ndj.dto.PostDto;
 import com.nadeul.ndj.entity.Post;
+import com.nadeul.ndj.enums.ApiResponseEnum;
 import com.nadeul.ndj.service.PostService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -39,11 +40,12 @@ public class PostController<T> {
         return ResponseEntity.ok(postService.getPostById(id));
     }
 	
-	/*
+	
 	@PostMapping("/")
     public ResponseEntity<ApiResponse<Post>> createPost(@RequestBody Post post) {
         return ResponseEntity.ok(postService.createPost(post));
     }
+	
 	
 	@PutMapping("/{id}")
     public ResponseEntity<ApiResponse<Post>> updatePost(@PathVariable("id") Integer id, @RequestBody Post post) {
@@ -55,7 +57,7 @@ public class PostController<T> {
         postService.deletePost(id);
         return ResponseEntity.ok(ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null, null, null));
     }
-    */
+    
     
     
 	
