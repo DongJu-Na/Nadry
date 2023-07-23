@@ -3,6 +3,7 @@ package com.nadeul.ndj.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nadeul.ndj.enums.ApiResponseEnum;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,11 +23,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ApiResponse<T> {
 	
+  @Schema(description = "결과코드" , example = "0000")
   private String resultCode;
+  @Schema(description = "결과메세지" , example = "성공")
   private String resultMsg;
+  @Schema(description = "데이터" , example = "")
   private T data;
+  @Schema(description = "액세스 토큰" , example = "")
   @JsonProperty("access_token")
   private String accessToken;
+  @Schema(description = "리프레시 토큰" , example = "")
   @JsonProperty("refresh_token")
   private String refreshToken;
   
