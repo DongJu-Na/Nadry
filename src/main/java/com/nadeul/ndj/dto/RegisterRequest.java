@@ -23,14 +23,14 @@ LAST_LOGIN_DATE DATE 최종 로그인 일자
 REGISTER_DATE DATE 가입일자
 */
 	
-	@Schema(description = "이름" , example = "나동주")
+  @Schema(description = "이름" , example = "나동주")
   private String name;
-	@Schema(description = "이메일" , example = "ehdeld123@gmail.com")
+  @Schema(description = "이메일" , example = "ehdeld123@gmail.com")
   private String email;
-	@Schema(description = "비밀번호" , example = "**********")
+  @Schema(description = "비밀번호" , example = "**********")
   private String password;
-	@Schema(description = "나드리이용권한" , example = "")
+  @Schema(description = "나드리이용권한" , example = "")
   private Role role;
-	@Schema(description = "생일 yyyy-mm-dd" , example = "1995-08-22")
+  @Schema(description = "생일 yyyy-mm-dd" , example = "1995-08-22")
   private String birthDay;
 }
