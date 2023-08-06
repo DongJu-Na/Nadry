@@ -4,15 +4,16 @@ import java.util.Date;
 
 import com.nadeul.ndj.entity.Comment;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-
+@Schema(description = "댓글 DTO")
 public class CommentDto {
-
+	
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
@@ -20,7 +21,7 @@ public class CommentDto {
     public static class Request {
     	
 		private Integer cmId;
-		private Integer bdId;
+		private Integer boId;
 		private Integer ptId;
 		private String content;
 		private int likes;
@@ -28,25 +29,13 @@ public class CommentDto {
 		private Date createDate = new Date();
 		private String createBy;
     	  
-        /* Dto -> Entity */
-        public Comment toEntity() {
-            Comment comments = Comment.builder()
-                    .bdId(bdId)
-                    .ptId(ptId)
-                    .content(content)
-                    .likes(likes)
-                    .createDate(createDate)
-                    .createBy(createBy)
-                    .build();
-            return comments;
-        }
     }
 
     @RequiredArgsConstructor
     @Getter
     public static class Response {
 		private Integer cmId;
-		private Integer bdId;
+		private Integer boId;
 		private Integer ptId;
 		private String content;
 		private int likes;
@@ -54,11 +43,10 @@ public class CommentDto {
 		private Date updateDate = new Date();
 		private String updateBy;
 		
-        /* Entity -> Dto*/
         public Response(Comment comment) {
             this.cmId = comment.getCmId();
-            this.bdId = comment.getBdId();
-            this.ptId = comment.getPtId();
+            this.boId = comment.getBoard().getBoId();
+            this.ptId = comment.getPost().getPtId();
             this.content = comment.getContent();
             this.likes = comment.getLikes();
             this.delYn = comment.getDelYn();
@@ -66,4 +54,5 @@ public class CommentDto {
             this.updateBy = comment.getUpdateBy();
         }
     }
+    
 }

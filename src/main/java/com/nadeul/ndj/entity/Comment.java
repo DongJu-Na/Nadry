@@ -1,14 +1,17 @@
 package com.nadeul.ndj.entity;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
 
 @Data
 @Builder
@@ -21,9 +24,13 @@ public class Comment {
   @GeneratedValue
   private Integer cmId;
   
-  private Integer bdId;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "boId", insertable = true, updatable = true)
+  private Board board;
   
-  private Integer ptId;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "ptId", insertable = true, updatable = true)
+  private Post post;
   
   private String content;
   
