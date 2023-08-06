@@ -10,9 +10,6 @@ export const useUserStore = defineStore(
 
     const userInfo = ref({
       name: null,
-      teamId: null,
-      teamName: null,
-      teamDescription: null,
     });
 
     // reset
@@ -21,8 +18,6 @@ export const useUserStore = defineStore(
       token.value = null;
       userInfo.value = {
         name: null,
-        teamName: null,
-        teamDescription: null,
       };
     }
 

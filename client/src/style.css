@@ -1,0 +1,35 @@
+/* font : pretendard */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Pretendard';
+    min-height: 100vh;
+  }
+
+  body {
+    width: 100%;
+    /* max-width: 1000px; */
+  }
+
+  .input {
+    @apply block w-full mb-2 border h-[48px] p-[.8rem] rounded last:mb-0;
+  }
+
+  button {
+    @apply bg-emerald-500 text-white font-medium w-full h-[50px] rounded mt-2;
+  }
+
+  .router-link-active span {
+    @apply !text-emerald-600 font-semibold;
+  }
+}
+
+/* #app {
+  max-width: 600px;
+  margin: 0 auto;
+} */
