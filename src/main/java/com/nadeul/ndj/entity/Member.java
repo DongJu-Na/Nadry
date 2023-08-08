@@ -30,15 +30,16 @@ import lombok.NoArgsConstructor;
 @Table
 public class Member implements UserDetails {
 	
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 	
-	@Id
+  @Id
   @GeneratedValue
   private Integer memId;
   private String name;
   private String email;
   private String password;
   private String birthDay;
+  private String profileUrl;
 
   @Enumerated(EnumType.STRING)
   private Role role;

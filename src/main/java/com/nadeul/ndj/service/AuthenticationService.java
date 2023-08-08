@@ -53,6 +53,7 @@ public class AuthenticationService<T> {
         .password(passwordEncoder.encode(request.getPassword()))
         .role(request.getRole())
         .birthDay(request.getBirthDay())
+        .profileUrl(request.getProfileUrl())
         .build();
     var savedUser = repository.save(member);
     var jwtToken = jwtService.generateToken(member);
@@ -77,12 +78,13 @@ public class AuthenticationService<T> {
     saveUserToken(user, jwtToken);
     
     MemberDto memberDto = new MemberDto();
-    					memberDto.setId(user.getMemId());
-    					memberDto.setName(user.getName());
-    					memberDto.setEmail(user.getEmail());
-    					memberDto.setPassword(user.getPassword());
-    					memberDto.setBirthDay(user.getBirthDay());
-    					memberDto.setRole(user.getRole());
+			  memberDto.setId(user.getMemId());
+			  memberDto.setName(user.getName());
+			  memberDto.setEmail(user.getEmail());
+			  memberDto.setPassword(user.getPassword());
+			  memberDto.setBirthDay(user.getBirthDay());
+			  memberDto.setRole(user.getRole());
+			  memberDto.setProfileUrl(user.getProfileUrl());
     
     return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,memberDto,jwtToken,refreshToken);
   }

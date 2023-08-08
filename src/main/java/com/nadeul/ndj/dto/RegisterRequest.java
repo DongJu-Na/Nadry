@@ -33,4 +33,6 @@ REGISTER_DATE DATE 가입일자
   private Role role;
   @Schema(description = "생일 yyyy-mm-dd" , example = "1995-08-22")
   private String birthDay;
+  @Schema(description = "프로필이미지URL" , example = "www.nadry.com/profile/img.png")
+  private String profileUrl;
 }

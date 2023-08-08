@@ -26,6 +26,9 @@ public class MemberDto {
   private String birthDay;
   @Schema(description = "역할" , example = "USER")
   private Role role;
+  @Schema(description = "프로필이미지URL" , example = "www.nadry.com/profile/img.png")
+  private String profileUrl;
+  
   
   
 }
