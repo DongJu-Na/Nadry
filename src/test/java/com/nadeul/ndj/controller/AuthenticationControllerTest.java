@@ -34,10 +34,11 @@ class AuthenticationControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
+    @SuppressWarnings("deprecation")
+	@Test
     void testRegister() {
         // 테스트용 RegisterRequest 객체 생성
-        RegisterRequest registerRequest = new RegisterRequest("John Doe", "example@example.com", "password", Role.USER, "1990-01-01");
+        RegisterRequest registerRequest = new RegisterRequest("John Doe", "example@example.com", "password", Role.USER, "1990-01-01","");
         
         // Mockito를 사용하여 AuthenticationService의 register() 메서드 모킹
         // 적절한 ApiResponse를 반환하도록 설정
@@ -57,7 +58,8 @@ class AuthenticationControllerTest {
         // 등록된 사용자의 정보를 확인하는 등의 추가적인 검증도 가능합니다.
     }
 
-    @Test
+    @SuppressWarnings("deprecation")
+	@Test
     void testAuthenticate() {
         // 테스트용 AuthenticationRequest 객체 생성
         AuthenticationRequest authenticationRequest = new AuthenticationRequest("example@example.com", "password");
