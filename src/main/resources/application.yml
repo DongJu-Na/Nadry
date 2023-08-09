@@ -42,7 +42,7 @@ spring:
       
 server:
   title: nadeul-local
-  port : 8082
+  port : 8080
   
 ---
 spring:
@@ -55,6 +55,6 @@ spring:
 
 server:
   title: nadeul-prod
-  port : 8083
+  port : 8080
 
  
