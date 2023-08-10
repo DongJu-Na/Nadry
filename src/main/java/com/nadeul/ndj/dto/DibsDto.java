@@ -27,6 +27,19 @@ public class DibsDto {
         private String contentImageUrl;
 
     }
+    
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class ListRequest {
+    	@Schema(description = "페이지 번호" , example = "1")
+        private Integer pageNo;
+    	
+    	@Schema(description = "카운트" , example = "5")
+        private Integer listCnt;
+    	
+    }
 
 
     
