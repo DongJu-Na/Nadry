@@ -7,6 +7,11 @@ spring:
     cache : false
   config:
     import: oauth2.yml,apiKey.yml,database.yml
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB  # 최대 파일 크기 설정
+      max-request-size: 100MB  # 요청의 최대 크기 설정
 
 application:
   security:
@@ -44,6 +49,9 @@ server:
   title: nadeul-local
   port : 8080
   
+file:
+  savePath: /app/image/
+  
 ---
 spring:
   config:
@@ -56,5 +64,7 @@ spring:
 server:
   title: nadeul-prod
   port : 8080
-
+  
+file:
+  savePath: /app/image/
  

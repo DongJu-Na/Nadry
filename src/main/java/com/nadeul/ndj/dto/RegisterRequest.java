@@ -1,5 +1,7 @@
 package com.nadeul.ndj.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.nadeul.ndj.model.Role;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -33,6 +35,7 @@ REGISTER_DATE DATE 가입일자
   private Role role;
   @Schema(description = "생일 yyyy-mm-dd" , example = "1995-08-22")
   private String birthDay;
-  @Schema(description = "프로필이미지URL" , example = "www.nadry.com/profile/img.png")
-  private String profileUrl;
+  @Schema(description = "프로필 이미지")
+  private MultipartFile profileImage;
+  
 }

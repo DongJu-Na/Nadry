@@ -3,10 +3,13 @@ package com.nadeul.ndj.controller;
 import java.io.IOException;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nadeul.ndj.dto.ApiResponse;
 import com.nadeul.ndj.dto.AuthenticationEmailDto;
@@ -32,7 +35,9 @@ public class AuthenticationController<T> {
 
   @PostMapping("/register")
   @Operation(summary = "회원 가입", description = "나들이 플랫폼 사용자 등록")
-  public ResponseEntity<ApiResponse<T>> register( @RequestBody RegisterRequest request ) {
+  public ResponseEntity<ApiResponse<T>> register(  
+		  	@ModelAttribute RegisterRequest request,
+	        @RequestParam("profileImage") MultipartFile profileImage) {
   	if(request.getEmail() == null || request.getEmail().toString().equals("")) {
   		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"이메일"));
   	}
@@ -48,6 +53,8 @@ public class AuthenticationController<T> {
   	if(request.getBirthDay() == null || request.getBirthDay().toString().equals("")) {
   		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"생일"));
   	}
+  	
+    request.setProfileImage(profileImage);
   	
     return ResponseEntity.ok(service.register(request));
   }

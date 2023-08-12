@@ -38,7 +38,7 @@ class AuthenticationControllerTest {
 	@Test
     void testRegister() {
         // 테스트용 RegisterRequest 객체 생성
-        RegisterRequest registerRequest = new RegisterRequest("John Doe", "example@example.com", "password", Role.USER, "1990-01-01","");
+        RegisterRequest registerRequest = new RegisterRequest("John Doe", "example@example.com", "password", Role.USER, "1990-01-01",null);
         
         // Mockito를 사용하여 AuthenticationService의 register() 메서드 모킹
         // 적절한 ApiResponse를 반환하도록 설정
@@ -46,7 +46,7 @@ class AuthenticationControllerTest {
                 .thenReturn(ApiResponse.successResponse(ApiResponseEnum.SUCCESS, new MemberDto(), "access_token", "refresh_token"));
 
         // 테스트용 RegisterRequest를 요청 본문으로 하는 HTTP POST 요청 전송
-        ResponseEntity<ApiResponse<MemberDto>> response = authenticationController.register(registerRequest);
+        ResponseEntity<ApiResponse<MemberDto>> response = authenticationController.register(registerRequest,null);
 
         // 테스트 결과 검증
         Assertions.assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());

@@ -2,7 +2,13 @@ package com.nadeul.ndj.service;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,6 +41,9 @@ public class AuthenticationService<T> {
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
+  
+  @Value("${file.savePath}")
+  private String savePath;
 
   public ApiResponse<T> register(RegisterRequest request) {
     String email = request.getEmail();
@@ -47,13 +56,28 @@ public class AuthenticationService<T> {
     			return ApiResponse.failResponse(ApiResponseEnum.DUPLICATION,"이메일이");
     }
     
+    String originalFilename = request.getProfileImage().getOriginalFilename();
+    String uniqueFilename = UUID.randomUUID().toString() + "_" + originalFilename;
+    String saveSuccessPath = null;
+    
+    try {
+        byte[] bytes = request.getProfileImage().getBytes(); //profileImage.getBytes();
+        Path imagePath = Paths.get(savePath + uniqueFilename);
+        Files.write(imagePath, bytes);
+        saveSuccessPath = savePath + uniqueFilename; 
+    } catch (IOException e) {
+        // 처리 중 에러가 발생하면 적절히 처리
+    	e.printStackTrace();
+    }
+    
+    
     var member = Member.builder()
         .name(request.getName())
         .email(request.getEmail())
         .password(passwordEncoder.encode(request.getPassword()))
         .role(request.getRole())
         .birthDay(request.getBirthDay())
-        .profileUrl(request.getProfileUrl())
+        .profileUrl(saveSuccessPath)  
         .build();
     var savedUser = repository.save(member);
     var jwtToken = jwtService.generateToken(member);
