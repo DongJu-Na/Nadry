@@ -56,15 +56,17 @@ public class AuthenticationService<T> {
     			return ApiResponse.failResponse(ApiResponseEnum.DUPLICATION,"이메일이");
     }
     
-    String originalFilename = request.getProfileImage().getOriginalFilename();
-    String uniqueFilename = UUID.randomUUID().toString() + "_" + originalFilename;
     String saveSuccessPath = null;
     
     try {
-        byte[] bytes = request.getProfileImage().getBytes(); //profileImage.getBytes();
-        Path imagePath = Paths.get(savePath + uniqueFilename);
-        Files.write(imagePath, bytes);
-        saveSuccessPath = savePath + uniqueFilename; 
+    	if(request.getProfileImage() != null) {
+    		String originalFilename = request.getProfileImage().getOriginalFilename();
+            String uniqueFilename = UUID.randomUUID().toString() + "_" + originalFilename;
+            byte[] bytes = request.getProfileImage().getBytes();
+            Path imagePath = Paths.get(savePath + uniqueFilename);
+            Files.write(imagePath, bytes);
+            saveSuccessPath = savePath + uniqueFilename;
+        }
     } catch (IOException e) {
         // 처리 중 에러가 발생하면 적절히 처리
     	e.printStackTrace();

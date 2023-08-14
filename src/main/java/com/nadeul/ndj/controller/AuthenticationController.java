@@ -37,7 +37,7 @@ public class AuthenticationController<T> {
   @Operation(summary = "회원 가입", description = "나들이 플랫폼 사용자 등록")
   public ResponseEntity<ApiResponse<T>> register(  
 		  	@ModelAttribute RegisterRequest request,
-	        @RequestParam("profileImage") MultipartFile profileImage) {
+	        @RequestParam(value = "profileImage" , required = false) MultipartFile profileImage) {
   	if(request.getEmail() == null || request.getEmail().toString().equals("")) {
   		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"이메일"));
   	}
