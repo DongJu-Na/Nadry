@@ -17,34 +17,58 @@ public class PostDto {
     @NoArgsConstructor
     @Builder
     public static class Request {
-    	 private Integer ptId;
+    	  @Schema(description = "게시글 번호" , example = "1")
+    	  private Integer ptId;
+    	  @Schema(description = "게시판 번호" , example = "1")
     	  private Integer boId;
+    	  @Schema(description = "제목" , example = "게시글 제목")
     	  private String title;
+    	  @Schema(description = "내용" , example = "게시글 내용")
     	  private String content;
+    	  @Schema(description = "좋아요" , example = "1")
     	  private int likes;
+    	  @Schema(description = "조회수" , example = "1")
     	  private int view;
+    	  @Schema(description = "삭제여부" , example = "N")
     	  private String delYn;
+    	  @Schema(description = "생성일자" , example = "YYYY-MM-DD HH:SS")
     	  private Date createDate;
+    	  @Schema(description = "생성자" , example = "홍길동")
     	  private String createBy;
+    	  @Schema(description = "수정일자" , example = "YYYY-MM-DD HH:SS")
     	  private Date updateDate;
+    	  @Schema(description = "수정자" , example = "홍길동")
     	  private String updateBy;
+    	  @Schema(description = "콘텐츠아이디" , example = "공공API 데이터 매핑 키")
     	  private String contentId;
 
     }
 
     @Getter
     public static class Response {
+    	  @Schema(description = "게시글 번호" , example = "1")
     	  private Integer ptId;
+    	  @Schema(description = "게시판 번호" , example = "1")
     	  private Integer boId;
+    	  @Schema(description = "제목" , example = "게시글 제목")
     	  private String title;
+    	  @Schema(description = "내용" , example = "게시글 내용")
     	  private String content;
+    	  @Schema(description = "좋아요" , example = "1")
     	  private int likes;
+    	  @Schema(description = "조회수" , example = "1")
     	  private int view;
+    	  @Schema(description = "삭제여부" , example = "N")
     	  private String delYn;
+    	  @Schema(description = "생성일자" , example = "YYYY-MM-DD HH:SS")
     	  private Date createDate;
+    	  @Schema(description = "생성자" , example = "홍길동")
     	  private String createBy;
+    	  @Schema(description = "수정일자" , example = "YYYY-MM-DD HH:SS")
     	  private Date updateDate;
+    	  @Schema(description = "수정자" , example = "홍길동")
     	  private String updateBy;
+    	  @Schema(description = "콘텐츠아이디" , example = "공공API 데이터 매핑 키")
     	  private String contentId;
     	  private final List<CommentDto.Response> comments;
 
