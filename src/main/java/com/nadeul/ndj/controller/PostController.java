@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nadeul.ndj.dto.ApiResponse;
-import com.nadeul.ndj.dto.PostDto;
 import com.nadeul.ndj.entity.Post;
 import com.nadeul.ndj.enums.ApiResponseEnum;
 import com.nadeul.ndj.service.PostService;
@@ -57,8 +56,17 @@ public class PostController<T> {
         postService.deletePost(id);
         return ResponseEntity.ok(ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null, null, null));
     }
-    
-    
+	
+	
+   @PutMapping("/{id}/like")
+    public ResponseEntity<ApiResponse<Post>> likePost(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(postService.updateLikes(id));
+    }
+
+    @PutMapping("/{id}/view")
+    public ResponseEntity<ApiResponse<Post>> increaseViewCount(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(postService.incrementViewCount(id));
+    }
     
 	
 }

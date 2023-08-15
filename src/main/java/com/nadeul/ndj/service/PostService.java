@@ -40,10 +40,8 @@ public class PostService<T> {
 		  Optional<Post> postOptional = postRepository.findById(id);
 		  if (postOptional.isPresent()) {
 			  Post existingPost = postOptional.get();
-			  // Update the existing post with the new values
 			  existingPost.setTitle(post.getTitle());
 			  existingPost.setContent(post.getContent());
-			  // Set other fields as needed
 			  
 			  Post updatedPost = postRepository.save(existingPost);
 			  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, updatedPost, null, null);
@@ -53,5 +51,29 @@ public class PostService<T> {
 	  
 	  public void deletePost(Integer id) {
 		  postRepository.deleteById(id);
+	  }
+	  
+	@SuppressWarnings("null")
+	public ApiResponse<Post> updateLikes(Integer postId) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> null);
+        if(post == null) {
+        	post.setLikes(post.getLikes() + 1);
+        	postRepository.save(post);
+        	return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, post, null, null);
+        }else {
+        	return ApiResponse.failResponse(ApiResponseEnum.NOT_FOUND, null);
+        }
+	  }
+	
+	@SuppressWarnings("null")
+	public ApiResponse<Post> incrementViewCount(Integer postId) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> null);
+        if(post == null) {
+        	post.setView(post.getView() + 1);
+        	postRepository.save(post);
+        	return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, post, null, null);
+        }else {
+        	return ApiResponse.failResponse(ApiResponseEnum.NOT_FOUND, null);
+        }
 	  }
 }
