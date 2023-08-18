@@ -94,9 +94,7 @@ public class OdliiGuideServiceApiController {
 					+ "\"serviceKey\" : \"인증키\",\r\n"
 					+ "\"_type\" : \"json\",\r\n"
 					+ "\"keyword\" : \"대흥사\",\r\n"
-					+ "\"lang\" : \"ko\",\r\n"
-					+ "\"resultCode\" : \"0\",\r\n"
-					+ "\"resultMsg\" : \"OK\"\r\n"
+					+ "\"langCode\" : \"ko\"\r\n"
 					+ "}", description = "numOfRows	한 페이지 결과 수	선택\r\n"
 							+ "pageNo	페이지 번호	선택<br/>"
 							+ "MobileOS	OS 구분	 필수<br/>"
@@ -104,9 +102,7 @@ public class OdliiGuideServiceApiController {
 							+ "serviceKey	인증키 (서비스키)	필수<br/>"
 							+ "_type	응답메세지 형식	선택<br/>"
 							+ "keyword	요청 키워드	필수<br/>"
-							+ "lang	언어	필수<br/>"
-							+ "resultCode	결과코드	 필수<br/>"
-							+ "resultMsg	결과메시지	필수<br/>"
+							+ "langCode	언어	필수<br/>"
 							+ "" )))
 			@RequestBody Map<String, Object> requestParam) throws Exception {
 		
