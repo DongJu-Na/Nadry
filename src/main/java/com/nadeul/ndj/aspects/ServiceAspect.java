@@ -1,5 +1,6 @@
 package com.nadeul.ndj.aspects;
 
+import java.util.Iterator;
 import java.util.Map;
 
 import org.aspectj.lang.JoinPoint;
@@ -24,7 +25,7 @@ public class ServiceAspect {
   private String tourApiKey;
 	
 		@SuppressWarnings("unchecked")
-		@Before("execution(* com.nadeul.ndj.controller.*.*(..))")
+		@Before("execution(* com.nadeul.ndj.controller.*ServiceApiController.*(..))")
     public void mesajVerMetodundanOnce(JoinPoint joinPoint) {
 			Map<String, Object> requestParam = null;
 			for (Object arg : joinPoint.getArgs()) {
@@ -35,21 +36,24 @@ public class ServiceAspect {
 			}
 			
 		if(requestParam != null) {
+			Iterator<Map.Entry<String, Object>> iterator = requestParam.entrySet().iterator();
+	            while (iterator.hasNext()) {
+	                Map.Entry<String, Object> entry = iterator.next();
+	                Object value = entry.getValue();
+	                if (value == null || (value instanceof String && ((String) value).isEmpty())) {
+	                    iterator.remove();
+	                }
+	            }
+	            
 	        if (!requestParam.containsKey("_type") || (requestParam.get("_type") == null || requestParam.get("_type").toString().isEmpty())) {
 	        	requestParam.put("_type", "json");
 	        }
 
-	        if (!requestParam.containsKey("serviceKey") || (requestParam.get("serviceKey") == null || requestParam.get("serviceKey").toString().isEmpty())) {
-	        	requestParam.put("serviceKey", tourApiKey);
-	        }
-	        
-	        if (!requestParam.containsKey("MobileApp") || (requestParam.get("MobileApp") == null || requestParam.get("MobileApp").toString().isEmpty())) {
-	        	requestParam.put("MobileApp", "NADRY");
-	        }
-	        
-	        if (!requestParam.containsKey("MobileOS") || (requestParam.get("MobileOS") == null || requestParam.get("MobileOS").toString().isEmpty())) {
-	        	requestParam.put("MobileOS", "ETC");
-	        }
+        	requestParam.put("serviceKey", tourApiKey);
+        	requestParam.put("MobileApp", "NADRY");
+        	requestParam.put("MobileOS", "ETC");
+        	
+        	
 	    }
 			
     }
