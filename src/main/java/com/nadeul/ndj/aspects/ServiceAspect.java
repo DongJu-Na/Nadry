@@ -28,10 +28,10 @@ public class ServiceAspect {
     public void mesajVerMetodundanOnce(JoinPoint joinPoint) {
 			Map<String, Object> requestParam = null;
 			for (Object arg : joinPoint.getArgs()) {
-		    if (arg instanceof Map) {
-		        requestParam = (Map<String, Object>) arg;
-		        break;
-		    }
+			    if (arg instanceof Map) {
+			        requestParam = (Map<String, Object>) arg;
+			        break;
+			    }
 			}
 			
 		if(requestParam != null) {
