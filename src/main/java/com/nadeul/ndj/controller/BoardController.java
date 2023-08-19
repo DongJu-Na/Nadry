@@ -47,17 +47,12 @@ public class BoardController<T> {
     public ResponseEntity<ApiResponse<Board>> updateBoard(@PathVariable("id") Integer id, @RequestBody Board board) {
         return ResponseEntity.ok(boardService.updateBoard(id, board));
     }
-	/*
+	
 	@DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteBoard(@PathVariable("id") Integer id) {
         boardService.deleteBoard(id);
         return ResponseEntity.ok(ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null, null, null));
     }
-    */
-    
-	
-
-    
     
 	
 }
