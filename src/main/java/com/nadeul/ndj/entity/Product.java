@@ -38,6 +38,8 @@ public class Product {
   @Enumerated(EnumType.STRING)
   private ProductType productType;
   
+  private Integer point;
+  
   private LocalDateTime createDate;
   
   private String createBy;
