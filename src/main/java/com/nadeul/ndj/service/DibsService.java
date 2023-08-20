@@ -1,9 +1,11 @@
 package com.nadeul.ndj.service;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,9 +18,6 @@ import com.nadeul.ndj.entity.Member;
 import com.nadeul.ndj.enums.ApiResponseEnum;
 import com.nadeul.ndj.repository.DibsRepository;
 import com.nadeul.ndj.repository.MemberRepository;
-
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import lombok.RequiredArgsConstructor;
 
@@ -63,13 +62,11 @@ public class DibsService<T> {
 					boolean alreadyExists = dibsRepository.findByMemberAndContentId(optionalMember.get(), request.getContentId());
 
 			        if (!alreadyExists) {
-			        	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			        	
 			        	try {
 			        		var dibs = Dibs.builder()
 			        			       .member(optionalMember.get())
 			        			       .contentId(request.getContentId())
-			        			       .dibsDate(dateFormat.parse(request.getDibsDate()))
+			        			       .dibsDate(LocalDateTime.now())
 			        			       .contentName(request.getContentName())
 			        			       .contentImageUrl(request.getContentImageUrl())
 			        				   .build();
@@ -89,7 +86,7 @@ public class DibsService<T> {
 		}
 		
 		
-    return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,null,null,null);
+		return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,null,null,null);
 	}
 	
 	

@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -33,11 +34,11 @@ public class CommentLike {
   
   private String likeYn;
   
-  private Date createDate;
+  private LocalDateTime createDate;
   
   private String createBy;
   
-  private Date updateDate;
+  private LocalDateTime updateDate;
   
   private String updateBy;
   
