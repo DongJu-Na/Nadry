@@ -1,6 +1,6 @@
 package com.nadeul.ndj.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,7 +28,7 @@ public class Dibs {
   @JoinColumn(name = "memId", insertable = true, updatable = true)
   public Member member;
   
-  private Date dibsDate;
+  private LocalDateTime dibsDate;
   
   private String contentId;
   
