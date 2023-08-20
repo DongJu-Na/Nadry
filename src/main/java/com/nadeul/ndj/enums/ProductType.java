@@ -12,5 +12,5 @@ public enum ProductType {
     ROOM("상온");
 
     private final String title;
-    
+
 }
