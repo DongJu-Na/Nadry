@@ -16,7 +16,7 @@
       <IconTrip
         v-if="menu.icon === 'trip'"
         :size="18"
-        :color="route.fullPath === menu.link ? '#059669' : '#D9D9D9'"
+        :color="route.fullPath.includes(menu.link) ? '#059669' : '#D9D9D9'"
       />
       <IconStamp
         v-if="menu.icon === 'stamp'"
@@ -52,13 +52,13 @@ const menuItems = ref([
     id: 1,
     name: '홈',
     icon: 'home',
-    link: '/',
+    link: '/home',
   },
   {
     id: 2,
     name: '여행',
     icon: 'trip',
-    link: '/trip',
+    link: '/trips',
   },
   {
     id: 3,
@@ -89,7 +89,5 @@ watch(route, () => {
 
 <style lang="scss" scoped>
 .router-link-active {
-  span {
-  }
 }
 </style>
