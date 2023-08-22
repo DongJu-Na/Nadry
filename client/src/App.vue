@@ -5,7 +5,7 @@
   <BottomTab />
   <!-- main -->
   <main class="mt-[80px]">
-    <router-view></router-view>
+    <router-view />
   </main>
   <!-- footer -->
   <Footer />
