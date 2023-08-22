@@ -26,7 +26,10 @@
         />
       </div>
       <!-- button -->
-      <button>로그인</button>
+      <button>
+        <ButtonSpinner v-if="isLoading" />
+        <span v-else>로그인</span>
+      </button>
     </form>
   </div>
 </template>
@@ -34,15 +37,33 @@
 <script setup>
 import { ref } from 'vue';
 import { userLogin } from '@/api';
+import { useMainStore } from '@/store';
+import { useRouter } from 'vue-router';
+import ButtonSpinner from '@/components/common/atoms/ButtonSpinner.vue';
+
+const store = useMainStore();
+const router = useRouter();
 
 const email = ref(null);
 const password = ref(null);
+const isLoading = ref(false);
 
+// 회원 로그인
 const login = async () => {
-  console.log(email.value, password.value);
   try {
-    const result = await userLogin({ email: email.value, password: password.value });
-    console.log(result);
+    const {
+      status,
+      data: { data },
+    } = await userLogin({ email: email.value, password: password.value });
+    isLoading.value = true;
+    // status 200 & data 존재 시
+    if (status === 200 && data) {
+      console.log(data);
+      isLoading.value = false;
+      // user store 저장
+      store.user.setUserInfo(data);
+      router.push('/');
+    }
   } catch (error) {
     console.log(error);
   }
