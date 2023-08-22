@@ -1,8 +1,14 @@
 import { createWebHistory, createRouter } from 'vue-router';
+import { useMainStore } from '@/store';
 
 const routes = [
   {
     path: '/',
+    name: 'root',
+    redirect: '/home',
+  },
+  {
+    path: '/home',
     name: 'home',
     component: () => import('@/views/Home.vue'),
   },
@@ -17,9 +23,26 @@ const routes = [
     component: () => import('@/views/accounts/Join.vue'),
   },
   {
-    path: '/trip',
-    name: 'trip',
+    path: '/trips',
+    name: 'trips',
     component: () => import('@/views/Trip.vue'),
+    children: [
+      {
+        path: '',
+        name: 'trip list',
+        component: () => import('@/views/trip/List.vue'),
+        props: true,
+      },
+      {
+        path: ':id',
+        name: 'trip detail',
+        component: () => import('@/views/trip/Detail.vue'),
+        props: true,
+        meta: {
+          header: false,
+        },
+      },
+    ],
   },
   {
     path: '/stamp',
@@ -46,4 +69,14 @@ const routes = [
 export const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  // console.log(to, from);
+  const store = useMainStore();
+  if (to.name === 'login') {
+    alert('이미 로그인 되어 있습니다.');
+    next(from);
+  }
+  next();
 });
