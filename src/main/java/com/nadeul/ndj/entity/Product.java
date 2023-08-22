@@ -1,6 +1,12 @@
 package com.nadeul.ndj.entity;
 
+import java.time.LocalDateTime;
+
+import com.nadeul.ndj.enums.ProductType;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -8,31 +14,31 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class CommentLike {
+public class Product {
 	
   @Id
   @GeneratedValue
-  private Integer clId;
+  private Integer pdId;
   
-  private Integer bdId;
+  private String name;
   
-  private Integer ptId;
+  private Integer stockQty;
   
-  private Integer cmId;
+  private String thumbnailUrl;
   
-  private int likes;
+  private String shortDescription;
   
-  private Date likeDate;
+  private String Description;
   
-  private String likeYn;
+  @Enumerated(EnumType.STRING)
+  private ProductType productType;
+  
+  private Integer point;
   
   private LocalDateTime createDate;
   
@@ -42,6 +48,8 @@ public class CommentLike {
   
   private String updateBy;
   
-		
-		
+  
+  
+  
+
 }
