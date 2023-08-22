@@ -8,9 +8,8 @@ export const useUserStore = defineStore(
     const isLoggedIn = ref(false);
     const token = ref(null);
 
-    const userInfo = ref({
-      name: null,
-    });
+    // user info
+    const userInfo = ref(null);
 
     // reset
     function $reset() {
@@ -22,8 +21,9 @@ export const useUserStore = defineStore(
     }
 
     // actions
-    function userLogin() {
+    function setUserInfo(payload) {
       isLoggedIn.value = true;
+      userInfo.value = payload;
     }
 
     function userLogout() {
@@ -41,8 +41,8 @@ export const useUserStore = defineStore(
       userInfo,
       // actions
       $reset,
-      userLogin,
       userLogout,
+      setUserInfo,
       setAccessToken,
     };
   },
