@@ -28,3 +28,8 @@ export const userLogin = (payload) => {
 export const join = (payload) => {
   return instanceWithNoAuth.post('/api/v1/auth/register', payload);
 };
+
+// market products
+export const getProducts = () => {
+  return instanceWithNoAuth.get('/api/v1/product/list');
+};
