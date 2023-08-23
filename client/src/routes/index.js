@@ -40,6 +40,7 @@ const routes = [
         props: true,
         meta: {
           header: false,
+          title: '여행 상세',
         },
       },
     ],
@@ -58,6 +59,10 @@ const routes = [
     path: '/market',
     name: 'market',
     component: () => import('@/views/Market.vue'),
+    meta: {
+      header: false,
+      title: '마켓',
+    },
   },
   {
     path: '/menu',
