@@ -1,10 +1,12 @@
 <template>
   <!-- header -->
   <Header v-if="showHeader" />
+  <!-- sub header -->
+  <SubHeader v-else />
   <!-- bottom tab -->
   <BottomTab />
   <!-- main -->
-  <main class="mt-[80px]">
+  <main :class="{ 'mt-[80px]': showHeader }">
     <router-view />
   </main>
   <!-- footer -->
@@ -14,9 +16,10 @@
 <script setup>
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import Header from './components/layout/Header.vue';
-import Footer from './components/layout/Footer.vue';
-import BottomTab from './components/layout/BottomTab.vue';
+import Header from '@/components/layout/Header.vue';
+import SubHeader from '@/components/layout/SubHeader.vue';
+import Footer from '@/components/layout/Footer.vue';
+import BottomTab from '@/components/layout/BottomTab.vue';
 
 const route = useRoute();
 const router = useRouter();
