@@ -1,24 +1,7 @@
 <template>
   <div class="mt-[80px] px-5 mb-[50px]">
-    <!-- product list -->
-    <ProductList :products="store.market.products" />
+    <router-view />
   </div>
 </template>
 
-<script setup>
-import { onMounted } from 'vue';
-import { useMainStore } from '@/store';
-import { fetchProducts } from '@/fetch/useDataFetching.js';
-import ProductList from '@/components/market/ProductList.vue';
-
-// store
-const store = useMainStore();
-
-onMounted(async () => {
-  // fetch products -> store
-  const { fetchedData, error, loading } = await fetchProducts();
-  if (fetchedData) {
-    store.market.setProducts(fetchedData.value);
-  }
-});
-</script>
+<script setup></script>
