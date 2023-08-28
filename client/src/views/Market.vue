@@ -1,32 +1,24 @@
 <template>
-  <div class="mt-[80px] px-5">
+  <div class="mt-[80px] px-5 mb-[50px]">
     <!-- product list -->
-    <div>{{ products }}</div>
+    <ProductList :products="store.market.products" />
   </div>
 </template>
 
 <script setup>
-import { onBeforeMount, ref } from 'vue';
-import { getProducts } from '@/api';
+import { onMounted } from 'vue';
+import { useMainStore } from '@/store';
+import { fetchProducts } from '@/fetch/useDataFetching.js';
+import ProductList from '@/components/market/ProductList.vue';
 
-const products = ref(null);
+// store
+const store = useMainStore();
 
-const fetchProducts = async () => {
-  try {
-    const {
-      status,
-      data: { data },
-    } = await getProducts();
-    console.log(status, data);
-    if (status === 200 && data) {
-      products.value = data;
-    }
-  } catch (error) {
-    console.log(error);
+onMounted(async () => {
+  // fetch products -> store
+  const { fetchedData, error, loading } = await fetchProducts();
+  if (fetchedData) {
+    store.market.setProducts(fetchedData.value);
   }
-};
-
-onBeforeMount(async () => {
-  await fetchProducts();
 });
 </script>
