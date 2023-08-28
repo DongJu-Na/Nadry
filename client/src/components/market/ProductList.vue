@@ -1,7 +1,7 @@
 <template>
   <ul class="grid grid-cols-2 gap-x-3 gap-y-8">
     <li v-for="item in products" :key="item.pdId" class="h-full">
-      <a href="" class="flex flex-col h-full">
+      <router-link :to="`/market/${item.pdId}`" class="flex flex-col h-full">
         <img :src="storageUrl + item.thumbnailUrl" class="aspect-square object-cover rounded-lg" />
         <dl class="flex flex-col mt-3">
           <dt class="text-sm font-medium mb-1 truncate">{{ item.name }}</dt>
@@ -16,7 +16,7 @@
             <span class="font-medium">{{ item.point }}</span>
           </dd>
         </dl>
-      </a>
+      </router-link>
     </li>
   </ul>
 </template>
