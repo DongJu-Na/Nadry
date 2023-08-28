@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- primary image -->
-    <img src="https:/placehold.it/900x900" alt="" />
+    <!-- <img src="https:/placehold.it/900x900" alt="" /> -->
     <div class="p-5">
       <!-- extra -->
       <div class="flex">
