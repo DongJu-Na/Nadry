@@ -23,8 +23,6 @@ import ProductList from '@/components/market/ProductList.vue';
 // store
 const store = useMainStore();
 
-const storageUrl = import.meta.env.VITE_APP_STORAGE_URL;
-
 onMounted(async () => {
   // fetch products -> store
   const { fetchedData, error, loading } = await fetchProducts();
