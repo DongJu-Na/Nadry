@@ -31,7 +31,7 @@
       <IconBasket
         v-if="menu.icon === 'basket'"
         :size="18"
-        :color="route.fullPath === menu.link ? '#059669' : '#D9D9D9'"
+        :color="route.fullPath.includes(menu.link) ? '#059669' : '#D9D9D9'"
       />
       <span class="text-2xs text-zinc-400 mt-[1px]">{{ menu.name }}</span>
     </router-link>
