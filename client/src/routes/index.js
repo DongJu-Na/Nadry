@@ -59,10 +59,28 @@ const routes = [
     path: '/market',
     name: 'market',
     component: () => import('@/views/Market.vue'),
-    meta: {
-      header: false,
-      title: '마켓',
-    },
+    children: [
+      {
+        path: '',
+        name: 'product list',
+        component: () => import('@/views/Market/List.vue'),
+        props: true,
+        meta: {
+          header: false,
+          title: '마켓',
+        },
+      },
+      {
+        path: ':id',
+        name: 'product detail',
+        component: () => import('@/views/Market/Detail.vue'),
+        props: true,
+        meta: {
+          header: false,
+          title: '마켓',
+        },
+      },
+    ],
   },
   {
     path: '/menu',
@@ -83,5 +101,7 @@ router.beforeEach((to, from, next) => {
     alert('이미 로그인 되어 있습니다.');
     next(from);
   }
+
+  window.scrollTo(0, 0);
   next();
 });
