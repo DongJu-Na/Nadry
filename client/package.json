@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host",
+    "dev": "vite --host  --port 5174",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -14,7 +14,8 @@
     "pinia-plugin-persist": "^1.0.0",
     "swiper": "^9.4.1",
     "vue": "^3.2.47",
-    "vue-router": "^4.2.2"
+    "vue-router": "^4.2.2",
+    "vue3-lottie": "^3.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",
