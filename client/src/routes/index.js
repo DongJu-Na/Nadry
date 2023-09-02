@@ -34,7 +34,7 @@ const routes = [
         props: true,
       },
       {
-        path: ':id',
+        path: ':id/:type',
         name: 'trip detail',
         component: () => import('@/views/trip/Detail.vue'),
         props: true,
@@ -86,6 +86,11 @@ const routes = [
     path: '/menu',
     name: 'menu',
     component: () => import('@/views/Menu.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: '404',
+    component: () => import('@/views/404.vue'),
   },
 ];
 
