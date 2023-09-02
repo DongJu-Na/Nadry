@@ -131,9 +131,10 @@ public class PointService<T> {
         }
 
         Member member = optionalMember.get();
+        Optional<Product> productOptional = productRepository.findById(dto.getPdId());
 
         // 2. 입력 데이터 검사
-        Integer usePoints = member.getPoint().getPoint();
+        Integer usePoints = productOptional.get().getPoint();
         if (usePoints == null || usePoints <= 0) {
             // 유효하지 않은 포인트 사용량일 때 에러 반환
             return ApiResponse.errorResponse(ApiResponseEnum.UNKNOWN_POINT);
@@ -158,7 +159,7 @@ public class PointService<T> {
         // 여기서 카트 테이블에 상품을 담고, 주문 내역에 카트를 옮기는 등의 작업을 수행할 수 있습니다.
         // 해당 로직은 프로젝트의 요구사항에 따라 구현해야 합니다.
         
-        Optional<Product> productOptional = productRepository.findById(dto.getPdId());
+        
         
         Cart cart = new Cart();
         CartProduct cartProduct = new CartProduct();
