@@ -1,4 +1,5 @@
 <template>
+  <Loading />
   <!-- header -->
   <Header v-if="showHeader" />
   <!-- sub header -->
@@ -6,7 +7,7 @@
   <!-- bottom tab -->
   <BottomTab />
   <!-- main -->
-  <main :class="{ 'mt-[80px]': showHeader }">
+  <main :class="{ 'pt-[80px]': showHeader }" class="flex flex-col flex-1 min-h-screen">
     <router-view />
   </main>
   <!-- footer -->
@@ -14,12 +15,13 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import Header from '@/components/layout/Header.vue';
 import SubHeader from '@/components/layout/SubHeader.vue';
 import Footer from '@/components/layout/Footer.vue';
 import BottomTab from '@/components/layout/BottomTab.vue';
+import Loading from '@/components/common/templates/Loading.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -35,5 +37,19 @@ watch(route, async () => {
   } else {
     showHeader.value = true;
   }
+});
+
+// 모바일 브라우저 100vh 이슈 해결
+// 실제 height를 1/100 해서 property로 저장
+const setViewHeight = () => {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+};
+
+onMounted(() => {
+  setViewHeight();
+  window.addEventListener('resize', () => {
+    setViewHeight();
+  });
 });
 </script>

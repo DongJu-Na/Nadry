@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center text-zinc-300 text-xs">
+  <div class="flex justify-center h-full">
     <router-view></router-view>
   </div>
 </template>

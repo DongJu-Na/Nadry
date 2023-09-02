@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col my-20">
+  <div class="flex flex-col my-10">
     <!-- title -->
-    <div class="flex justify-between items-center w-full px-5 mb-3">
+    <div class="flex items-center justify-between w-full px-5 mb-3">
       <h2 class="text-lg font-semibold">지금 뜨는 리뷰</h2>
-      <a href="" class="text-zinc-400 px-1">
-        <span class="text-sm font-medium mr-1">전체보기</span>
+      <a href="" class="px-1 text-zinc-400">
+        <span class="mr-1 text-sm font-medium">전체보기</span>
         <i class="las la-arrow-right"></i>
       </a>
     </div>
@@ -18,13 +18,13 @@
         :slides-offset-after="20"
       >
         <SwiperSlide v-for="item in items" :key="item.id">
-          <div class="bg-zinc-50 rounded-xl overflow-hidden">
+          <div class="overflow-hidden bg-zinc-50 rounded-xl">
             <div
-              class="absolute bottom-0 p-3 text-white drop-shadow-sm flex text-xs justify-between items-center w-full leading-none"
+              class="absolute bottom-0 flex items-center justify-between w-full p-3 text-xs leading-none text-white drop-shadow-sm"
             >
               <div>@{{ item.user }}</div>
               <div class="flex items-center">
-                <i class="las la-thumbs-up text-base leading-none mr-1"></i>
+                <i class="mr-1 text-base leading-none las la-thumbs-up"></i>
                 <span>{{ item.like }}</span>
               </div>
             </div>

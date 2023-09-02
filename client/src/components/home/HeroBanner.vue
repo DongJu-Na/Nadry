@@ -1,5 +1,5 @@
 <template>
-  <div class="flex my-10">
+  <div class="flex my-3">
     <Swiper
       :slides-per-view="1.6"
       :space-between="20"
@@ -8,7 +8,7 @@
     >
       <SwiperSlide>
         <router-link to="/trips/1">
-          <div class="bg-zinc-50 rounded-2xl overflow-hidden">
+          <div class="overflow-hidden bg-zinc-50 rounded-2xl">
             <dl class="absolute p-5 text-white drop-shadow-sm">
               <dt>유네스코 세계유산</dt>
               <dd class="text-2xl font-bold leading-6">종묘</dd>
@@ -22,7 +22,7 @@
       </SwiperSlide>
       <SwiperSlide>
         <router-link to="/trips/2">
-          <div class="bg-zinc-50 rounded-2xl overflow-hidden">
+          <div class="overflow-hidden bg-zinc-50 rounded-2xl">
             <dl class="absolute p-5 text-white drop-shadow-sm">
               <dt>유네스코 세계유산</dt>
               <dd class="text-2xl font-bold leading-6">종묘</dd>
@@ -36,7 +36,7 @@
       </SwiperSlide>
       <SwiperSlide>
         <router-link to="/trips/3">
-          <div class="bg-zinc-50 rounded-2xl overflow-hidden">
+          <div class="overflow-hidden bg-zinc-50 rounded-2xl">
             <dl class="absolute p-5 text-white drop-shadow-sm">
               <dt>유네스코 세계유산</dt>
               <dd class="text-2xl font-bold leading-6">종묘</dd>

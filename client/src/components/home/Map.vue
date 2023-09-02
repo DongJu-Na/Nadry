@@ -1,11 +1,11 @@
 <template>
-  <div class="flex flex-col my-20">
-    <h2 class="text-lg font-semibold mb-3 px-5">주변을 둘러 보세요</h2>
+  <div class="flex flex-col my-10">
+    <h2 class="px-5 mb-3 text-lg font-semibold">주변을 둘러 보세요</h2>
     <div id="map" class="w-full h-[500px]">
       <!-- input -->
       <div class="absolute z-[99] p-3 w-full">
-        <div class="bg-white w-full rounded-md p-3 shadow-md flex items-center">
-          <i class="las la-search text-xl mr-2 text-zinc-400"></i>
+        <div class="flex items-center w-full p-3 bg-white rounded-md shadow-md">
+          <i class="mr-2 text-xl las la-search text-zinc-400"></i>
           <input type="text" placeholder="지금, 경주를 검색해보세요!" />
         </div>
       </div>
