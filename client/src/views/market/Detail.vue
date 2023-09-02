@@ -1,7 +1,7 @@
 <template>
   <div v-if="product">
     <dl>
-      <dt class="text-sm text-zinc-400 font-medium mb-1">{{ product.shortDescription }}</dt>
+      <dt class="mb-1 text-sm font-medium text-zinc-400">{{ product.shortDescription }}</dt>
       <dd class="text-xl font-bold">{{ product.name }}</dd>
     </dl>
     <div class="flex items-center gap-1 mt-3">
@@ -11,7 +11,7 @@
       >
       <span class="font-medium">{{ product.point }}</span>
     </div>
-    <ul class="text-sm font-medium text-zinc-400 mt-3">
+    <ul class="mt-3 text-sm font-medium text-zinc-400">
       <li class="flex gap-5">
         <div>상품 형태</div>
         <div>{{ product.productType }}</div>
