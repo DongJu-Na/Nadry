@@ -56,16 +56,12 @@ public class PointController<T> {
   @PostMapping("/use")
   @Operation(summary = "포인트 사용", description = "나드리 포인트 사용")
   public ResponseEntity<ApiResponse<T>> use( @RequestBody PointUseDto request ) {
-  	
-  	if(request.getPosX() == null || request.getPosX().toString().equals("")) {
-  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"위도"));
+	  
+  	if(request.getPdId() == null || request.getPdId().toString().equals("")) {
+  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"상품번호"));
   	}
   	
-  	if(request.getPosY() == null || request.getPosY().toString().equals("")) {
-  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"경도"));
-  	}
-  	
-    return ResponseEntity.ok(null);
+    return ResponseEntity.ok(service.use(request));
   }
   
 }

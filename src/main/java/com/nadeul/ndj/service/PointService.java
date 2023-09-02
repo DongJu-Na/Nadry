@@ -1,5 +1,6 @@
 package com.nadeul.ndj.service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.security.core.Authentication;
@@ -10,14 +11,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nadeul.ndj.dto.ApiResponse;
 import com.nadeul.ndj.dto.PointEarnDto;
+import com.nadeul.ndj.dto.PointUseDto;
+import com.nadeul.ndj.entity.Cart;
+import com.nadeul.ndj.entity.CartProduct;
 import com.nadeul.ndj.entity.Member;
+import com.nadeul.ndj.entity.Orders;
 import com.nadeul.ndj.entity.Point;
 import com.nadeul.ndj.entity.PointHistory;
+import com.nadeul.ndj.entity.Product;
 import com.nadeul.ndj.entity.Trip;
 import com.nadeul.ndj.enums.ApiResponseEnum;
+import com.nadeul.ndj.enums.OrderStatus;
+import com.nadeul.ndj.repository.CartProductRepository;
+import com.nadeul.ndj.repository.CartRepository;
 import com.nadeul.ndj.repository.MemberRepository;
+import com.nadeul.ndj.repository.OrdersRepository;
 import com.nadeul.ndj.repository.PointHistoryRepository;
 import com.nadeul.ndj.repository.PointRepository;
+import com.nadeul.ndj.repository.ProductRepository;
 import com.nadeul.ndj.repository.TripRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -29,14 +40,18 @@ public class PointService<T> {
 	private final TripRepository tripRepository;
 	private final PointRepository pointRepository;
 	private final PointHistoryRepository pointHistoryRepository;
+	private final ProductRepository productRepository; 
 	private final MemberRepository memberRepository;
+	private final CartRepository cartRepository;
+	private final OrdersRepository ordersRepository;
+	private final CartProductRepository cartProductRepository;
 	
 	@Transactional
 	public ApiResponse<T> earn(PointEarnDto dto) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Object principal = authentication.getPrincipal();
-		
+		 
 		if (principal instanceof UserDetails) {
 			String email = ((UserDetails) principal).getUsername();
 			Optional<Member>  optionalMember = memberRepository.findByEmail(email);
@@ -78,6 +93,9 @@ public class PointService<T> {
 						// process 3 포인트 히스토리 Insert
 						var pointHistory = PointHistory.builder()
 								.poId(savePoint.getPoId())
+								.usePoint(10)
+								.usedBy(optionalMember.get().getEmail())
+								.useDate(LocalDateTime.now())
 								.build();
 						
 						var savePointHistory = pointHistoryRepository.save(pointHistory);
@@ -92,6 +110,88 @@ public class PointService<T> {
 		
 		
     return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,null,null,null);
+  }
+	
+	@Transactional
+	public ApiResponse<T> use(PointUseDto dto) {
+        // 1. 사용자 인증 및 권한 확인
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+
+        if (!(principal instanceof UserDetails)) {
+            // 인증 실패 시 에러 반환
+            return ApiResponse.errorResponse(ApiResponseEnum.UNKNOWN_MEMBER);
+        }
+
+        String email = ((UserDetails) principal).getUsername();
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+        if (!optionalMember.isPresent()) {
+            // 사용자 정보를 찾을 수 없을 때 에러 반환
+            return ApiResponse.errorResponse(ApiResponseEnum.UNKNOWN_MEMBER);
+        }
+
+        Member member = optionalMember.get();
+        Optional<Product> productOptional = productRepository.findById(dto.getPdId());
+
+        // 2. 입력 데이터 검사
+        Integer usePoints = productOptional.get().getPoint();
+        if (usePoints == null || usePoints <= 0) {
+            // 유효하지 않은 포인트 사용량일 때 에러 반환
+            return ApiResponse.errorResponse(ApiResponseEnum.UNKNOWN_POINT);
+        }
+
+        // 3. 포인트 사용 가능 여부 확인
+        Optional<Point> pointOptional = pointRepository.findByMemberMemId(member.getMemId());
+        if (!pointOptional.isPresent()) {
+            // 포인트 정보를 찾을 수 없을 때 에러 반환
+            return ApiResponse.errorResponse(ApiResponseEnum.NOTFOUND_POINT);
+        }
+
+        Point point = pointOptional.get();
+        Integer availablePoints = point.getPoint();
+
+        if (usePoints > availablePoints) {
+            // 포인트가 부족할 때 에러 반환
+            return ApiResponse.errorResponse(ApiResponseEnum.LACK_POINT);
+        }
+
+        // 4. 포인트 사용 로직
+        // 여기서 카트 테이블에 상품을 담고, 주문 내역에 카트를 옮기는 등의 작업을 수행할 수 있습니다.
+        // 해당 로직은 프로젝트의 요구사항에 따라 구현해야 합니다.
+        
+        
+        
+        Cart cart = new Cart();
+        CartProduct cartProduct = new CartProduct();
+        cartProduct.setProduct(productOptional.get()); // product는 제품 엔티티의 인스턴스
+        cartProduct.setCount(1); // 제품의 수량 설정 등
+        
+        cart.setIncludedProducts(null);
+        cart.setMember(member);
+        
+        Orders orders = new Orders();
+        	   orders.setStatus(OrderStatus.CREATED);
+        	   orders.setCart(cart);
+        	   orders.setMember(member);
+        
+        cartProductRepository.save(cartProduct);
+        cartRepository.save(cart);
+        ordersRepository.save(orders);
+
+        // 5. 포인트 차감 및 업데이트
+        point.setPoint(availablePoints - usePoints);
+        pointRepository.save(point);
+
+        // 6. 포인트 히스토리에 사용 내역 저장
+        PointHistory pointHistory = new PointHistory();
+        pointHistory.setPoId(point.getPoId());
+        pointHistory.setUseDate(LocalDateTime.now());
+        pointHistory.setUsePoint(usePoints);
+        pointHistory.setUsedBy(member.getEmail());
+        pointHistoryRepository.save(pointHistory);
+
+        // 성공적으로 포인트 사용이 완료되었을 때 성공 응답 반환
+        return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null , null, null);
   }
 
 	

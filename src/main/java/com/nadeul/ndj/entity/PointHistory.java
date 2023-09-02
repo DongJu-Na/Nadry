@@ -1,6 +1,6 @@
 package com.nadeul.ndj.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,7 +23,7 @@ public class PointHistory {
   
   private Integer poId;
   
-  private Date useDate;
+  private LocalDateTime useDate;
   
   private Integer usePoint;
   
