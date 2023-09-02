@@ -22,6 +22,10 @@ public enum ApiResponseEnum {
   INCONGRUITY("0008","데이터가 적합하지 않습니다."),
   POSITION_UNAVAILABLE("0009","위치 정보가 유효하지 않습니다."),
   
+  
+  LACK_POINT("9996","포인트가 부족합니다."),
+  NOTFOUND_POINT("9996","포인트 정보를 찾을 수 없습니다."),
+  UNKNOWN_POINT("9997","사용할 포인트가 부족합니다."),
   UNKNOWN_MEMBER("9998","로그인이 필요한 서비스 입니다."),
   UNKNOWN_ERROR("9999","알 수 없는 오류가 발생했습니다.");
 
