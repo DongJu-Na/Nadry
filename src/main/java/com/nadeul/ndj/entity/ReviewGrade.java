@@ -1,7 +1,9 @@
 package com.nadeul.ndj.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -32,8 +34,8 @@ public class ReviewGrade {
   @JoinColumn(name = "memId")
   private Member member;
 
-  
-  private double rating;
+  @Column(name = "rating", precision = 2, scale = 1)
+  private BigDecimal rating;
 
   private LocalDateTime ratingDate;
   

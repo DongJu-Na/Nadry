@@ -3,6 +3,8 @@ package com.nadeul.ndj.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -49,10 +51,12 @@ public class Review {
   private List<ReviewLike> reviewLike;
   
   @OneToMany
+  @JsonIgnore
   @JoinColumn(name = "rgId")
   private List<ReviewGrade> reviewGrade;
   
   @ManyToOne(fetch = FetchType.LAZY)
+  @JsonIgnore
   @JoinColumn(name = "memId", insertable = true, updatable = true)
   private Member member;
 		

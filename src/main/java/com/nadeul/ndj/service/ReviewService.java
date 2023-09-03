@@ -1,6 +1,7 @@
 package com.nadeul.ndj.service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -42,22 +43,21 @@ public class ReviewService<T> {
 	 private String savePath;
 	  
 	public ApiResponse<ListResponse> list(ReviewDto.ListRequest request) {
-        Optional<List<Review>> optionalReviews = Optional.of(reviewRepository.findByContentId(Integer.parseInt(request.getContentId().toString())).orElse(null));
-        
-        List<Review> reviews = optionalReviews.get();
+		List<Review> reviews = reviewRepository.findByContentId(request.getContentId().toString());
         int totalLikes = calculateTotalLikes(reviews);
-        Optional<Double> averageRating = Optional.ofNullable(reviewRepository.findAverageRatingByContentId(request.getContentId().toString())).orElse(Optional.of(0.0));
-
-
-        ReviewDto.ListResponse response = new ReviewDto.ListResponse(reviews, averageRating.get(), totalLikes);
+        BigDecimal averageRating = reviewRepository.findAverageRatingByContentId(request.getContentId().toString());
+        BigDecimal averageRatingValue = new BigDecimal("0.0");
+        if(!(averageRating == null)) {
+        	averageRatingValue = averageRating;
+        }
+        ReviewDto.ListResponse response = new ReviewDto.ListResponse(reviews, averageRatingValue, totalLikes);
 		  
 		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, response, null, null);
 	 }
 	  
-	public ApiResponse<Post> createReview(ReviewDto.CreateUpdateDto request) {
+	public ApiResponse<T> createReview(ReviewDto.CreateUpdateDto request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
-
         if (!(principal instanceof UserDetails)) {
             // 인증 실패 시 에러 반환
             return ApiResponse.errorResponse(ApiResponseEnum.UNKNOWN_MEMBER);
@@ -99,7 +99,7 @@ public class ReviewService<T> {
 		 ReviewGrade reviewGrade = ReviewGrade.builder()
 				 				   .review(reivew)
 				                   .member(member)
-				                   .rating(Double.parseDouble(request.getReviewRating().toString()))
+				                   .rating(new BigDecimal(request.getReviewRating()))
 				                   .ratingDate(LocalDateTime.now())
 				                   .build();
 		 
@@ -138,7 +138,7 @@ public class ReviewService<T> {
         	reviewGrade.get().builder()
         	.review(reivew.get())
             .member(member)
-            .rating(Double.parseDouble(request.getReviewRating().toString()))
+            .rating(new BigDecimal(request.getReviewRating()))
             .ratingDate(LocalDateTime.now())
         	.build();
         	reviewGradeRepository.save(reviewGrade.get());
@@ -156,6 +156,7 @@ public class ReviewService<T> {
 	  
 
     private int calculateTotalLikes(List<Review> reviews) {
+    	if(reviews.isEmpty()) return 0;
         return reviews.stream().mapToInt(Review::getLikes).sum();
     }
 }

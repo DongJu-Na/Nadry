@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 
 @Tag(name = "ReviewService", description = "여행리뷰 서비스 API")
 @RestController
-@RequestMapping("/api/v1/review")
+@RequestMapping("/api/v2/review")
 @RequiredArgsConstructor
 public class ReviewController<T> {
 	
@@ -38,14 +38,14 @@ public class ReviewController<T> {
 	
 	@PostMapping("/")
 	@Operation(summary = "여행 리뷰 등록", description = "여행 리뷰 게시물 등록")
-    public ResponseEntity<ApiResponse<Post>> createReview(ReviewDto.CreateUpdateDto request,
+    public ResponseEntity<ApiResponse<T>> createReview(ReviewDto.CreateUpdateDto request,
     													  @RequestParam(value = "reviewImage" , required = false) MultipartFile reviewImage
     		) {
-		
 		if(request.getContentId() == null || request.getContentId().toString().equals("리뷰 컨텐츠 번호")) {
 	  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"리뷰 컨텐츠 번호"));
 	  	}
 		
+		request.setReviewImage(reviewImage);
         return ResponseEntity.ok(reviewService.createReview(request));
     }
 	
@@ -67,6 +67,7 @@ public class ReviewController<T> {
 	  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"리뷰 내용"));
 	  	}
 		
+		request.setReviewImage(reviewImage);
         return ResponseEntity.ok(reviewService.updateReview(request));
     }
 	

@@ -1,4 +1,5 @@
 package com.nadeul.ndj.dto;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +21,7 @@ public class ReviewDto {
     @Builder
     public static class ListRequest {
     	  @Schema(description = "리뷰 콘텐츠 번호" , example = "1")
-    	  private Integer contentId;
+    	  private String contentId;
 
     }
 
@@ -28,10 +29,10 @@ public class ReviewDto {
     public static class ListResponse {
 	  @Schema(description = "여행 리뷰 목록" , example = "객체 반환")
 	  private List<Review> review;
-	  private double averageRating;
+	  private BigDecimal averageRating;
 	  private int totalLikes;
 	  
-	  public ListResponse(List<Review> review, double averageRating, int totalLikes) {
+	  public ListResponse(List<Review> review, BigDecimal averageRating, int totalLikes) {
 	        this.review = review;
 	        this.averageRating = averageRating;
 	        this.totalLikes = totalLikes;
