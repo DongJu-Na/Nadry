@@ -1,0 +1,82 @@
+package com.nadeul.ndj.controller;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.nadeul.ndj.dto.ApiResponse;
+import com.nadeul.ndj.dto.ReviewDto;
+import com.nadeul.ndj.entity.Post;
+import com.nadeul.ndj.enums.ApiResponseEnum;
+import com.nadeul.ndj.service.ReviewService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+
+@Tag(name = "ReviewService", description = "여행리뷰 서비스 API")
+@RestController
+@RequestMapping("/api/v1/review")
+@RequiredArgsConstructor
+public class ReviewController<T> {
+	
+	private final ReviewService<T> reviewService;
+	
+	
+	@GetMapping("/list")
+	@Operation(summary = "여행 리뷰 조회", description = "여행 리뷰 목록 조회")
+    public ResponseEntity<ApiResponse<ReviewDto.ListResponse>> list(ReviewDto.ListRequest request) {
+        return ResponseEntity.ok(reviewService.list(request));
+    }
+	
+	@PostMapping("/")
+	@Operation(summary = "여행 리뷰 등록", description = "여행 리뷰 게시물 등록")
+    public ResponseEntity<ApiResponse<Post>> createReview(ReviewDto.CreateUpdateDto request,
+    													  @RequestParam(value = "reviewImage" , required = false) MultipartFile reviewImage
+    		) {
+		
+		if(request.getContentId() == null || request.getContentId().toString().equals("리뷰 컨텐츠 번호")) {
+	  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"리뷰 컨텐츠 번호"));
+	  	}
+		
+        return ResponseEntity.ok(reviewService.createReview(request));
+    }
+	
+	
+	@PutMapping("/{id}")
+	@Operation(summary = "여행 리뷰 수정", description = "여행 리뷰 게시물 수정")
+    public ResponseEntity<ApiResponse<Post>> updateReview(@PathVariable("id") Integer id, 
+    		ReviewDto.CreateUpdateDto request,
+			  @RequestParam(value = "reviewImage" , required = false) MultipartFile reviewImage) {
+		if(request.getRvId() == null || request.getRvId().toString().equals("")) {
+	  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"리뷰 번호"));
+	  	}
+		
+		if(request.getContentId() == null || request.getContentId().toString().equals("리뷰 컨텐츠 번호")) {
+	  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"리뷰 컨텐츠 번호"));
+	  	}
+		
+		if(request.getContent() == null || request.getContent().toString().equals("리뷰 내용")) {
+	  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"리뷰 내용"));
+	  	}
+		
+        return ResponseEntity.ok(reviewService.updateReview(request));
+    }
+	
+	@DeleteMapping("/{id}")
+	@Operation(summary = "여행 리뷰 수정", description = "여행 리뷰 게시물 삭제")
+    public ResponseEntity<ApiResponse<Void>> deleteReview(@PathVariable("id") Integer id) {
+		reviewService.deleteReview(id);
+        return ResponseEntity.ok(ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null, null, null));
+    }
+	
+	    
+	
+}
