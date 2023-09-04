@@ -85,3 +85,9 @@ export const postTripReview = (payload) => {
 export const putTripReview = (payload) => {
   return instanceWithNoAuth.put('/api/v2/review/' , payload);
 };
+
+// 여행리뷰 좋아요
+// param : {"rvId" : "" , "rlId": "", "contentId": ""}   rvId 리뷰번호 필수  rlId 리뷰좋아요 번호 삭제 시 필수
+export const postTripLike = (payload) => {
+  return instanceWithNoAuth.post('/api/v2/review/reviewLike' , payload);
+};
