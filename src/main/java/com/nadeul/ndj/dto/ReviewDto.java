@@ -58,4 +58,17 @@ public class ReviewDto {
 
     }
     
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class reviewLikeDto {
+    	@Schema(description = "리뷰 번호" , example = "1")
+	    private String rvId;
+    	@Schema(description = "리뷰 좋아요 번호" , example = "1" , defaultValue = "0")
+	    private String rlId;
+    	@Schema(description = "리뷰 콘텐츠 번호" , example = "1")
+	    private String contentId;
+    }
+    
 }
