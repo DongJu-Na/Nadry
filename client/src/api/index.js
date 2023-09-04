@@ -16,6 +16,17 @@ const createInstanceWithNoAuth = () => {
   return instance;
 };
 
+const makeDynamicUrl = (params) => {
+  let queryString = Object.entries(params)
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+    .join('&');
+
+  if (queryString) {
+    queryString = `?${queryString}`;
+  }
+  return queryString;
+}
+
 const instance = createInstance();
 const instanceWithNoAuth = createInstanceWithNoAuth();
 
@@ -29,9 +40,10 @@ export const join = (payload) => {
   return instanceWithNoAuth.post('/api/v1/auth/register', payload);
 };
 
-// market products
+// 상품 조회 - market products 
+// param : { "page": 1, "size": 10, "sort": ["name"]} 그냥 객체로 전송 시 모든 데이터 조회
 export const getProducts = () => {
-  return instanceWithNoAuth.get('/api/v1/product/list');
+  return instanceWithNoAuth.get('/api/v2/product/list');
 };
 
 // 여행지 검색
@@ -54,4 +66,22 @@ export const getTripDetailImage = (payload) => {
 // 여행지 상세 조회 - Common
 export const getTripDetailCommon = (payload) => {
   return instanceWithNoAuth.post('/api/v1/tour/detailCommon1/Kor', payload);
+};
+
+// 여행리뷰 조회
+// param : {"contentId" : "2894451" , "page": 1, "size": 10, "sort": ["name"]}  contentId는 필수  , page 는 생략 시 contentId로 모든 데이터 조회
+export const getTripReview = (payload) => {
+  return instanceWithNoAuth.get('/api/v2/review/list' + makeDynamicUrl(payload));
+};
+
+// 여행리뷰 등록
+// param : {"rvId" : "" , "contentId": "2894451", "content": "먹태깡 재고가 많아서 좋아요.", "reviewRating": "4.5" , "reviewImage" : file}  rvId 는 수정 시 필수 등록 시에는 사용 안하는 값 reviewImage는 파일로 전송주시면 됩니다(사진있을시)
+export const postTripReview = (payload) => {
+  return instanceWithNoAuth.post('/api/v2/review/' , payload);
+};
+
+// 여행리뷰 수정
+// param : {"rvId" : "" , "contentId": "2894451", "content": "마음이 변했어요 별로에요.", "reviewRating": "1.0" , "reviewImage" : file}  rvId 는 수정 시에는 필수값
+export const putTripReview = (payload) => {
+  return instanceWithNoAuth.put('/api/v2/review/' , payload);
 };
