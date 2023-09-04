@@ -11,6 +11,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +25,7 @@ import com.nadeul.ndj.entity.Member;
 import com.nadeul.ndj.entity.Post;
 import com.nadeul.ndj.entity.Review;
 import com.nadeul.ndj.entity.ReviewGrade;
+import com.nadeul.ndj.entity.ReviewLike;
 import com.nadeul.ndj.enums.ApiResponseEnum;
 import com.nadeul.ndj.repository.MemberRepository;
 import com.nadeul.ndj.repository.ReviewGradeRepository;
@@ -42,15 +45,16 @@ public class ReviewService<T> {
 	 @Value("${file.savePath}")
 	 private String savePath;
 	  
-	public ApiResponse<ListResponse> list(ReviewDto.ListRequest request) {
-		List<Review> reviews = reviewRepository.findByContentId(request.getContentId().toString());
-        int totalLikes = calculateTotalLikes(reviews);
+	public ApiResponse<ListResponse> list(ReviewDto.ListRequest request,Pageable pageable) {
+		Page<Review> reviews = reviewRepository.findByContentId(request.getContentId().toString(),pageable);
+		List<Review> reviewList = reviews.getContent(); 
+        int totalLikes = calculateTotalLikes(reviewList);
         BigDecimal averageRating = reviewRepository.findAverageRatingByContentId(request.getContentId().toString());
         BigDecimal averageRatingValue = new BigDecimal("0.0");
         if(!(averageRating == null)) {
         	averageRatingValue = averageRating;
         }
-        ReviewDto.ListResponse response = new ReviewDto.ListResponse(reviews, averageRatingValue, totalLikes);
+        ReviewDto.ListResponse response = new ReviewDto.ListResponse(reviewList, averageRatingValue, totalLikes);
 		  
 		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, response, null, null);
 	 }
@@ -71,6 +75,10 @@ public class ReviewService<T> {
         }
 
         Member member = optionalMember.get();
+        int reviewValidCnt = reviewRepository.countReviewsByContentIdAndCreateBy(request.getContentId(), email);
+        if(reviewValidCnt > 0) {
+        	return ApiResponse.failResponse(ApiResponseEnum.DUPLICATION,"여행 리뷰");
+        }
 		
 		String saveSuccessPath = null;
 		try {
@@ -159,4 +167,39 @@ public class ReviewService<T> {
     	if(reviews.isEmpty()) return 0;
         return reviews.stream().mapToInt(Review::getLikes).sum();
     }
+    
+	public ApiResponse<T> reviewLike(ReviewDto.reviewLikeDto request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        if (!(principal instanceof UserDetails)) {
+            // 인증 실패 시 에러 반환
+            return ApiResponse.errorResponse(ApiResponseEnum.UNKNOWN_MEMBER);
+        }
+        
+        String email = ((UserDetails) principal).getUsername();
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+        if (!optionalMember.isPresent()) {
+            // 사용자 정보를 찾을 수 없을 때 에러 반환
+            return ApiResponse.errorResponse(ApiResponseEnum.UNKNOWN_MEMBER);
+        }
+
+        Member member = optionalMember.get();
+        Optional<ReviewLike> reviewLikeValid = reviewLikeRepository.findById(Integer.parseInt(request.getRlId()));
+        if(reviewLikeValid.isPresent()) {
+        	// 이미 좋아요 한 경우에는 좋아요 삭제
+        	reviewLikeRepository.delete(reviewLikeValid.get());
+        }else {
+        	Optional<Review> reivew = reviewRepository.findById(Integer.parseInt(request.getRvId()));
+        	ReviewLike reviewLike = ReviewLike.builder()
+        			                .review(reivew.get())
+        			                .member(member)
+        			                .likes(1)
+        			                .likeDate(LocalDateTime.now())
+        			                .build();
+        	
+        	reviewLikeRepository.save(reviewLike);						 
+        }
+        
+        return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null, null, null);
+	}
 }

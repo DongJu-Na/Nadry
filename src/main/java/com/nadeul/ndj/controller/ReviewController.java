@@ -1,5 +1,6 @@
 package com.nadeul.ndj.controller;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +33,8 @@ public class ReviewController<T> {
 	
 	@GetMapping("/list")
 	@Operation(summary = "여행 리뷰 조회", description = "여행 리뷰 목록 조회")
-    public ResponseEntity<ApiResponse<ReviewDto.ListResponse>> list(ReviewDto.ListRequest request) {
-        return ResponseEntity.ok(reviewService.list(request));
+    public ResponseEntity<ApiResponse<ReviewDto.ListResponse>> list(ReviewDto.ListRequest request , Pageable pageable) {
+        return ResponseEntity.ok(reviewService.list(request,pageable));
     }
 	
 	@PostMapping("/")
@@ -50,9 +51,9 @@ public class ReviewController<T> {
     }
 	
 	
-	@PutMapping("/{id}")
+	@PutMapping("/")
 	@Operation(summary = "여행 리뷰 수정", description = "여행 리뷰 게시물 수정")
-    public ResponseEntity<ApiResponse<Post>> updateReview(@PathVariable("id") Integer id, 
+    public ResponseEntity<ApiResponse<Post>> updateReview( 
     		ReviewDto.CreateUpdateDto request,
 			  @RequestParam(value = "reviewImage" , required = false) MultipartFile reviewImage) {
 		if(request.getRvId() == null || request.getRvId().toString().equals("")) {
@@ -78,6 +79,13 @@ public class ReviewController<T> {
         return ResponseEntity.ok(ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null, null, null));
     }
 	
-	    
+	@PostMapping("/reviewLike")
+	@Operation(summary = "여행 리뷰 좋아요", description = "해당 리뷰를 좋아요 했을 경우에는 삭제 아닐 경우에는 좋아요")
+    public ResponseEntity<ApiResponse<T>> reviewLike(ReviewDto.reviewLikeDto request) {
+		if(request.getRvId() == null || request.getRvId().toString().equals("")) {
+	  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"리뷰 번호"));
+	  	}
+        return ResponseEntity.ok(reviewService.reviewLike(request));
+    }
 	
 }
