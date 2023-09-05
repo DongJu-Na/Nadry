@@ -1,9 +1,15 @@
 <template>
-  <div v-if="detailCommon && detailImage" class="">
+  <div v-if="detailCommon" class="">
     <!-- primary image -->
-    <img :src="detailImage[0].originimgurl" alt="" />
-    {{ detailIntro }}
-    <div class="p-5">
+    <img v-if="detailImage" :src="detailImage[0].originimgurl" class="w-full" />
+    <div
+      v-else
+      class="flex flex-col justify-center items-center bg-zinc-200 w-full h-[300px] text-zinc-500"
+    >
+      <i class="las la-image text-[2rem]"></i>
+      <span class="text-sm">관련 이미지가 없습니다</span>
+    </div>
+    <div class="px-5 mt-10">
       <!-- extra -->
       <!-- <div class="flex">
         <div>
@@ -22,25 +28,37 @@
         <span>#핫플</span>
       </div> -->
       <!-- title -->
-      <h1>{{ detailCommon.title }}</h1>
-      <div>{{ detailCommon.add1 }}</div>
-      <div>{{ detailCommon.add2 }}</div>
-      <div v-html="detailCommon.homepage"></div>
-      <!-- rating -->
-      <div>
-        <div>4.9</div>
-        <div>*****</div>
+      <h1 class="text-2xl">{{ detailCommon.title }}</h1>
+      <div class="flex gap-1 mt-2 text-sm text-zinc-400">
+        <p>{{ detailCommon.addr1 }}</p>
+        <p>{{ detailCommon.addr2 }}</p>
       </div>
-      <div>387개의 리뷰가 있습니다</div>
+      <div v-html="detailCommon.homepage" class="mt-1 text-sm text-blue-600"></div>
+      <!-- rating -->
+      <div class="flex gap-3 mt-3 text-xs">
+        <div class="flex items-center gap-1">
+          <img src="/svg/star.svg" class="w-[16px]" />
+          <span class="text-sm font-semibold">5.0</span>
+        </div>
+        <div class="flex items-center gap-1">
+          <img src="/svg/comment.svg" class="w-[16px]" />
+          <span class="text-sm font-semibold">30</span>
+        </div>
+      </div>
       <!-- description -->
-      <div v-html="detailCommon.overview" class="mt-10 break-keep"></div>
+      <div v-html="detailCommon.overview" class="mt-8 break-keep"></div>
       <!-- etc information -->
       <div class="mt-10">
-        <h3>이용안내</h3>
+        <h3 class="mb-3 font-medium">이용안내</h3>
+        <div class="mt-3 text-xs text-zinc-400">{{ detailIntro }}</div>
       </div>
       <!-- reviews -->
       <div class="mt-10">
-        <h3>리뷰</h3>
+        <h3 class="mb-3 font-medium">리뷰</h3>
+        <a href="" class="button">
+          <i class="las la-pen"></i>
+          <span>리뷰 작성</span>
+        </a>
       </div>
     </div>
   </div>
@@ -74,6 +92,7 @@ const detailCommon = ref(null);
 const fetchTripData = async () => {
   // 로딩중 출력
   store.state.setLoading(true);
+
   // Intro
   try {
     const payload = {
@@ -90,7 +109,7 @@ const fetchTripData = async () => {
         },
       },
     } = await getTripDetailIntro(payload);
-    console.log(status, item[0]);
+    console.log('detailIntro: ', status, item[0]);
     if (status === 200 && item[0]) {
       detailIntro.value = item[0];
     }
@@ -117,7 +136,7 @@ const fetchTripData = async () => {
         },
       },
     } = await getTripDetailImage(payload);
-    console.log(status, item);
+    console.log('detailImage: ', status, item);
     if (status === 200 && item) {
       detailImage.value = item;
     }
@@ -148,7 +167,7 @@ const fetchTripData = async () => {
         },
       },
     } = await getTripDetailCommon(payload);
-    console.log(status, item[0]);
+    console.log('detailCommon: ', status, item[0]);
     if (status === 200 && item[0]) {
       detailCommon.value = item[0];
     }
