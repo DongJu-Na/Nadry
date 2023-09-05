@@ -42,6 +42,9 @@
   .button {
     @apply flex justify-center items-center bg-emerald-500 text-white font-medium h-[48px] rounded-full text-base px-[50px];
   }
+  .button i {
+    @apply text-xl mr-1;
+  }
 
   .checkbox {
     @apply hidden;
