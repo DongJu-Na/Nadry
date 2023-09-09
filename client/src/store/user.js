@@ -15,9 +15,7 @@ export const useUserStore = defineStore(
     function $reset() {
       isLoggedIn.value = false;
       token.value = null;
-      userInfo.value = {
-        name: null,
-      };
+      userInfo.value = null;
     }
 
     // actions
@@ -28,6 +26,7 @@ export const useUserStore = defineStore(
 
     function userLogout() {
       isLoggedIn.value = false;
+      userInfo.value = null;
     }
 
     function setAccessToken(value) {
