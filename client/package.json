@@ -9,12 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.16",
+    "@heroicons/vue": "^2.0.18",
     "axios": "^1.4.0",
     "pinia": "^2.1.4",
     "pinia-plugin-persist": "^1.0.0",
     "swiper": "^9.4.1",
     "vue": "^3.2.47",
     "vue-router": "^4.2.2",
+    "vue-star-rating": "^2.1.0",
     "vue3-lottie": "^3.1.0"
   },
   "devDependencies": {
