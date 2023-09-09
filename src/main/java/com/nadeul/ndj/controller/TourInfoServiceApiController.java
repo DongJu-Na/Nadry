@@ -296,7 +296,7 @@ public class TourInfoServiceApiController {
 		if(lang == null || lang.equals("")) {
 			lang = "kor";
 		}
-		return tourInfoService.detailIntro1(lang,requestParam);
+		return tourInfoService.detailInfo1(lang,requestParam);
 	}
 	
 	@PostMapping("/detailImage1/{lang}")
