@@ -103,8 +103,12 @@ router.beforeEach((to, from, next) => {
   // console.log(to, from);
   const store = useMainStore();
   if (to.name === 'login') {
-    alert('이미 로그인 되어 있습니다.');
-    next(from);
+    if (store.user.isLoggedIn) {
+      alert('이미 로그인 되어 있습니다.');
+      next(from);
+    } else {
+      next();
+    }
   }
 
   window.scrollTo(0, 0);
