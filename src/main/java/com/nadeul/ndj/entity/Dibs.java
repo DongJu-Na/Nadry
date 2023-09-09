@@ -28,6 +28,10 @@ public class Dibs {
   @JoinColumn(name = "memId", insertable = true, updatable = true)
   public Member member;
   
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "rvId", insertable = true, updatable = true)
+  public Review review;
+  
   private LocalDateTime dibsDate;
   
   private String contentId;
