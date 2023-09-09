@@ -36,14 +36,17 @@
   }
 
   button {
-    @apply bg-emerald-500 text-white font-medium w-full h-[48px] rounded text-base;
+    @apply bg-emerald-500 text-white font-medium w-full h-[48px] rounded text-base items-center;
   }
 
   .button {
-    @apply flex justify-center items-center bg-emerald-500 text-white font-medium h-[48px] rounded-full text-base px-[50px];
+    @apply flex justify-center items-center bg-emerald-500 text-white font-medium h-[48px] rounded-full text-base px-[50px] transition-all duration-150;
   }
   .button i {
     @apply text-xl mr-1;
+  }
+  .button:active {
+    @apply scale-[98%];
   }
 
   .checkbox {
