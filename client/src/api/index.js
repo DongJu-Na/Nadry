@@ -5,6 +5,7 @@ import { setInterceptors } from './interceptors';
 // token 필요한 instance
 const createInstance = () => {
   const instance = axios.create();
+  instance.defaults.withCredentials = true;
   instance.defaults.baseURL = import.meta.env.VITE_APP_API_URL;
   return setInterceptors(instance);
 };
@@ -77,7 +78,16 @@ export const getTripReview = (payload) => {
 // 여행리뷰 등록
 // param : {"rvId" : "" , "contentId": "2894451", "content": "먹태깡 재고가 많아서 좋아요.", "reviewRating": "4.5" , "reviewImage" : file}  rvId 는 수정 시 필수 등록 시에는 사용 안하는 값 reviewImage는 파일로 전송주시면 됩니다(사진있을시)
 export const postTripReview = (payload) => {
-  return instanceWithNoAuth.post('/api/v2/review/', payload);
+  console.log(payload);
+  const formData = new FormData();
+  formData.append('contentId', payload.contentId);
+  formData.append('content', payload.content);
+  formData.append('reviewRating', payload.reviewRating);
+  return instance.post('/api/v2/review/', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };
 
 // 여행리뷰 수정

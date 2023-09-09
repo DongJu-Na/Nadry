@@ -5,7 +5,7 @@ export function setInterceptors(instance) {
     function (config) {
       // accessToken
       const store = useMainStore();
-      config.headers.Authorization = 'Bearer ' + store.user.token.accessToken;
+      config.headers.Authorization = 'Bearer ' + store.user.token;
 
       return config;
     },
