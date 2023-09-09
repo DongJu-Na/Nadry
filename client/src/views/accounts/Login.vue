@@ -1,7 +1,7 @@
 <template>
   <div class="px-5">
-    <h2 class="font-medium text-xl">로그인</h2>
-    <p class="text-zinc-400 text-sm mb-5">이메일과 비밀번호를 입력하세요</p>
+    <h2 class="text-xl font-medium">로그인</h2>
+    <p class="mb-5 text-sm text-zinc-400">이메일과 비밀번호를 입력하세요</p>
     <form @submit.prevent="login">
       <!-- email -->
       <div class="mb-3">
@@ -31,6 +31,14 @@
         <span v-else>로그인</span>
       </button>
     </form>
+
+    <!-- sns 로그인 -->
+    <div class="flex flex-col mt-3">
+      <!-- 카카오 로그인 -->
+      <button @click="kakaoLogin" class="bg-yellow-300 text-zinc-900">
+        <span>카카오 로그인</span>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -50,6 +58,14 @@ const isLoading = ref(false);
 
 // 회원 로그인
 const login = async () => {
+  if (!email.value) {
+    alert('이메일을 입력하세요');
+    return;
+  }
+  if (!password.value) {
+    alert('비밀번호를 입력하세요');
+    return;
+  }
   try {
     const {
       status,
@@ -67,5 +83,10 @@ const login = async () => {
   } catch (error) {
     console.log(error);
   }
+};
+
+// 카카오 로그인
+const kakaoLogin = () => {
+  console.log('카카오 로그인');
 };
 </script>
