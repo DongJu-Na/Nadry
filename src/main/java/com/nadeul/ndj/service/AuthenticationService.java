@@ -115,7 +115,7 @@ public class AuthenticationService<T> {
     return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,memberDto,jwtToken,refreshToken);
   }
 
-  private void saveUserToken(Member member, String jwtToken) {
+  public void saveUserToken(Member member, String jwtToken) {
     var token = Token.builder()
         .member(member)
         .token(jwtToken)
@@ -126,7 +126,7 @@ public class AuthenticationService<T> {
     tokenRepository.save(token);
   }
 
-  private void revokeAllUserTokens(Member user) {
+  public void revokeAllUserTokens(Member user) {
     var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getMemId());
     if (validUserTokens.isEmpty())
       return;

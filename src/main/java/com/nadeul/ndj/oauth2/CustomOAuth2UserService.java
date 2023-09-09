@@ -1,4 +1,4 @@
-package com.nadeul.ndj.service;
+package com.nadeul.ndj.oauth2;
 
 import java.util.Collections;
 
