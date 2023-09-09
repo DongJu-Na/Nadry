@@ -5,15 +5,22 @@ import { setInterceptors } from './interceptors';
 // token 필요한 instance
 const createInstance = () => {
   const instance = axios.create();
-  instance.defaults.withCredentials = true;
-  instance.defaults.baseURL = import.meta.env.VITE_APP_API_URL;
+  if (import.meta.env.MODE === 'development') {
+    instance.defaults.baseURL = '/api';
+  } else {
+    instance.defaults.baseURL = import.meta.env.VITE_APP_API_URL;
+  }
   return setInterceptors(instance);
 };
 
 // token 필요없는 instance
 const createInstanceWithNoAuth = () => {
   const instance = axios.create();
-  instance.defaults.baseURL = import.meta.env.VITE_APP_API_URL;
+  if (import.meta.env.MODE === 'development') {
+    instance.defaults.baseURL = '/api';
+  } else {
+    instance.defaults.baseURL = import.meta.env.VITE_APP_API_URL;
+  }
   return instance;
 };
 
