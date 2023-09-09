@@ -67,17 +67,15 @@ const login = async () => {
     return;
   }
   try {
-    const {
-      status,
-      data: { data },
-    } = await userLogin({ email: email.value, password: password.value });
+    const { status, data } = await userLogin({ email: email.value, password: password.value });
     isLoading.value = true;
     // status 200 & data 존재 시
     if (status === 200 && data) {
-      console.log(data);
       isLoading.value = false;
       // user store 저장
-      store.user.setUserInfo(data);
+      store.user.setUserInfo(data.data);
+      // 토큰 저장
+      store.user.setAccessToken(data.access_token);
       router.push('/');
     }
   } catch (error) {
