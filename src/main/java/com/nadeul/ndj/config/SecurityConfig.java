@@ -28,9 +28,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
-import com.nadeul.ndj.handler.OAuth2LoginFailureHandler;
-import com.nadeul.ndj.handler.OAuth2LoginSuccessHandler;
-import com.nadeul.ndj.service.CustomOAuth2UserService;
+import com.nadeul.ndj.oauth2.CustomOAuth2UserService;
+import com.nadeul.ndj.oauth2.OAuth2LoginFailureHandler;
+import com.nadeul.ndj.oauth2.OAuth2LoginSuccessHandler;
 
 import lombok.RequiredArgsConstructor;
 

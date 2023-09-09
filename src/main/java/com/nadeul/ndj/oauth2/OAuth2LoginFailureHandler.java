@@ -1,4 +1,4 @@
-package com.nadeul.ndj.handler;
+package com.nadeul.ndj.oauth2;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
