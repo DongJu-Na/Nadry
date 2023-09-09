@@ -21,10 +21,11 @@ export function setInterceptors(instance) {
       return response;
     },
     async (error) => {
-      const { config, response } = error;
-      const originalRequest = config;
+      // console.log(error);
+      // const { config, response } = error;
+      // const originalRequest = config;
 
-      console.log(response, originalRequest);
+      // console.log(response, originalRequest);
 
       return Promise.reject(error);
     }
