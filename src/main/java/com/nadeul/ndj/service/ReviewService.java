@@ -105,7 +105,7 @@ public class ReviewService<T> {
 	            byte[] bytes = request.getReviewImage().getBytes();
 	            Path imagePath = Paths.get(savePath + uniqueFilename);
 	            Files.write(imagePath, bytes);
-	            saveSuccessPath = savePath + uniqueFilename;
+	            saveSuccessPath = "/images/" + uniqueFilename;
 	        }
 	    } catch (IOException e) {
 	        // 처리 중 에러가 발생하면 적절히 처리
