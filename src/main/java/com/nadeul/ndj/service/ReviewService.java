@@ -58,6 +58,23 @@ public class ReviewService<T> {
 		  
 		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, response, null, null);
 	 }
+	
+	public ApiResponse<List<Review>> myList(Pageable pageable) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        
+        String email = ((UserDetails) principal).getUsername();
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+        if (!optionalMember.isPresent()) {
+            // 사용자 정보를 찾을 수 없을 때 에러 반환
+            return ApiResponse.errorResponse(ApiResponseEnum.UNKNOWN_MEMBER);
+        }
+        
+		Page<Review> reviews = reviewRepository.findByMemberMemId(optionalMember.get().getMemId(),pageable);
+		List<Review> reviewList = reviews.getContent(); 
+		  
+		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, reviewList, null, null);
+	 }
 	  
 	public ApiResponse<T> createReview(ReviewDto.CreateUpdateDto request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

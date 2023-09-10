@@ -108,3 +108,10 @@ export const putTripReview = (payload) => {
 export const postTripLike = (payload) => {
   return instanceWithNoAuth.post('/api/v2/review/reviewLike', payload);
 };
+
+
+// 나의 리뷰 조회 - review
+// param : { "page": 0, "size": 10, "sort": ["createDate"]} 그냥 객체로 전송 시 모든 데이터 조회
+export const getMyTripReview = (payload) => {
+  return instance.get('/api/v2/review/myList' + makeDynamicUrl(payload));
+};

@@ -14,6 +14,8 @@ import com.nadeul.ndj.entity.Review;
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
 	 Page<Review> findByContentId(String contentId,Pageable pageable);
 	 
+	 Page<Review> findByMemberMemId(Integer memId, Pageable pageable);
+	 
 	 @Query("SELECT AVG(rg.rating) FROM Review r JOIN r.reviewGrade rg WHERE r.contentId = :contentId")
 	 BigDecimal findAverageRatingByContentId(@Param("contentId") String contentId);
 	 

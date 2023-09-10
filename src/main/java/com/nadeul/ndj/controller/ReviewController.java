@@ -1,5 +1,7 @@
 package com.nadeul.ndj.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.nadeul.ndj.dto.ApiResponse;
 import com.nadeul.ndj.dto.ReviewDto;
 import com.nadeul.ndj.entity.Post;
+import com.nadeul.ndj.entity.Review;
 import com.nadeul.ndj.enums.ApiResponseEnum;
 import com.nadeul.ndj.service.ReviewService;
 
@@ -36,6 +39,13 @@ public class ReviewController<T> {
     public ResponseEntity<ApiResponse<ReviewDto.ListResponse>> list(ReviewDto.ListRequest request , Pageable pageable) {
         return ResponseEntity.ok(reviewService.list(request,pageable));
     }
+	
+	@GetMapping("/myList")
+	@Operation(summary = "나의 여행 리뷰 조회", description = "내가 등록한 여행 리뷰 목록 조회")
+    public ResponseEntity<ApiResponse<List<Review>>> myList(Pageable pageable) {
+        return ResponseEntity.ok(reviewService.myList(pageable));
+    }
+	
 	
 	@PostMapping("/")
 	@Operation(summary = "여행 리뷰 등록", description = "여행 리뷰 게시물 등록")
