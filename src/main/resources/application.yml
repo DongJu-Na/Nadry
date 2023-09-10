@@ -12,7 +12,12 @@ spring:
       enabled: true
       max-file-size: 10MB  # 최대 파일 크기 설정
       max-request-size: 100MB  # 요청의 최대 크기 설정
-
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+        default-page-size: 10
+        
 application:
   security:
     jwt:
