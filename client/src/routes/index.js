@@ -59,16 +59,25 @@ const routes = [
     path: '/stamp',
     name: 'stamp',
     component: () => import('@/views/Stamp.vue'),
+    meta: {
+      auth: true,
+    },
   },
   {
-    path: '/review',
-    name: 'review',
+    path: '/reviews',
+    name: 'reviews',
     component: () => import('@/views/Review.vue'),
+    meta: {
+      auth: true,
+    },
   },
   {
     path: '/wish',
     name: 'wish',
     component: () => import('@/views/Wish.vue'),
+    meta: {
+      auth: true,
+    },
   },
   {
     path: '/market',

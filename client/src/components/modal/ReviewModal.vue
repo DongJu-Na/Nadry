@@ -34,9 +34,23 @@
                   <DialogTitle as="h3" class="mb-3 text-base font-semibold leading-6 text-gray-900"
                     >리뷰를 작성하세요</DialogTitle
                   >
-                  <div>
-                    <img src="https://placehold.co/500x300" />
+                  <!-- 프리뷰 이미지 -->
+                  <div v-if="previewPhoto">
+                    <img :src="previewPhoto" />
                   </div>
+                  <!-- 업로드 사진 버튼 -->
+                  <label
+                    v-else
+                    class="rounded-md border border-dashed border-zinc-300 h-[80px] flex justify-center items-center flex-col"
+                  >
+                    <span class="text-xs text-zinc-400">이곳을 클릭해서 사진을 첨부하세요</span>
+                    <input
+                      @change="photoInputChange($event)"
+                      ref="photoInput"
+                      type="file"
+                      class="sr-only"
+                    />
+                  </label>
                   <div class="mt-5">
                     <h3 class="text-sm font-medium">별점 선택</h3>
                     <StarRating
@@ -65,14 +79,6 @@
                   @click="submit"
                 >
                   작성완료
-                </button>
-                <button
-                  type="button"
-                  class="inline-flex justify-center w-full px-3 py-2 mt-3 text-sm font-semibold text-gray-900 bg-white rounded-md shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
-                  @click="$emit('close')"
-                  ref="cancelButtonRef"
-                >
-                  취소
                 </button>
               </div>
             </DialogPanel>
@@ -103,6 +109,18 @@ const route = useRoute();
 const reviewContent = ref(null);
 const reviewRating = ref(0);
 const reviewImage = ref(null);
+const photoInput = ref();
+const previewPhoto = ref(null);
+
+const photoInputChange = (e) => {
+  const files = e.target.files;
+  const reader = new FileReader();
+  reviewImage.value = files;
+  reader.onload = (data) => {
+    previewPhoto.value = data.target.result;
+  };
+  reader.readAsDataURL(files[0]);
+};
 
 const submit = async () => {
   if (!reviewContent.value) {
@@ -117,17 +135,22 @@ const submit = async () => {
   //   alert('사진을 선택해주세요');
   //   return;
   // }
-  const contentId = route.params.id;
   const payload = {
     contentId: route.params.id,
     content: reviewContent.value,
     reviewRating: reviewRating.value.toFixed(1),
-    // todo: 이미지 추가 해야됨
+    reviewImage: reviewImage.value[0],
   };
+  console.log(payload);
 
   try {
-    const result = await postTripReview(payload);
-    console.log(result);
+    const { status, data } = await postTripReview(payload);
+    console.log(status, data);
+    if (status === 200 && data.resultCode === '0000') {
+      alert('리뷰 작성 성공');
+    } else if (status === 200 && data.resultCode === '0007') {
+      alert('이미 리뷰를 작성하셨습니다.');
+    }
   } catch (error) {
     console.log(error);
   }

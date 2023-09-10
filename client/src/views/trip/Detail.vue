@@ -54,7 +54,11 @@
       </div>
 
       <!-- description -->
-      <div v-html="detailCommon.overview" class="mt-8 break-keep"></div>
+      <div
+        v-if="detailCommon.overview !== '-'"
+        v-html="detailCommon.overview"
+        class="mt-8 break-keep"
+      ></div>
 
       <!-- usage -->
       <div class="mt-10">
@@ -65,10 +69,13 @@
       <!-- reviews -->
       <div class="mt-10">
         <h3 class="mb-3 font-medium">리뷰</h3>
+        <!-- 리뷰 작성 버튼 -->
         <a @click="writeReview" class="button">
           <i class="las la-pen"></i>
           <span>리뷰 작성</span>
         </a>
+        <!-- 리뷰 리스트 -->
+        <ReviewList />
       </div>
     </div>
   </div>
@@ -85,12 +92,12 @@ import {
   getTripDetailInfo,
   getTripDetailImage,
   getTripDetailCommon,
-  getTripReview,
 } from '@/api';
 import { useMainStore } from '@/store';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import ReviewModal from '@/components/modal/ReviewModal.vue';
+import ReviewList from '@/components/review/ReviewList.vue';
 
 const store = useMainStore();
 const route = useRoute();
@@ -223,32 +230,9 @@ const fetchTripData = async () => {
   store.state.setLoading(false);
 };
 
-const fetchReviews = async () => {
-  try {
-    const payload = {
-      contentId: route.params.id,
-      page: 1,
-      size: 10,
-    };
-    const {
-      status,
-      data: {
-        data: { review },
-      },
-    } = await getTripReview(payload);
-    console.log('Reviews: ', review);
-    if (review) {
-      reviews.value = review;
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 // 문서 로딩 완료 시 : fetch data
 onMounted(async () => {
   await router.isReady();
   fetchTripData();
-  fetchReviews();
 });
 </script>
