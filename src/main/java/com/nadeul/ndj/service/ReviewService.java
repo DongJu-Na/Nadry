@@ -48,7 +48,7 @@ public class ReviewService<T> {
 	public ApiResponse<ListResponse> list(ReviewDto.ListRequest request,Pageable pageable) {
 		Page<Review> reviews = reviewRepository.findByContentId(request.getContentId().toString(),pageable);
 		List<Review> reviewList = reviews.getContent(); 
-        int totalLikes = calculateTotalLikes(reviewList);
+        int totalLikes = reviewRepository.countReviewsByContentId(request.getContentId().toString());
         BigDecimal averageRating = reviewRepository.findAverageRatingByContentId(request.getContentId().toString());
         BigDecimal averageRatingValue = new BigDecimal("0.0");
         if(!(averageRating == null)) {
@@ -178,12 +178,6 @@ public class ReviewService<T> {
 		reviewLikeRepository.deleteById(id);
 		reviewGradeRepository.deleteById(id);
 	}
-	  
-
-    private int calculateTotalLikes(List<Review> reviews) {
-    	if(reviews.isEmpty()) return 0;
-        return reviews.stream().mapToInt(Review::getLikes).sum();
-    }
     
 	public ApiResponse<T> reviewLike(ReviewDto.reviewLikeDto request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -201,12 +195,13 @@ public class ReviewService<T> {
         }
 
         Member member = optionalMember.get();
-        Optional<ReviewLike> reviewLikeValid = reviewLikeRepository.findById(Integer.parseInt(request.getRlId()));
+        Optional<ReviewLike> reviewLikeValid = reviewLikeRepository.findByMemberMemIdAndReviewRvId(optionalMember.get().getMemId(),request.getRvId().toString());
         if(reviewLikeValid.isPresent()) {
         	// 이미 좋아요 한 경우에는 좋아요 삭제
         	reviewLikeRepository.delete(reviewLikeValid.get());
         }else {
         	Optional<Review> reivew = reviewRepository.findById(Integer.parseInt(request.getRvId()));
+        	
         	ReviewLike reviewLike = ReviewLike.builder()
         			                .review(reivew.get())
         			                .member(member)

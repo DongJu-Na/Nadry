@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -34,10 +35,6 @@ public class Review {
   
   private String reviewImageUrl;
   
-  private int likes;
-  
-  private String delYn;
-  
   private LocalDateTime createDate;
   
   private String createBy;
@@ -47,16 +44,15 @@ public class Review {
   private String updateBy;
   
   @OneToMany
-  @JoinColumn(name = "rlId")
+  @JoinColumn(name = "rlId" , insertable = true, updatable = true)
   private List<ReviewLike> reviewLike;
   
   @OneToMany
-  @JsonIgnore
-  @JoinColumn(name = "rgId")
+  @JoinColumn(name = "rgId", insertable = true, updatable = true)
   private List<ReviewGrade> reviewGrade;
   
-  @ManyToOne(fetch = FetchType.LAZY)
   @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "memId", insertable = true, updatable = true)
   private Member member;
 		

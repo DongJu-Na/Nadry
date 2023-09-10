@@ -3,6 +3,8 @@ package com.nadeul.ndj.entity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,10 +30,12 @@ public class ReviewGrade {
   
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "rvId", insertable = true, updatable = true)
+  @JsonIgnore
   private Review review;
   
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "memId")
+  @JoinColumn(name = "memId", insertable = true, updatable = true)
+  @JsonIgnore
   private Member member;
 
   @Column(name = "rating", precision = 2, scale = 1)

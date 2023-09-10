@@ -2,6 +2,8 @@ package com.nadeul.ndj.entity;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -26,10 +28,12 @@ public class ReviewLike {
   
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "rvId", insertable = true, updatable = true)
+  @JsonIgnore
   private Review review;
   
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "memId", insertable = true, updatable = true)
+  @JsonIgnore
   private Member member;
   
   private int likes;

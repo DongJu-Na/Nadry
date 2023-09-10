@@ -16,11 +16,14 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
 	 
 	 Page<Review> findByMemberMemId(Integer memId, Pageable pageable);
 	 
-	 @Query("SELECT AVG(rg.rating) FROM Review r JOIN r.reviewGrade rg WHERE r.contentId = :contentId")
+	 @Query("SELECT TRUNCATE(AVG(rg.rating), 1) FROM Review r JOIN r.reviewGrade rg WHERE r.contentId = :contentId")
 	 BigDecimal findAverageRatingByContentId(@Param("contentId") String contentId);
 	 
      @Query("SELECT COUNT(r.rvId) FROM Review r WHERE r.contentId = :contentId AND r.createBy = :createBy")
      int countReviewsByContentIdAndCreateBy(@Param("contentId") String contentId, @Param("createBy") String createBy);
+     
+     @Query("SELECT COUNT(rl.rlId) FROM Review r JOIN r.reviewLike rl WHERE r.contentId = :contentId")
+     int countReviewsByContentId(@Param("contentId") String contentId);
 	 
 	 Optional<Review> findByRvIdAndContentIdAndMember_MemId(Integer rvId, String contentId, Integer memId);
 }
