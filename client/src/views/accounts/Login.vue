@@ -85,6 +85,7 @@ const login = async () => {
 
 // 카카오 로그인
 const kakaoLogin = () => {
-  console.log('카카오 로그인');
+  console.log("카카오 로그인");
+  window.location.href="http://localhost:8080/oauth2/authorization/kakao";
 };
 </script>
