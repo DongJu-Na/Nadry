@@ -18,6 +18,11 @@ const routes = [
     component: () => import('@/views/accounts/Login.vue'),
   },
   {
+    path: '/kakao-auth',
+    name: 'kakao auth',
+    component: () => import('@/views/accounts/KakaoAuth.vue'),
+  },
+  {
     path: '/logout',
     name: 'logout',
     component: () => import('@/views/accounts/Logout.vue'),
