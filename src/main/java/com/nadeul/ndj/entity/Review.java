@@ -34,10 +34,6 @@ public class Review {
   
   private String reviewImageUrl;
   
-  private int likes;
-  
-  private String delYn;
-  
   private LocalDateTime createDate;
   
   private String createBy;
@@ -46,18 +42,15 @@ public class Review {
   
   private String updateBy;
   
-  @OneToMany
-  @JoinColumn(name = "rlId")
+  @OneToMany(mappedBy="review")
   private List<ReviewLike> reviewLike;
   
-  @OneToMany
-  @JsonIgnore
-  @JoinColumn(name = "rgId")
+  @OneToMany(mappedBy="review")
   private List<ReviewGrade> reviewGrade;
   
-  @ManyToOne(fetch = FetchType.LAZY)
   @JsonIgnore
-  @JoinColumn(name = "memId", insertable = true, updatable = true)
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "memId")
   private Member member;
 		
 }
