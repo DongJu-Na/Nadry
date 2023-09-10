@@ -56,6 +56,11 @@ const routes = [
     component: () => import('@/views/Stamp.vue'),
   },
   {
+    path: '/review',
+    name: 'review',
+    component: () => import('@/views/Review.vue'),
+  },
+  {
     path: '/wish',
     name: 'wish',
     component: () => import('@/views/Wish.vue'),
