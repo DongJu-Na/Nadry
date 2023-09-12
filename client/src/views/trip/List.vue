@@ -19,6 +19,16 @@
       </div>
     </form>
 
+    <div class="flex gap-3 mt-3 text-sm">
+      <a @click="testSubmit('영종도')">#영종도</a>
+      <a @click="testSubmit('인천공항')">#인천공항</a>
+      <a @click="testSubmit('무의도')">#무의도</a>
+      <a @click="testSubmit('경주')">#경주</a>
+      <a @click="testSubmit('전주')">#전주</a>
+      <a @click="testSubmit('해운대')">#해운대</a>
+      <a @click="testSubmit('제주')">#제주</a>
+    </div>
+
     <!-- result -->
     <div v-if="tripItems && tripItems.length > 0" class="mt-10">
       <h2 class="mb-3 font-semibold">검색 결과</h2>
@@ -135,6 +145,11 @@ const tripItems = ref([]);
 //     contentType.value = [];
 //   }
 // });
+
+const testSubmit = (name) => {
+  searchWord.value = name;
+  submit();
+};
 
 const submit = async () => {
   if (!searchWord.value) {
