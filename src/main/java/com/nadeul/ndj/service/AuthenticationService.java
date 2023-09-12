@@ -65,7 +65,7 @@ public class AuthenticationService<T> {
             byte[] bytes = request.getProfileImage().getBytes();
             Path imagePath = Paths.get(savePath + uniqueFilename);
             Files.write(imagePath, bytes);
-            saveSuccessPath = savePath + uniqueFilename;
+            saveSuccessPath = "/images/" + uniqueFilename;
         }
     } catch (IOException e) {
         // 처리 중 에러가 발생하면 적절히 처리
@@ -104,7 +104,7 @@ public class AuthenticationService<T> {
     saveUserToken(user, jwtToken);
     
     MemberDto memberDto = new MemberDto();
-			  memberDto.setId(user.getMemId());
+			  memberDto.setMemId(user.getMemId());
 			  memberDto.setName(user.getName());
 			  memberDto.setEmail(user.getEmail());
 			  memberDto.setPassword(user.getPassword());

@@ -75,7 +75,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         	        tokenRepository.save(token);   
         	        
     	          MemberDto memberDto = new MemberDto();
-	  			  memberDto.setId(existingMember.get().getMemId());
+	  			  memberDto.setMemId(existingMember.get().getMemId());
 	  			  memberDto.setName(existingMember.get().getName());
 	  			  memberDto.setEmail(existingMember.get().getEmail());
 	  			  memberDto.setPassword(existingMember.get().getPassword());

@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -47,7 +48,10 @@ public class ReviewService<T> {
 	  
 	public ApiResponse<ListResponse> list(ReviewDto.ListRequest request,Pageable pageable) {
 		Page<Review> reviews = reviewRepository.findByContentId(request.getContentId().toString(),pageable);
-		List<Review> reviewList = reviews.getContent(); 
+		List<ReviewDto> reviewList =  reviews.getContent().stream().map(review ->{
+			System.out.println(review.getCreateBy());
+		    return new ReviewDto(review);
+		} ).collect(Collectors.toList());
         int totalLikes = reviewRepository.countReviewsByContentId(request.getContentId().toString());
         BigDecimal averageRating = reviewRepository.findAverageRatingByContentId(request.getContentId().toString());
         BigDecimal averageRatingValue = new BigDecimal("0.0");
@@ -105,7 +109,7 @@ public class ReviewService<T> {
 	            byte[] bytes = request.getReviewImage().getBytes();
 	            Path imagePath = Paths.get(savePath + uniqueFilename);
 	            Files.write(imagePath, bytes);
-	            saveSuccessPath = savePath + uniqueFilename;
+	            saveSuccessPath = "/images/" + uniqueFilename;
 	        }
 	    } catch (IOException e) {
 	        // 처리 중 에러가 발생하면 적절히 처리
