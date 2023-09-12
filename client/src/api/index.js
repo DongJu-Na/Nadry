@@ -5,6 +5,7 @@ import { setInterceptors } from './interceptors';
 // token 필요한 instance
 const createInstance = () => {
   const instance = axios.create();
+  // instance.defaults.baseURL = import.meta.env.VITE_APP_API_URL;
   if (import.meta.env.MODE === 'development') {
     instance.defaults.baseURL = '/api';
   } else {
@@ -16,6 +17,7 @@ const createInstance = () => {
 // token 필요없는 instance
 const createInstanceWithNoAuth = () => {
   const instance = axios.create();
+  // instance.defaults.baseURL = import.meta.env.VITE_APP_API_URL;
   if (import.meta.env.MODE === 'development') {
     instance.defaults.baseURL = '/api';
   } else {
@@ -85,6 +87,7 @@ export const getTripReview = (payload) => {
 // 여행리뷰 등록
 // param : {"rvId" : "" , "contentId": "2894451", "content": "먹태깡 재고가 많아서 좋아요.", "reviewRating": "4.5" , "reviewImage" : file}  rvId 는 수정 시 필수 등록 시에는 사용 안하는 값 reviewImage는 파일로 전송주시면 됩니다(사진있을시)
 export const postTripReview = (payload) => {
+  // instance.defaults.baseURL = '/api';
   // console.log(payload);
   const formData = new FormData();
   formData.append('contentId', payload.contentId);
@@ -107,7 +110,8 @@ export const putTripReview = (payload) => {
 // 여행리뷰 좋아요
 // param : {"rvId" : "" , "rlId": "", "contentId": ""}   rvId 리뷰번호 필수  rlId 리뷰좋아요 번호 삭제 시 필수
 export const postTripLike = (payload) => {
-  return instanceWithNoAuth.post('/api/v2/review/reviewLike', payload);
+  // instance.defaults.baseURL = '/api';
+  return instance.post('/api/v2/review/reviewLike', payload);
 };
 
 // 나의 리뷰 조회 - review
