@@ -204,7 +204,8 @@ public class ReviewService<T> {
         	// 이미 좋아요 한 경우에는 좋아요 삭제
         	reviewLikeRepository.delete(reviewLikeValid.get());
         }else {
-        	Optional<Review> reivew = reviewRepository.findById(Integer.parseInt(request.getRvId()));
+        	Optional<Review> reivew = reviewRepository.findById(request.getRvId());
+        	
         	
         	ReviewLike reviewLike = ReviewLike.builder()
         			                .review(reivew.get())
@@ -219,3 +220,4 @@ public class ReviewService<T> {
         return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null, null, null);
 	}
 }
+

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -83,7 +84,7 @@ public class ReviewController<T> {
     }
 	
 	@DeleteMapping("/{id}")
-	@Operation(summary = "여행 리뷰 수정", description = "여행 리뷰 게시물 삭제")
+	@Operation(summary = "여행 리뷰 삭제", description = "여행 리뷰 게시물 삭제")
     public ResponseEntity<ApiResponse<Void>> deleteReview(@PathVariable("id") Integer id) {
 		reviewService.deleteReview(id);
         return ResponseEntity.ok(ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null, null, null));
@@ -91,7 +92,8 @@ public class ReviewController<T> {
 	
 	@PostMapping("/reviewLike")
 	@Operation(summary = "여행 리뷰 좋아요", description = "해당 리뷰를 좋아요 했을 경우에는 삭제 아닐 경우에는 좋아요")
-    public ResponseEntity<ApiResponse<T>> reviewLike(ReviewDto.reviewLikeDto request) {
+    public ResponseEntity<ApiResponse<T>> reviewLike(@RequestBody ReviewDto.reviewLikeDto request) {
+		System.out.println(request);
 		if(request.getRvId() == null || request.getRvId().toString().equals("")) {
 	  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"리뷰 번호"));
 	  	}
