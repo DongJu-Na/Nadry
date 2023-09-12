@@ -84,8 +84,7 @@ const fetchReviews = async () => {
 const like = async (rvId) => {
   console.log(rvId);
   const payload = {
-    rvId: rvId,
-    contentId: route.params.id,
+    rvId: rvId
   };
   try {
     const result = await postTripLike(payload);
