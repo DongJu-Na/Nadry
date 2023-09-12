@@ -49,7 +49,7 @@ public class Review {
   private List<ReviewGrade> reviewGrade;
   
   @JsonIgnore
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "memId")
   private Member member;
 		
