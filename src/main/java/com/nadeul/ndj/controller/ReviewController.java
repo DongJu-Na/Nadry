@@ -93,7 +93,6 @@ public class ReviewController<T> {
 	@PostMapping("/reviewLike")
 	@Operation(summary = "여행 리뷰 좋아요", description = "해당 리뷰를 좋아요 했을 경우에는 삭제 아닐 경우에는 좋아요")
     public ResponseEntity<ApiResponse<T>> reviewLike(@RequestBody ReviewDto.reviewLikeDto request) {
-		System.out.println(request);
 		if(request.getRvId() == null || request.getRvId().toString().equals("")) {
 	  		return ResponseEntity.ok(ApiResponse.failResponse(ApiResponseEnum.VALIDATION_FAILED,"리뷰 번호"));
 	  	}
