@@ -104,7 +104,7 @@ public class AuthenticationService<T> {
     saveUserToken(user, jwtToken);
     
     MemberDto memberDto = new MemberDto();
-			  memberDto.setId(user.getMemId());
+			  memberDto.setMemId(user.getMemId());
 			  memberDto.setName(user.getName());
 			  memberDto.setEmail(user.getEmail());
 			  memberDto.setPassword(user.getPassword());
