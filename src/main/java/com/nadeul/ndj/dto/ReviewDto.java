@@ -87,6 +87,7 @@ public class ReviewDto {
     private MemberDto member;
     private List<ReviewGrade> reviewGrade;
     private List<ReviewLike> reviewLike;
+    private int like;
     
     public ReviewDto(Review review) {
         this.rvId = review.getRvId();
@@ -100,6 +101,13 @@ public class ReviewDto {
         this.reviewGrade = review.getReviewGrade();
         this.reviewLike = review.getReviewLike();
         this.member = new MemberDto(review.getMember());
+        if (review.getReviewLike() != null) {
+            this.like = review.getReviewLike().stream()
+              .mapToInt(reviewLike -> reviewLike.getLikes())
+              .sum();
+          } else {
+            this.like = 0;
+          }
       }
 
     
