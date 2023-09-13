@@ -64,8 +64,8 @@ const routes = [
     },
   },
   {
-    path: '/reviews',
-    name: 'reviews',
+    path: '/review',
+    name: 'review',
     component: () => import('@/views/Review.vue'),
     meta: {
       auth: true,
