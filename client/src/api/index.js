@@ -108,10 +108,11 @@ export const putTripReview = (payload) => {
 };
 
 // 여행리뷰 좋아요
-// param : {"rvId" : "" , "rlId": "", "contentId": ""}   rvId 리뷰번호 필수  rlId 리뷰좋아요 번호 삭제 시 필수
+// param : {"rvId" : "" }   rvId 리뷰번호 필수 
 export const postTripLike = (payload) => {
   // instance.defaults.baseURL = '/api';
-  return instance.post('/api/v2/review/reviewLike', payload);
+  const headers = {'Content-type': 'application/json' , 'Accept': '*/*'}
+  return instance.post('/api/v2/review/reviewLike', payload,headers);
 };
 
 // 나의 리뷰 조회 - review

@@ -73,7 +73,7 @@ public class ReviewDto {
     @Builder
     public static class reviewLikeDto {
     	@Schema(description = "리뷰 번호" , example = "1")
-	    private String rvId;
+	    private Integer rvId;
     }
     
     private Integer rvId;
