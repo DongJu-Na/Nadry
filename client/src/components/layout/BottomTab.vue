@@ -95,7 +95,7 @@ const menuItems = ref([
 const route = useRoute();
 
 watch(route, () => {
-  console.log(route.fullPath);
+  // console.log(route.fullPath);
 });
 </script>
 
