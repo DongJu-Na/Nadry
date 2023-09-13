@@ -88,8 +88,8 @@ const like = async (rvId) => {
     contentId: route.params.id,
   };
   try {
-    const result = await postTripLike(payload);
-    console.log(result);
+    const { status, data } = await postTripLike(payload);
+    console.log(status, data);
   } catch (error) {
     console.log(error);
   }
