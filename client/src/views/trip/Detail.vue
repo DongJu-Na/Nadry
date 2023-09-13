@@ -1,7 +1,14 @@
 <template>
   <div v-if="detailCommon" class="w-full mt-[60px]">
     <!-- swiper -->
-    <Swiper v-if="detailImage" slides-per-view="auto" :space-between="0" :auto-height="true">
+    <Swiper
+      v-if="detailImage"
+      slides-per-view="auto"
+      :modules="modules"
+      :space-between="0"
+      :auto-height="true"
+      :pagination="{ clickable: true }"
+    >
       <SwiperSlide v-for="image in detailImage" :key="image.serialnum">
         <img :src="image.originimgurl" class="w-full" />
       </SwiperSlide>
@@ -60,6 +67,12 @@
         class="mt-8 break-keep"
       ></div>
 
+      <!-- intro -->
+      <div v-if="detailInfo" class="mt-10">
+        <h3 class="mb-3 font-medium">{{ detailInfo.infoname }}</h3>
+        <div class="mt-3 text-xs text-zinc-400" v-html="detailInfo.infotext"></div>
+      </div>
+
       <!-- usage -->
       <div class="mt-10">
         <h3 class="mb-3 font-medium">이용안내</h3>
@@ -94,10 +107,14 @@ import {
   getTripDetailCommon,
 } from '@/api';
 import { useMainStore } from '@/store';
+import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
+import 'swiper/css/pagination';
 import ReviewModal from '@/components/modal/ReviewModal.vue';
 import ReviewList from '@/components/review/ReviewList.vue';
+
+const modules = [Pagination];
 
 const store = useMainStore();
 const route = useRoute();
