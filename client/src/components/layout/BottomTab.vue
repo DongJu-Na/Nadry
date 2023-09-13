@@ -1,6 +1,7 @@
 <template>
   <nav
-    class="fixed bottom-0 flex justify-around bg-white w-full border-t border-zinc-100 drop-shadow-top z-[100]"
+    class="fixed bottom-0 left-0 right-0 mx-auto flex justify-around bg-white border-t border-zinc-100 drop-shadow-top z-[100]"
+    :style="`width:var(--app-width)`"
   >
     <router-link
       :to="menu.link"

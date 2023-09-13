@@ -2,14 +2,15 @@
   <header
     ref="header"
     class="fixed top-0 flex justify-between items-center w-full h-[60px] z-[100] transition-all duration-300"
+    :style="`width:var(--app-width)`"
   >
     <!-- back button -->
     <a @click="back" class="flex items-center p-[18px] text-sm">
-      <i class="las la-angle-left text-2xl"></i>
+      <i class="text-2xl las la-angle-left"></i>
       <span>뒤로</span>
     </a>
     <!-- title -->
-    <h1 class="absolute mx-auto left-0 right-0 font-semibold text-sm w-fit">
+    <h1 class="absolute left-0 right-0 mx-auto text-sm font-semibold w-fit">
       {{ title }}
     </h1>
     <!-- menu -->

@@ -45,11 +45,17 @@ const setViewHeight = () => {
   let vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 };
+const setViewWidth = () => {
+  const app = document.querySelector('#app');
+  document.documentElement.style.setProperty('--app-width', `${app.clientWidth}px`);
+};
 
 onMounted(() => {
   setViewHeight();
+  setViewWidth();
   window.addEventListener('resize', () => {
     setViewHeight();
+    setViewWidth();
   });
 });
 </script>
