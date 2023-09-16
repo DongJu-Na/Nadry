@@ -116,7 +116,13 @@ export const postTripLike = (payload) => {
 };
 
 // 나의 리뷰 조회 - review
-// param : { "page": 0, "size": 10, "sort": ["createDate"]} 그냥 객체로 전송 시 모든 데이터 조회
+// param : { "page": 1, "size": 10, "sort": ["createDate"]} 그냥 객체로 전송 시 모든 데이터 조회
 export const getMyTripReview = (payload) => {
   return instance.get('/api/v2/review/myList' + makeDynamicUrl(payload));
+};
+
+// 베스트 리뷰 조회 - (기준 날짜 내림차순 , 좋아요 수 내림차 순) 
+// param : { "page": 1, "size": 10} 그냥 객체로 전송 시 모든 데이터 조회
+export const getBestTripReview = (payload) => {
+  return instance.get('/api/v2/review/bestList' + makeDynamicUrl(payload));
 };
