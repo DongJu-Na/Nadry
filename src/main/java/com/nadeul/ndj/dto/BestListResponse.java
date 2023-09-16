@@ -3,9 +3,9 @@ package com.nadeul.ndj.dto;
 import java.time.LocalDateTime;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class BestListResponse {
   @Schema(description = "실시간 베스트 여행 리뷰 목록" , example = "객체 반환")
   private Integer rvId;
