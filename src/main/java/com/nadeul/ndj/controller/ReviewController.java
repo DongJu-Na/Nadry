@@ -47,6 +47,12 @@ public class ReviewController<T> {
         return ResponseEntity.ok(reviewService.myList(pageable));
     }
 	
+	@GetMapping("/bsetList")
+	@Operation(summary = "실시간 인기 리뷰 조회", description = "실시간 인기 리뷰 조회 작성일자 , 리뷰 수로 내림차순 정렬")
+    public ResponseEntity<ApiResponse<List<Review>>> bsetList(Pageable pageable) {
+        return ResponseEntity.ok(reviewService.bestList(pageable));
+    }
+	
 	
 	@PostMapping("/")
 	@Operation(summary = "여행 리뷰 등록", description = "여행 리뷰 게시물 등록")
