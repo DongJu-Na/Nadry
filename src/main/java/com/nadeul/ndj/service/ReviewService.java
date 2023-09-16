@@ -79,6 +79,11 @@ public class ReviewService<T> {
 		  
 		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, reviewList, null, null);
 	 }
+	
+	public ApiResponse<List<Review>> bestList(Pageable pageable) {
+		  
+		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null, null, null);
+	 }
 	  
 	public ApiResponse<T> createReview(ReviewDto.CreateUpdateDto request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -206,15 +211,20 @@ public class ReviewService<T> {
         }else {
         	Optional<Review> reivew = reviewRepository.findById(request.getRvId());
         	
-        	
-        	ReviewLike reviewLike = ReviewLike.builder()
-        			                .review(reivew.get())
-        			                .member(member)
-        			                .likes(1)
-        			                .likeDate(LocalDateTime.now())
-        			                .build();
-        	
-        	reviewLikeRepository.save(reviewLike);						 
+        	   if (reivew.isPresent()) {
+                   Review review = reivew.get();
+                   ReviewLike reviewLike = ReviewLike.builder()
+                           .review(review)
+                           .member(member)
+                           .likes(1)
+                           .likeDate(LocalDateTime.now())
+                           .build();
+                   	  
+                   reviewLikeRepository.save(reviewLike);
+               } else {
+                   // 해당 ID에 해당하는 리뷰가 존재하지 않을 때 에러 반환
+                   return ApiResponse.errorResponse(ApiResponseEnum.REVIEW_NOT_FOUND);
+               }			 
         }
         
         return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null, null, null);
