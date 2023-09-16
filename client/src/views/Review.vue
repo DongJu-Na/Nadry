@@ -17,7 +17,11 @@
     </div>
 
     <!-- my review -->
-    <div v-for="review in myReviews" :key="review.rvId" class="flex flex-col pb-10 mt-10 border-b">
+        <div v-if="tabs[0].current" v-for="review in bestReviews" :key="review.rvId" class="flex flex-col pb-10 mt-10 border-b">
+      {{ review }}
+    </div>
+
+    <div v-else-if="tabs[1].current" v-for="review in myReviews" :key="review.rvId" class="flex flex-col pb-10 mt-10 border-b">
       {{ review }}
     </div>
   </div>
@@ -26,13 +30,14 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { getMyTripReview } from '@/api';
+import { getMyTripReview , getBestTripReview } from '@/api';
 
 const router = useRouter();
 
 // 1: 인기리뷰 / 2: 내가 작성한 리뷰
 const currentType = ref(1);
 const myReviews = ref(null);
+const bestReviews = ref(null);
 
 const tabs = ref([
   {
@@ -51,6 +56,12 @@ const clickTab = (index) => {
     tab.current = false;
   });
   tabs.value[index].current = true;
+
+  if (index === 0) {
+    fetchBestReviews();
+  } else if (index === 1) {
+    fetchMyReviews();
+  }
 };
 
 const fetchMyReviews = async () => {
@@ -73,9 +84,28 @@ const fetchMyReviews = async () => {
   }
 };
 
+const fetchBestReviews = async () => {
+  try {
+    const payload = {
+      page: 1,
+      size: 10,
+    };
+    const {
+      status,
+      data: { data },
+    } = await getBestTripReview(payload);
+     console.debug('BestReview: ', data);
+    if (status === 200 && data) {
+      bestReviews.value = data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // 문서 로딩 완료 시 : fetch data
 onMounted(async () => {
   await router.isReady();
-  fetchMyReviews();
+  fetchBestReviews();
 });
 </script>
