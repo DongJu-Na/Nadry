@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.nadeul.ndj.dto.BestListResponse;
 import com.nadeul.ndj.entity.Review;
 
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
@@ -26,4 +27,15 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
      int countReviewsByContentId(@Param("contentId") String contentId);
 	 
 	 Optional<Review> findByRvIdAndContentIdAndMember_MemId(Integer rvId, String contentId, Integer memId);
+	 
+	 @Query("SELECT new com.nadeul.ndj.dto.BestListResponse(" +
+		        "r.rvId, r.contentId, r.content, r.reviewImageUrl, " +
+		        "r.createDate, r.createBy, r.updateDate, r.updateBy, " +
+		        "COALESCE(SUM(rl.likes), 0) as likes) " +
+		        "FROM Review r " +
+		        "LEFT JOIN r.reviewLike rl " +
+		        "GROUP BY r.rvId " +
+		        "ORDER BY r.createDate DESC, likes DESC")
+     Page<BestListResponse> findAllWithLikes(Pageable pageable);
+     
 }

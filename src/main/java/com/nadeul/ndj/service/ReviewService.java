@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.nadeul.ndj.dto.ApiResponse;
+import com.nadeul.ndj.dto.BestListResponse;
 import com.nadeul.ndj.dto.ReviewDto;
 import com.nadeul.ndj.dto.ReviewDto.ListResponse;
 import com.nadeul.ndj.entity.Member;
@@ -80,9 +81,10 @@ public class ReviewService<T> {
 		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, reviewList, null, null);
 	 }
 	
-	public ApiResponse<List<Review>> bestList(Pageable pageable) {
-		  
-		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null, null, null);
+	public ApiResponse<List<BestListResponse>> bestList(Pageable pageable) {
+		  Page<BestListResponse> reviews = reviewRepository.findAllWithLikes(pageable);
+		  List<BestListResponse> reviewList = reviews.getContent(); 
+		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, reviewList, null, null);
 	 }
 	  
 	public ApiResponse<T> createReview(ReviewDto.CreateUpdateDto request) {
