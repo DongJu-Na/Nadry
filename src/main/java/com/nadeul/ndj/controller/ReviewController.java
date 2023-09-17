@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nadeul.ndj.dto.ApiResponse;
+import com.nadeul.ndj.dto.BestListResponse;
 import com.nadeul.ndj.dto.ReviewDto;
 import com.nadeul.ndj.entity.Post;
 import com.nadeul.ndj.entity.Review;
@@ -45,6 +46,12 @@ public class ReviewController<T> {
 	@Operation(summary = "나의 여행 리뷰 조회", description = "내가 등록한 여행 리뷰 목록 조회")
     public ResponseEntity<ApiResponse<List<Review>>> myList(Pageable pageable) {
         return ResponseEntity.ok(reviewService.myList(pageable));
+    }
+	
+	@GetMapping("/bestList")
+	@Operation(summary = "실시간 인기 리뷰 조회", description = "실시간 인기 리뷰 조회 작성일자 , 리뷰 수로 내림차순 정렬")
+    public ResponseEntity<ApiResponse<List<BestListResponse>>> bestList(Pageable pageable) {
+        return ResponseEntity.ok(reviewService.bestList(pageable));
     }
 	
 	

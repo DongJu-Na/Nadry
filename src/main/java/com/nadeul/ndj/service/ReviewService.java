@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.nadeul.ndj.dto.ApiResponse;
+import com.nadeul.ndj.dto.BestListResponse;
 import com.nadeul.ndj.dto.ReviewDto;
 import com.nadeul.ndj.dto.ReviewDto.ListResponse;
 import com.nadeul.ndj.entity.Member;
@@ -77,6 +78,12 @@ public class ReviewService<T> {
 		Page<Review> reviews = reviewRepository.findByMemberMemId(optionalMember.get().getMemId(),pageable);
 		List<Review> reviewList = reviews.getContent(); 
 		  
+		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, reviewList, null, null);
+	 }
+	
+	public ApiResponse<List<BestListResponse>> bestList(Pageable pageable) {
+		  Page<BestListResponse> reviews = reviewRepository.findAllWithLikes(pageable);
+		  List<BestListResponse> reviewList = reviews.getContent(); 
 		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, reviewList, null, null);
 	 }
 	  
@@ -206,15 +213,20 @@ public class ReviewService<T> {
         }else {
         	Optional<Review> reivew = reviewRepository.findById(request.getRvId());
         	
-        	
-        	ReviewLike reviewLike = ReviewLike.builder()
-        			                .review(reivew.get())
-        			                .member(member)
-        			                .likes(1)
-        			                .likeDate(LocalDateTime.now())
-        			                .build();
-        	
-        	reviewLikeRepository.save(reviewLike);						 
+        	   if (reivew.isPresent()) {
+                   Review review = reivew.get();
+                   ReviewLike reviewLike = ReviewLike.builder()
+                           .review(review)
+                           .member(member)
+                           .likes(1)
+                           .likeDate(LocalDateTime.now())
+                           .build();
+                   	  
+                   reviewLikeRepository.save(reviewLike);
+               } else {
+                   // 해당 ID에 해당하는 리뷰가 존재하지 않을 때 에러 반환
+                   return ApiResponse.errorResponse(ApiResponseEnum.REVIEW_NOT_FOUND);
+               }			 
         }
         
         return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null, null, null);
