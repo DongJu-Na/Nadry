@@ -108,15 +108,28 @@ export const putTripReview = (payload) => {
 };
 
 // 여행리뷰 좋아요
-// param : {"rvId" : "" }   rvId 리뷰번호 필수 
+// param : {"rvId" : "" }   rvId 리뷰번호 필수
 export const postTripLike = (payload) => {
   // instance.defaults.baseURL = '/api';
-  const headers = {'Content-type': 'application/json' , 'Accept': '*/*'}
-  return instance.post('/api/v2/review/reviewLike', payload,headers);
+  const headers = { 'Content-type': 'application/json', Accept: '*/*' };
+  return instance.post('/api/v2/review/reviewLike', payload, headers);
 };
 
 // 나의 리뷰 조회 - review
 // param : { "page": 0, "size": 10, "sort": ["createDate"]} 그냥 객체로 전송 시 모든 데이터 조회
 export const getMyTripReview = (payload) => {
   return instance.get('/api/v2/review/myList' + makeDynamicUrl(payload));
+};
+
+// 찜
+export const addWish = (payload) => {
+  return instance.post('/api/v1/dibs/add', payload);
+};
+
+// 찜제거
+export const removeWish = (payload) => {};
+
+// 찜 여행지 목록
+export const getWishList = () => {
+  return instance.get('/api/v1/dibs/list');
 };
