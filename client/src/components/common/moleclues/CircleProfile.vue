@@ -1,11 +1,11 @@
 <template>
   <div class="relative">
     <!-- alarm -->
-    <div
+    <!-- <div
       class="absolute top-[-3px] right-[-3px] flex justify-center items-center bg-rose-500 w-5 h-5 rounded-full text-xs font-semibold text-white"
     >
       {{ alarm }}
-    </div>
+    </div> -->
     <!-- profile image -->
     <div class="flex justify-center overflow-hidden rounded-full bg-zinc-100 w-[60px] h-[60px]">
       <img
