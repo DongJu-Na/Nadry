@@ -49,7 +49,7 @@ public class DibsService<T> {
 	  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,data,null,null);
   }
 	
-	public ApiResponse<T> addDibs(DibsDto.Request request) {
+	public ApiResponse<T> dibs(DibsDto.Request request) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Object principal = authentication.getPrincipal();
@@ -59,29 +59,25 @@ public class DibsService<T> {
 			Optional<Member>  optionalMember = memberRepository.findByEmail(email);
 				if (optionalMember.isPresent()) {
 					
-					boolean alreadyExists = dibsRepository.findByMemberAndContentId(optionalMember.get(), request.getContentId());
+					Optional<Dibs> alreadyExists = dibsRepository.findByMemberAndContentId(optionalMember.get(), request.getContentId());
 
-			        if (!alreadyExists) {
-			        	try {
-			        		var dibs = Dibs.builder()
-			        			       .member(optionalMember.get())
-			        			       .contentId(request.getContentId())
-			        			       .dibsDate(LocalDateTime.now())
-			        			       .contentName(request.getContentName())
-			        			       .contentImageUrl(request.getContentImageUrl())
-			        				   .build();
-			        		dibsRepository.save(dibs);
-						} catch (Exception e) {
-							return ApiResponse.failResponse(ApiResponseEnum.INTERNAL_SERVER_ERROR, "");
-						}
-			        	
+			        if (alreadyExists.isPresent()) {
+			        	dibsRepository.delete(alreadyExists .get());
+			        }else {
+			        	Dibs dibs = Dibs.builder()
+		        			       .member(optionalMember.get())
+		        			       .dibsDate(LocalDateTime.now())
+		        			       .contentId(request.getContentId())
+		        			       .contentName(request.getContentName())
+		        			       .contentImageUrl(request.getContentImageUrl())
+		        				   .build();
+		        		dibsRepository.save(dibs);
 			        }
 			        
 				} else {
 					return ApiResponse.failResponse(ApiResponseEnum.UNKNOWN_MEMBER, ""); 
 				}
 		} else {
-		    // principal이 UserDetails 타입이 아닌 경우 처리 로직 -> 응답 객체를 null 로 반환
 			return ApiResponse.failResponse(ApiResponseEnum.UNKNOWN_MEMBER, ""); 
 		}
 		
@@ -89,10 +85,5 @@ public class DibsService<T> {
 		return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,null,null,null);
 	}
 	
-	
-	public ApiResponse<T> removeDibs(DibsDto.Request request) {
-	    dibsRepository.deleteById(request.getDiId());
-		return  ApiResponse.successResponse(ApiResponseEnum.SUCCESS,null,null,null);
-	}
 
 }
