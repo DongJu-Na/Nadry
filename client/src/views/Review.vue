@@ -17,7 +17,7 @@
     </div>
 
     <!-- my review -->
-        <div v-if="tabs[0].current" v-for="review in bestReviews" :key="review.rvId" class="flex flex-col pb-10 mt-10 border-b">
+    <div v-if="tabs[0].current" v-for="review in bestReviews" :key="review.rvId" class="flex flex-col pb-10 mt-10 border-b">
       {{ review }}
     </div>
 
