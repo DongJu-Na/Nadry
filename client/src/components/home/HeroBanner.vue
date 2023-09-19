@@ -6,7 +6,23 @@
       :slides-offset-before="20"
       :slides-offset-after="20"
     >
-      <SwiperSlide>
+
+    <SwiperSlide v-for="photoData in photoList" :key="photoData.galContentId">
+        <router-link :to="`/trips/${photoData.galContentId}/${photoData.galContentTypeId}`">
+          <div class="overflow-hidden bg-zinc-50 rounded-2xl">
+            <dl class="absolute p-5 text-white drop-shadow-sm">
+              <dt>{{photoData.galPhotographyLocation}}</dt>
+              <dd class="text-2xl font-bold leading-6">{{photoData.galTitle}}</dd>
+            </dl>
+            <img
+              :src="photoData.galWebImageUrl"
+              class="h-[350px] object-cover"
+            />
+          </div>
+        </router-link>
+    </SwiperSlide>
+      
+      <!--<SwiperSlide>
         <router-link to="/trips/1">
           <div class="overflow-hidden bg-zinc-50 rounded-2xl">
             <dl class="absolute p-5 text-white drop-shadow-sm">
@@ -47,7 +63,7 @@
             />
           </div>
         </router-link>
-      </SwiperSlide>
+      </SwiperSlide> -->
     </Swiper>
   </div>
 </template>
@@ -55,4 +71,51 @@
 <script setup>
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { getGalleryList } from '@/api';
+
+const router = useRouter();
+const photoList = ref(null);
+
+function getRandomInteger() {
+  const min = 1;
+  const max = 520;
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+const fetchPhotoList = async () => {
+  try {
+    const randomVal = getRandomInteger();
+    const payload = {
+      numOfRows : 10,
+      pageNo : randomVal,
+      arrange : "A",
+    };
+    const {
+      status,
+      data : {
+        response: {
+          body: {
+            items: { item }
+          }
+        }
+      },
+    } = await getGalleryList(payload);
+     console.log(item);
+    if (status === 200 && item) {
+      console.log('test: ', item);
+      photoList.value = item;
+      console.log(photoList);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+onMounted(async () => {
+  await router.isReady();
+  fetchPhotoList();
+});
+
 </script>
