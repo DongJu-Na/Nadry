@@ -56,6 +56,11 @@ export const getProducts = () => {
   return instanceWithNoAuth.get('/api/v2/product/list');
 };
 
+// 관광사진 검색
+export const getGalleryList = (payload) => {
+  return instanceWithNoAuth.post('/api/v1/photoGallery/galleryList1', payload);
+};
+
 // 여행지 검색
 export const searchTrip = (payload) => {
   return instanceWithNoAuth.post('/api/v1/tour/searchKeyword1/Kor', payload);
