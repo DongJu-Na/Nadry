@@ -28,7 +28,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 @Service
 public class PhotoGalleryService {
 	
- private static final String BASE_URL = "http://apis.data.go.kr";
+ private static final String BASE_URL = "https://apis.data.go.kr";
  
  
  final PhotoGalleryServiceApi api;
@@ -40,7 +40,7 @@ public class PhotoGalleryService {
 
      OkHttpClient client = new OkHttpClient.Builder()
              .connectionPool(new ConnectionPool(5, 1, TimeUnit.SECONDS))
-             .readTimeout(ofSeconds(10).toMillis(), TimeUnit.MILLISECONDS)
+             .readTimeout(ofSeconds(30).toMillis(), TimeUnit.MILLISECONDS)
              .build();
 
      Retrofit retrofit = new Retrofit.Builder()
