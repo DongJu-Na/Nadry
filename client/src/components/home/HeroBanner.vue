@@ -16,7 +16,7 @@
             </dl>
             <img
               :src="photoData.galWebImageUrl"
-              class="h-[350px] object-cover"
+              class="h-[350px] w-[367.5px] object-cover"
             />
           </div>
         </router-link>
