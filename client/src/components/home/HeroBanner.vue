@@ -5,6 +5,7 @@
       :space-between="20"
       :slides-offset-before="20"
       :slides-offset-after="20"
+      :loop=true
     >
 
     <SwiperSlide v-for="photoData in photoList" :key="photoData.galContentId">
