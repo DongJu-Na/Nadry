@@ -28,7 +28,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 @Service
 public class TourInfoService {
 	
- private static final String BASE_URL = "http://apis.data.go.kr";
+ private static final String BASE_URL = "https://apis.data.go.kr";
  
  
  final TourInfoServiceApi api;
@@ -40,7 +40,7 @@ public class TourInfoService {
 
      OkHttpClient client = new OkHttpClient.Builder()
              .connectionPool(new ConnectionPool(5, 1, TimeUnit.SECONDS))
-             .readTimeout(ofSeconds(10).toMillis(), TimeUnit.MILLISECONDS)
+             .readTimeout(ofSeconds(30).toMillis(), TimeUnit.MILLISECONDS)
              .build();
 
      Retrofit retrofit = new Retrofit.Builder()
