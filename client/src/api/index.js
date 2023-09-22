@@ -126,30 +126,11 @@ export const getMyTripReview = (payload) => {
   return instance.get('/api/v2/review/myList' + makeDynamicUrl(payload));
 };
 
-<<<<<<< HEAD
-// 찜
-export const addWish = (payload) => {
-  return instance.post('/api/v1/dibs/add', payload);
-};
-
-// 찜제거
-export const removeWish = (payload) => {};
-
-// 찜 여행지 목록
-export const getWishList = () => {
-  return instance.get('/api/v1/dibs/list?contentid=1');
-};
-
 // 베스트 리뷰 조회 - (기준 날짜 내림차순 , 좋아요 수 내림차 순)
-=======
-
-// 베스트 리뷰 조회 - (기준 날짜 내림차순 , 좋아요 수 내림차 순) 
->>>>>>> b33388aa8a15fbc376bea883455343714b31a595
 // param : { "page": 1, "size": 10} 그냥 객체로 전송 시 모든 데이터 조회
 export const getBestTripReview = (payload) => {
   return instance.get('/api/v2/review/bestList' + makeDynamicUrl(payload));
 };
-
 
 // 찜
 export const addWish = (payload) => {
@@ -159,4 +140,7 @@ export const addWish = (payload) => {
 // 찜 여행지 목록
 export const getWishList = () => {
   return instance.get('/api/v2/dibs/dibsList');
-}
+};
+
+// 찜제거
+export const removeWish = (payload) => {};
