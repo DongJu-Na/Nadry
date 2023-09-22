@@ -5,24 +5,24 @@
       :space-between="20"
       :slides-offset-before="20"
       :slides-offset-after="20"
-      :loop=true
+      :loop="true"
+      v-show="isLoaded"
     >
-
-    <SwiperSlide v-for="photoData in photoList" :key="photoData.galContentId">
+      <SwiperSlide v-for="photoData in photoList" :key="photoData.galContentId">
         <router-link :to="`/trips/${photoData.galContentId}/${photoData.galContentTypeId}`">
           <div class="overflow-hidden bg-zinc-50 rounded-2xl">
-            <dl class="absolute p-5 text-white drop-shadow-sm">
-              <dt>{{photoData.galPhotographyLocation}}</dt>
-              <dd class="text-2xl font-bold leading-6">{{photoData.galTitle}}</dd>
+            <dl class="absolute bottom-0 z-10 p-5 text-white drop-shadow-sm">
+              <dt class="text-sm">{{ photoData.galPhotographyLocation }}</dt>
+              <dd class="text-2xl font-semibold leading-7 break-keep">{{ photoData.galTitle }}</dd>
             </dl>
-            <img
-              :src="photoData.galWebImageUrl"
-              class="h-[350px] w-[367.5px] object-cover"
-            />
+            <div
+              class="absolute bottom-0 w-full h-1/2 rounded-2xl bg-gradient-to-t from-black/60"
+            ></div>
+            <img :src="photoData.galWebImageUrl" class="h-[350px] w-[367.5px] object-cover" />
           </div>
         </router-link>
-    </SwiperSlide>
-      
+      </SwiperSlide>
+
       <!--<SwiperSlide>
         <router-link to="/trips/1">
           <div class="overflow-hidden bg-zinc-50 rounded-2xl">
@@ -66,6 +66,7 @@
         </router-link>
       </SwiperSlide> -->
     </Swiper>
+    <LoadingDot v-if="!isLoaded" />
   </div>
 </template>
 
@@ -75,9 +76,11 @@ import 'swiper/css';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { getGalleryList } from '@/api';
+import LoadingDot from '@/components/common/templates/LoadingDot.vue';
 
 const router = useRouter();
 const photoList = ref(null);
+const isLoaded = ref(false);
 
 function getRandomInteger() {
   const min = 1;
@@ -89,25 +92,26 @@ const fetchPhotoList = async () => {
   try {
     const randomVal = getRandomInteger();
     const payload = {
-      numOfRows : 10,
-      pageNo : randomVal,
-      arrange : "A",
+      numOfRows: 10,
+      pageNo: randomVal,
+      arrange: 'A',
     };
     const {
       status,
-      data : {
+      data: {
         response: {
           body: {
-            items: { item }
-          }
-        }
+            items: { item },
+          },
+        },
       },
     } = await getGalleryList(payload);
-     console.log(item);
+    console.log(item);
     if (status === 200 && item) {
       console.log('test: ', item);
       photoList.value = item;
       console.log(photoList);
+      isLoaded.value = true;
     }
   } catch (error) {
     console.log(error);
@@ -118,5 +122,4 @@ onMounted(async () => {
   await router.isReady();
   fetchPhotoList();
 });
-
 </script>
