@@ -17,11 +17,21 @@
     </div>
 
     <!-- my review -->
-    <div v-if="tabs[0].current" v-for="review in bestReviews" :key="review.rvId" class="flex flex-col pb-10 mt-10 border-b">
+    <div
+      v-if="tabs[0].current"
+      v-for="review in bestReviews"
+      :key="review.rvId"
+      class="flex flex-col pb-10 mt-10 border-b"
+    >
       {{ review }}
     </div>
 
-    <div v-else-if="tabs[1].current" v-for="review in myReviews" :key="review.rvId" class="flex flex-col pb-10 mt-10 border-b">
+    <div
+      v-else-if="tabs[1].current"
+      v-for="review in myReviews"
+      :key="review.rvId + 'my'"
+      class="flex flex-col pb-10 mt-10 border-b"
+    >
       {{ review }}
     </div>
   </div>
@@ -30,7 +40,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { getMyTripReview , getBestTripReview } from '@/api';
+import { getMyTripReview, getBestTripReview } from '@/api';
 
 const router = useRouter();
 
@@ -94,7 +104,7 @@ const fetchBestReviews = async () => {
       status,
       data: { data },
     } = await getBestTripReview(payload);
-     console.debug('BestReview: ', data);
+    console.log('BestReview: ', data);
     if (status === 200 && data) {
       bestReviews.value = data;
     }
