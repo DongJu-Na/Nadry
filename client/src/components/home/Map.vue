@@ -21,9 +21,13 @@ let map;
 const getLocation = () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
-      // console.log(position);
       const myPosition = new kakao.maps.LatLng(position.coords.latitude, position.coords.longitude);
       map.setCenter(myPosition);
+
+      const marker = new kakao.maps.Marker({
+        position: myPosition,
+        map: map,
+      });
     });
   } else {
     console.log('getLocation error');
@@ -37,17 +41,23 @@ const loadMap = () => {
     level: 5,
   };
   map = new kakao.maps.Map(container, options);
+
+  getLocation();
 };
 
 onMounted(() => {
   if (window.kakao && window.kakao.maps) {
     loadMap();
   } else {
-    getLocation();
+    
     const script = document.createElement('script');
-    script.onload = () => kakao.maps.load(loadMap);
-    script.src =
-      '//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=' + import.meta.env.VITE_APP_KAKAO_KEY;
+    script.src ='//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=' + import.meta.env.VITE_APP_KAKAO_KEY;
+    script.onload = () => {
+      kakao.maps.load(() => {      
+        kakao.maps.load(loadMap);
+      });
+    }
+    
     document.head.appendChild(script);
   }
 });
