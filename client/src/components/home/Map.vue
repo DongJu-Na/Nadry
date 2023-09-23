@@ -41,8 +41,7 @@ import { searchTrip } from '@/api';
 
 const searchWord = ref('');
 
-let map;
-let displayMarkers = [];
+let map,displayMarkers = [];
 
 const submit = async () => {
   if (!searchWord.value) {
@@ -80,8 +79,9 @@ const submit = async () => {
         }    
       
     if (status === 200 && body && body.items.item.length > 0) {
+        map.relayout();
+
         body.items.item.forEach(item => {
-          map.relayout();
           let kakaoPos = new kakao.maps.LatLng(item.mapy, item.mapx);
           let marker = new kakao.maps.Marker({
             map: map,
@@ -105,7 +105,6 @@ const submit = async () => {
           });
 
           marker.setMap(map);
-          displayMarkers.push(marker);
           let imgUrl = (item.firstimage === null || item.firstimage === ""  ? "/svg/empty_face.svg" : item.firstimage);
 
           let contentHtml =  `<div class="wrap">
@@ -139,7 +138,6 @@ const submit = async () => {
             });
             
             kakao.maps.event.addListener(marker, "mouseover", () => {
-              // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
               overlay.setMap(map);
             });
 
@@ -147,8 +145,12 @@ const submit = async () => {
                overlay.setMap(null);   
             });
 
-                
+            displayMarkers.push(marker);
         });
+
+        let firstSearchMapPos = new kakao.maps.LatLng(body.items.item[0].mapy , body.items.item[0].mapx);
+        map.setCenter(firstSearchMapPos);
+
     }else{
       alert("검색 결과가 없습니다.");
     }
@@ -181,7 +183,7 @@ const loadMap = () => {
   const container = document.getElementById('map');
   const options = {
     center: new kakao.maps.LatLng(33.450701, 126.570667),
-    level: 5,
+    level: 7,
   };
   map = new kakao.maps.Map(container, options);
 
