@@ -74,6 +74,34 @@
         </router-link>
       </div>
     </div>
+    <div class="flex mt-10" v-if="tripItems && tripItems.length > 0">
+        <div class="w-full flex items-center justify-between border-t border-gray-200">
+            <div class="flex items-center pt-3 text-gray-600 hover:text-indigo-700 cursor-pointer" @click="searchPage('prev')" :disabled="pageInfo.pageNo === 1">
+                <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.1665 4H12.8332" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M1.1665 4L4.49984 7.33333" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M1.1665 4.00002L4.49984 0.666687" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <p class="text-sm ml-3 font-medium leading-none">이전</p>
+            </div>
+            <div class="sm:flex hidden">
+                 <p v-for="item in displayedPages()" :key="item"
+                  @click="searchPage(item)"
+                  :class="{ 'text-indigo-700 border-t border-indigo-400': item === pageInfo.pageNo }"
+                  class="text-sm font-medium leading-none cursor-pointer text-gray-600 hover:text-indigo-700 border-t border-transparent hover:border-indigo-400 pt-3 mr-4 px-2">
+                  {{ item }}
+                </p>
+            </div>
+            <div class="flex items-center pt-3 text-gray-600 hover:text-indigo-700 cursor-pointer" @click="searchPage('next')" :disabled="pageInfo.totalCount === pageInfo.pageNo">
+                <p class="text-sm font-medium leading-none mr-3">다음</p>
+                <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.1665 4H12.8332" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M9.5 7.33333L12.8333 4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M9.5 0.666687L12.8333 4.00002" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+        </div>
+    </div>
     <!-- no result -->
     <div v-if="emptyResult" class="flex items-center justify-center text-zinc-400 h-[300px]">
       <i class="mr-1 text-2xl las la-ban"></i>
@@ -90,6 +118,14 @@ import { useRouter } from 'vue-router';
 
 const store = useMainStore();
 const router = useRouter();
+
+let pageInfo = {
+  "pageNo": 1,
+  "numOfRows": 10,
+  "totalCount": 0
+};
+
+let pageGroup
 
 const contentTypes = [
   {
@@ -136,6 +172,7 @@ const emptyResult = ref(false);
 const contentType = ref('');
 const tripItems = ref([]);
 
+
 // watch(contentType, (newValue, oldValue) => {
 //   if (newValue.includes(0) && !oldValue.includes(0)) {
 //     contentType.value = contentTypes.map((item) => item.id);
@@ -162,8 +199,8 @@ const submit = async () => {
 
   try {
     const payload = {
-      numOfRows: '10',
-      pageNo: '1',
+      numOfRows: pageInfo["numOfRows"],
+      pageNo: pageInfo["pageNo"],
       MobileOS: 'ETC',
       MobileApp: 'AppTest',
       _type: 'json',
@@ -198,6 +235,11 @@ const submit = async () => {
     if (status === 200 && body) {
       console.log(body);
       tripItems.value = body.items.item;
+      pageInfo = {
+        "numOfRows" : body["numOfRows"],
+        "pageNo" : body["pageNo"],
+        "totalCount" : body["totalCount"]
+      };
 
       // 로딩중 제거
       store.state.setLoading(false);
@@ -213,4 +255,32 @@ const submit = async () => {
     router.go();
   }
 };
+
+function displayedPages() {
+  let startPage;
+  let endPage;
+  try {
+    startPage = Math.max(1, this.pageInfo.pageNo - Math.floor(5 / 2));
+    endPage = Math.min(startPage + 5 - 1, this.pageInfo.totalCount);
+    console.log(startPage, endPage);
+  } catch {
+    return [];
+  }
+  console.log(Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index));
+  return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+}
+
+function searchPage(_page){
+    if(_page === "prev"){
+      pageInfo["pageNo"] = pageInfo["pageNo"] - 1;
+
+    }else if(_page === "next"){
+      pageInfo["pageNo"] = pageInfo["pageNo"] + 1;
+    }else{
+      pageInfo["pageNo"] = _page;
+    }
+
+    submit();
+}
+
 </script>
