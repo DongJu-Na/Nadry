@@ -52,7 +52,7 @@
           </div>
           <div class="flex flex-col justify-center flex-1 overflow-hidden">
             <div>
-              <span class="font-semibold">{{ item.title }}</span>
+              <div class="font-semibold truncate ...">{{ item.title }}</div>
               <!-- <span>{{ item.contenttypeid }}</span> -->
             </div>
             <div class="w-full text-sm truncate ... text-zinc-400">
