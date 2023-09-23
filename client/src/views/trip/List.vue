@@ -74,34 +74,21 @@
         </router-link>
       </div>
     </div>
-    <div class="flex mt-10" v-if="tripItems && tripItems.length > 0">
-        <div class="w-full flex items-center justify-between border-t border-gray-200">
-            <div class="flex items-center pt-3 text-gray-600 hover:text-indigo-700 cursor-pointer" @click="searchPage('prev')" :disabled="pageInfo.pageNo === 1">
-                <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1.1665 4H12.8332" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M1.1665 4L4.49984 7.33333" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M1.1665 4.00002L4.49984 0.666687" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                <p class="text-sm ml-3 font-medium leading-none">이전</p>
-            </div>
-            <div class="sm:flex hidden">
-                 <p v-for="item in displayedPages()" :key="item"
-                  @click="searchPage(item)"
-                  :class="{ 'text-indigo-700 border-t border-indigo-400': item === pageInfo.pageNo }"
-                  class="text-sm font-medium leading-none cursor-pointer text-gray-600 hover:text-indigo-700 border-t border-transparent hover:border-indigo-400 pt-3 mr-4 px-2">
-                  {{ item }}
-                </p>
-            </div>
-            <div class="flex items-center pt-3 text-gray-600 hover:text-indigo-700 cursor-pointer" @click="searchPage('next')" :disabled="pageInfo.totalCount === pageInfo.pageNo">
-                <p class="text-sm font-medium leading-none mr-3">다음</p>
-                <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1.1665 4H12.8332" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M9.5 7.33333L12.8333 4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M9.5 0.666687L12.8333 4.00002" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-            </div>
-        </div>
-    </div>
+
+    <!-- pagination -->
+    <Pagination
+      :pageInfo="pageInfo"
+      :items="tripItems"
+      @nextPage="pageInfo.pageNo = pageInfo.pageNo + 1"
+      @prevPage="pageInfo.pageNo = pageInfo.pageNo - 1"
+      @changePage="
+        (page) => {
+          pageInfo.pageNo = page;
+        }
+      "
+      @fetch="submit"
+    />
+
     <!-- no result -->
     <div v-if="emptyResult" class="flex items-center justify-center text-zinc-400 h-[300px]">
       <i class="mr-1 text-2xl las la-ban"></i>
@@ -111,77 +98,24 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { useMainStore } from '@/store';
 import { searchTrip } from '@/api';
 import { useRouter } from 'vue-router';
+import Pagination from '@/components/common/moleclues/Pagination.vue';
 
 const store = useMainStore();
 const router = useRouter();
 
-let pageInfo = {
-  "pageNo": 1,
-  "numOfRows": 10,
-  "totalCount": 0
-};
-
-let pageGroup
-
-const contentTypes = [
-  {
-    name: '전체',
-    id: 0,
-  },
-  {
-    name: '관광지',
-    id: 12,
-  },
-  {
-    name: '문화시설',
-    id: 14,
-  },
-  {
-    name: '축제/공연/행사',
-    id: 15,
-  },
-  {
-    name: '여행코스',
-    id: 25,
-  },
-  {
-    name: '레포츠',
-    id: 28,
-  },
-  {
-    name: '숙박',
-    id: 32,
-  },
-  {
-    name: '쇼핑',
-    id: 38,
-  },
-  {
-    name: '음식점',
-    id: 39,
-  },
-];
+const pageInfo = ref({
+  pageNo: 1,
+  numOfRows: 10,
+  totalCount: 0,
+});
 
 const searchWord = ref('');
 const emptyResult = ref(false);
-// const contentType = ref(contentTypes.map((item) => item.id));
-const contentType = ref('');
 const tripItems = ref([]);
-
-
-// watch(contentType, (newValue, oldValue) => {
-//   if (newValue.includes(0) && !oldValue.includes(0)) {
-//     contentType.value = contentTypes.map((item) => item.id);
-//   }
-//   if (!newValue.includes(0) && oldValue.includes(0)) {
-//     console.log('전체 해제');
-//     contentType.value = [];
-//   }
-// });
 
 const testSubmit = (name) => {
   searchWord.value = name;
@@ -199,8 +133,8 @@ const submit = async () => {
 
   try {
     const payload = {
-      numOfRows: pageInfo["numOfRows"],
-      pageNo: pageInfo["pageNo"],
+      numOfRows: pageInfo.value.numOfRows,
+      pageNo: pageInfo.value.pageNo,
       MobileOS: 'ETC',
       MobileApp: 'AppTest',
       _type: 'json',
@@ -215,16 +149,6 @@ const submit = async () => {
       keyword: searchWord.value,
     };
 
-    // const contentTypeNumber = contentType.value.filter((item) => item !== 0);
-
-    // payload['contentTypeId'] = contentTypeNumber.map((item) => {
-    //   if (item != 0) {
-    //     return item.toString();
-    //   }
-    // });
-
-    console.log(payload.contentTypeId);
-
     const {
       status,
       data: {
@@ -233,12 +157,12 @@ const submit = async () => {
     } = await searchTrip(payload);
 
     if (status === 200 && body) {
-      console.log(body);
+      // console.log(body);
       tripItems.value = body.items.item;
-      pageInfo = {
-        "numOfRows" : body["numOfRows"],
-        "pageNo" : body["pageNo"],
-        "totalCount" : body["totalCount"]
+      pageInfo.value = {
+        numOfRows: body['numOfRows'],
+        pageNo: body['pageNo'],
+        totalCount: body['totalCount'],
       };
 
       // 로딩중 제거
@@ -255,32 +179,4 @@ const submit = async () => {
     router.go();
   }
 };
-
-function displayedPages() {
-  let startPage;
-  let endPage;
-  try {
-    startPage = Math.max(1, this.pageInfo.pageNo - Math.floor(5 / 2));
-    endPage = Math.min(startPage + 5 - 1, this.pageInfo.totalCount);
-    console.log(startPage, endPage);
-  } catch {
-    return [];
-  }
-  console.log(Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index));
-  return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
-}
-
-function searchPage(_page){
-    if(_page === "prev"){
-      pageInfo["pageNo"] = pageInfo["pageNo"] - 1;
-
-    }else if(_page === "next"){
-      pageInfo["pageNo"] = pageInfo["pageNo"] + 1;
-    }else{
-      pageInfo["pageNo"] = _page;
-    }
-
-    submit();
-}
-
 </script>
