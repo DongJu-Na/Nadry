@@ -51,7 +51,7 @@ const submit = async () => {
 
   try {
     const payload = {
-      numOfRows: 30,
+      numOfRows: 10,
       pageNo: 1,
       MobileOS: 'ETC',
       MobileApp: 'AppTest',
@@ -101,16 +101,21 @@ const submit = async () => {
 
           marker = new kakao.maps.Marker({
             position: markerPosition,
-            image: markerImage
+            // image: markerImage
           });
 
           marker.setMap(map);
           let imgUrl = (item.firstimage === null || item.firstimage === ""  ? "/svg/empty_face.svg" : item.firstimage);
 
+          let closeOverlay = () =>{
+            console.log("call ?");
+          }
+
           let contentHtml =  `<div class="wrap">
                                 <div class="info">
                                   <div class="title">
                                     ${item.title}
+                                     <div class="close" onclick="closeOverlay" title="닫기"></div>
                                   </div>
                                   <div class="body">
                                     <div class="img">
@@ -119,6 +124,7 @@ const submit = async () => {
                                     <div class="desc">
                                       <div class="ellipsis"></div>
                                       <div class="jibun ellipsis">${item.addr1 + " " + item.addr2}</div>
+                                       <div><a href=${"/trips/" + item.contentid + "/" +item.contenttypeid} class="link">상세보기</a></div>
                                     </div>
                                   </div>
                                 </div>
@@ -131,20 +137,11 @@ const submit = async () => {
                 position: marker.getPosition()       
             });
 
-            overlay.setMap(null);  
-
+      
             kakao.maps.event.addListener(marker, 'click', function() {
-                window.location = `${"/trips/" + item.contentid + "/" +item.contenttypeid}`;
+                 overlay.setMap(map);
             });
             
-            kakao.maps.event.addListener(marker, "mouseover", () => {
-              overlay.setMap(map);
-            });
-
-            kakao.maps.event.addListener(marker, "mouseout", () => {
-               overlay.setMap(null);   
-            });
-
             displayMarkers.push(marker);
         });
 
