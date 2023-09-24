@@ -10,7 +10,7 @@
     </div>
 
     <!-- list -->
-    <div class="">
+    <div v-if="isLoaded">
       <Swiper
         :slides-per-view="2.5"
         :space-between="10"
