@@ -39,6 +39,7 @@
 import { onMounted, ref } from 'vue';
 import { searchTrip } from '@/api';
 
+
 const searchWord = ref('');
 
 let map,displayMarkers = [];
@@ -67,94 +68,111 @@ const submit = async () => {
       keyword: searchWord.value,
     };
 
-    const {
-      status,
-      data: {
-        response: { body },
-      },
-    } = await searchTrip(payload);
-        console.log(displayMarkers);
-        for (var i = 0; i < displayMarkers.length; i++) {
-            displayMarkers[i].setMap(null);
-        }    
-      
-    if (status === 200 && body && body.items.item.length > 0) {
-        map.relayout();
+     await searchTrip(payload).then((result)=>{
+    const {status, data: {response: { body }}} = result;
+      console.log(displayMarkers);
 
-        body.items.item.forEach(item => {
-          let kakaoPos = new kakao.maps.LatLng(item.mapy, item.mapx);
-          let marker = new kakao.maps.Marker({
-            map: map,
-            position: kakaoPos,
-            title: item.title,
-            clickable: true
-          });
+        if (status === 200 && body && body.items.item.length > 0) {
+            map.relayout();
+            hideMarkers();
+            body.items.item.forEach(item => {
+              let kakaoPos = new kakao.maps.LatLng(item.mapy, item.mapx);
 
-          console.log("위치 잘 찍히니? 네 => " + marker.getTitle());
+              addMarker(kakaoPos,item,map);
 
-          let imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-          let imageSize = new kakao.maps.Size(37, 45);
-          let imageOption = { offset: new kakao.maps.Point(17, 40) };
-
-          let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
-          let markerPosition = marker.getPosition();
-
-          marker = new kakao.maps.Marker({
-            position: markerPosition,
-            // image: markerImage
-          });
-
-          marker.setMap(map);
-          let imgUrl = (item.firstimage === null || item.firstimage === ""  ? "/svg/empty_face.svg" : item.firstimage);
-
-          let closeOverlay = () =>{
-            console.log("call ?");
-          }
-
-          let contentHtml =  `<div class="wrap">
-                                <div class="info">
-                                  <div class="title">
-                                    ${item.title}
-                                     <div class="close" onclick="closeOverlay" title="닫기"></div>
-                                  </div>
-                                  <div class="body">
-                                    <div class="img">
-                                      <img src=${imgUrl} width="73" height="70">
-                                    </div>
-                                    <div class="desc">
-                                      <div class="ellipsis"></div>
-                                      <div class="jibun ellipsis">${item.addr1 + " " + item.addr2}</div>
-                                       <div><a href=${"/trips/" + item.contentid + "/" +item.contenttypeid} class="link">상세보기</a></div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            `;
-          
-            let overlay = new kakao.maps.CustomOverlay({
-                content: contentHtml,
-                map: map,
-                position: marker.getPosition()       
             });
 
-      
-            kakao.maps.event.addListener(marker, 'click', function() {
-                 overlay.setMap(map);
-            });
-            
-            displayMarkers.push(marker);
-        });
+            let firstSearchMapPos = new kakao.maps.LatLng(body.items.item[0].mapy , body.items.item[0].mapx);
+            map.setCenter(firstSearchMapPos);
+            showMarkers(map);
 
-        let firstSearchMapPos = new kakao.maps.LatLng(body.items.item[0].mapy , body.items.item[0].mapx);
-        map.setCenter(firstSearchMapPos);
-
-    }else{
-      alert("검색 결과가 없습니다.");
-    }
+        }else{
+          alert("검색 결과가 없습니다.");
+        }
+    });
+        
   } catch (error) {
     console.log(error);
   }
 };
+
+function addMarker(_position,_item,_map) {
+    let marker = new kakao.maps.Marker({
+      map: _map,
+      position: _position,
+      title: _item.title,
+      clickable: true
+    });
+
+    let imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+    let imageSize = new kakao.maps.Size(37, 45);
+    let imageOption = { offset: new kakao.maps.Point(17, 40) };
+
+    let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+    let markerPosition = marker.getPosition();
+
+    marker = new kakao.maps.Marker({
+      position: markerPosition,
+      // image: markerImage
+    });
+
+    marker.setMap(_map);
+    let imgUrl = (_item.firstimage === null || _item.firstimage === ""  ? "/svg/empty_face.svg" : _item.firstimage);
+
+    let contentHtml =  `<div class="wrap">
+                          <div class="info">
+                            <div class="title">
+                              ${_item.title}
+                              <div class="close" onclick="closeOverlay()" title="닫기"></div>
+                            </div>
+                            <div class="body">
+                              <div class="img">
+                                <img src=${imgUrl} width="73" height="70">
+                              </div>
+                              <div class="desc">
+                                <div class="ellipsis"></div>
+                                <div class="jibun ellipsis">${_item.addr1 + " " + _item.addr2}</div>
+                                <div><a href=${"/trips/" + _item.contentid + "/" +_item.contenttypeid} class="link">상세보기</a></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      `;
+    
+      let overlay = new kakao.maps.CustomOverlay({
+          content: contentHtml,
+          map: _map,
+          position: marker.getPosition()       
+      });
+
+
+      kakao.maps.event.addListener(marker, 'click', function() {
+          overlay.setMap(_map);
+      });
+      
+    displayMarkers.push(marker);
+    console.debug("push Markers",displayMarkers);
+}
+
+function showMarkers(_map) {
+    setMarkers(_map);
+}
+
+function hideMarkers() {
+    setMarkers(null);    
+}
+
+function setMarkers(_map) {
+    for (var i = 0; i < displayMarkers.length; i++) {
+        displayMarkers[i].setMap(_map);
+    }
+    console.debug("setMarkers",displayMarkers,_map);            
+}
+
+function closeOverlay() {
+    console.debug("closeOverlay");
+    overlay.setMap(null);     
+}
 
 const onEnter = () => {
   submit(searchWord.value);
