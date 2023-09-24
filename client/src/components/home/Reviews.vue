@@ -16,6 +16,7 @@
         :space-between="10"
         :slides-offset-before="20"
         :slides-offset-after="20"
+        :loop="true"
       >
         <SwiperSlide v-for="review in reviews" :key="review.id">
           <div class="overflow-hidden bg-zinc-50 rounded-xl">
@@ -28,7 +29,16 @@
                 <span>{{ review.likes }}</span>
               </div>
             </div>
-            <img :src="storageUrl + review.reviewImageUrl" class="w-full h-[220px] object-cover" />
+                <img
+                    v-if="review.reviewImageUrl"
+                    :src="storageUrl + review.reviewImageUrl"
+                    class="w-full h-[220px] object-cover"
+                  />
+                  <img
+                    v-else
+                    src="/svg/empty_face.svg"
+                    class="w-full h-[220px] object-cover"
+                  />
           </div>
         </SwiperSlide>
       </Swiper>
