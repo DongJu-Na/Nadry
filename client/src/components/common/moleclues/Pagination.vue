@@ -34,21 +34,32 @@ const emit = defineEmits(['prevPage', 'nextPage', 'changePage', 'fetch']);
 const displayedPages = () => {
   let startPage;
   let endPage;
+
+  if(props.pageInfo.totalCount < 5){
+    return [1];
+  }
+
   try {
     startPage = Math.max(1, props.pageInfo.pageNo - Math.floor(5 / 2));
     endPage = Math.min(startPage + 5 - 1, props.pageInfo.totalCount);
   } catch {
     return [];
   }
-  // console.log(Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index));
+  //console.log(Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index));
   return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
 };
 
 const searchPage = (page) => {
   if (page === 'prev') {
+    if(props.pageInfo.pageNo === 1){
+      return false;
+    }
     emit('prevPage');
     // props.pageInfo.value.pageNo = props.pageInfo.value.pageNo - 1;
   } else if (page === 'next') {
+    if(props.pageInfo.totalCount < 5){
+      return false;
+    }
     emit('nextPage');
     // props.pageInfo.value.pageNo = props.pageInfo.value.pageNo + 1;
   } else {
