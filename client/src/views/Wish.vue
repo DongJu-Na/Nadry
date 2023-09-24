@@ -10,7 +10,12 @@ import { getWishList } from '@/api';
 
 const fetchWishList = async () => {
   try {
-    const result = await getWishList();
+    const payload = {
+      "pageNo" : 1,
+      "listCnt" : 10,
+    };
+
+    const result = await getWishList(payload);
     console.log(result);
   } catch (error) {
     console.log(error);
