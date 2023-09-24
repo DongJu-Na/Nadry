@@ -54,6 +54,7 @@ import { getBestTripReview } from '@/api';
 
 const reviews = ref([]);
 const storageUrl = import.meta.env.VITE_APP_STORAGE_URL;
+const isLoaded = ref(false);
 
 const fetchReviews = async () => {
   try {
@@ -68,6 +69,7 @@ const fetchReviews = async () => {
     } = await getBestTripReview(payload);
     if (status === 200 && data) {
       reviews.value = data;
+      isLoaded.value = true;
     }
   } catch (error) {
     console.log(error);
