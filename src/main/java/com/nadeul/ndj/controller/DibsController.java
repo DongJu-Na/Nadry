@@ -2,6 +2,7 @@ package com.nadeul.ndj.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nadeul.ndj.dto.ApiResponse;
 import com.nadeul.ndj.dto.DibsDto;
+import com.nadeul.ndj.dto.DibsDto.Response;
 import com.nadeul.ndj.entity.Dibs;
 import com.nadeul.ndj.service.DibsService;
 
@@ -28,8 +30,14 @@ public class DibsController<T> {
 	
 	@GetMapping("/dibsList")
 	@Operation(summary = "관광지 찜 목록 조회", description = "나의 찜 목록 조회")
-    public ResponseEntity<ApiResponse<List<Dibs>>> list(DibsDto.ListRequest request) {
-        return ResponseEntity.ok(service.list(request));
+    public ResponseEntity<ApiResponse<List<Dibs>>> list(Pageable pageable) {
+        return ResponseEntity.ok(service.list(pageable));
+    }
+	
+	@PostMapping("/contentDibsCheck")
+	@Operation(summary = "관광지 찜 여부 체크", description = "해당 콘텐츠 찜 여부 체크")
+    public ResponseEntity<ApiResponse<Response>> contentDibsCheck(@RequestBody DibsDto.contentCheckRequest request) {
+        return ResponseEntity.ok(service.contentDibsCheck(request));
     }
 	
     @PostMapping("/")
