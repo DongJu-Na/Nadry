@@ -17,5 +17,4 @@ public interface DibsRepository extends JpaRepository<Dibs, Integer> {
     
     
     
-    
 }
