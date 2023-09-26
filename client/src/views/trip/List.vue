@@ -20,13 +20,13 @@
     </form>
 
     <div class="flex gap-3 mt-3 text-sm">
-      <a @click="testSubmit('영종도')">#영종도</a>
-      <a @click="testSubmit('인천공항')">#인천공항</a>
-      <a @click="testSubmit('무의도')">#무의도</a>
-      <a @click="testSubmit('경주')">#경주</a>
-      <a @click="testSubmit('전주')">#전주</a>
-      <a @click="testSubmit('해운대')">#해운대</a>
-      <a @click="testSubmit('제주')">#제주</a>
+      <a class="text-sky-500 cursor-pointer" @click="testSubmit('영종도')">#영종도</a>
+      <a class="text-sky-500 cursor-pointer" @click="testSubmit('인천공항')">#인천공항</a>
+      <a class="text-sky-500 cursor-pointer" @click="testSubmit('무의도')">#무의도</a>
+      <a class="text-sky-500 cursor-pointer" @click="testSubmit('경주')">#경주</a>
+      <a class="text-sky-500 cursor-pointer" @click="testSubmit('전주')">#전주</a>
+      <a class="text-sky-500 cursor-pointer" @click="testSubmit('해운대')">#해운대</a>
+      <a class="text-sky-500 cursor-pointer" @click="testSubmit('제주')">#제주</a>
     </div>
 
     <!-- result -->
