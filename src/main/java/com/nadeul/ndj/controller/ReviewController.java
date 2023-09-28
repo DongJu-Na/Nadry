@@ -44,7 +44,7 @@ public class ReviewController<T> {
 	
 	@GetMapping("/myList")
 	@Operation(summary = "나의 여행 리뷰 조회", description = "내가 등록한 여행 리뷰 목록 조회")
-    public ResponseEntity<ApiResponse<List<Review>>> myList(Pageable pageable) {
+    public ResponseEntity<ApiResponse<ReviewDto.ListResponse>> myList(Pageable pageable) {
         return ResponseEntity.ok(reviewService.myList(pageable));
     }
 	
