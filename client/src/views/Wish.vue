@@ -45,11 +45,16 @@ const deleteWish = (id) => {
 };
 
 const fetchWishList = async () => {
+  const payload = {
+    pageNo: 1,
+    listCnt: 10,
+  };
+
   try {
     const {
       status,
       data: { data },
-    } = await getWishList();
+    } = await getWishList(payload);
     console.log(status, data);
     if (status === 200 && data) {
       wishList.value = data;

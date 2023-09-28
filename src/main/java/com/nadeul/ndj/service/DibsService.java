@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.nadeul.ndj.dto.ApiResponse;
 import com.nadeul.ndj.dto.DibsDto;
+import com.nadeul.ndj.dto.DibsDto.Response;
 import com.nadeul.ndj.entity.Dibs;
 import com.nadeul.ndj.entity.Member;
 import com.nadeul.ndj.enums.ApiResponseEnum;
@@ -28,25 +29,45 @@ public class DibsService<T> {
 	private final DibsRepository dibsRepository;
 	private final MemberRepository memberRepository;
 	
-  public ApiResponse<List<Dibs>> list(DibsDto.ListRequest request) {
+  public ApiResponse<List<Dibs>> list(Pageable pageable) {
 	  Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	  Object principal = authentication.getPrincipal();
-	  List<Dibs> data = null;
-		if (principal instanceof UserDetails) {
-			String email = ((UserDetails) principal).getUsername();
-			Optional<Member>  optionalMember = memberRepository.findByEmail(email);
-				if (optionalMember.isPresent()) {
-					 Pageable pageable = PageRequest.of(request.getPageNo(),request.getListCnt());
-					   
-					data = dibsRepository.findByMemberOrderByDibsDateDesc(optionalMember.get(),pageable);
-				} else {
-					return ApiResponse.failResponse(ApiResponseEnum.UNKNOWN_MEMBER, ""); 
-				}
-		} else {
-			return ApiResponse.failResponse(ApiResponseEnum.UNKNOWN_MEMBER, ""); 
-		}
-		
-	  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,data,null,null);
+	  String email = ((UserDetails) principal).getUsername();
+	  Optional<Member>  optionalMember = memberRepository.findByEmail(email);
+  	
+	  if (!optionalMember.isPresent()) {
+            // 사용자 정보를 찾을 수 없을 때 에러 반환
+            return ApiResponse.errorResponse(ApiResponseEnum.UNKNOWN_MEMBER);
+        }
+	    
+	  Page<Dibs> data = dibsRepository.findByMemberOrderByDibsDateDesc(optionalMember.get(),pageable);
+	  List<Dibs> list = data.getContent();
+	  System.out.println("왜 데이터가 조회가 안되는거야? > " + list.size());
+	  
+	return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,list,null,null);
+  }
+  
+  public ApiResponse<Response> contentDibsCheck(DibsDto.contentCheckRequest request) {
+	  Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	  Object principal = authentication.getPrincipal();
+	  String email = ((UserDetails) principal).getUsername();
+	  Optional<Member>  optionalMember = memberRepository.findByEmail(email);
+  	
+	  if (!optionalMember.isPresent()) {
+            // 사용자 정보를 찾을 수 없을 때 에러 반환
+            return ApiResponse.errorResponse(ApiResponseEnum.UNKNOWN_MEMBER);
+        }
+	    
+	  Optional<Dibs> data = dibsRepository.findByMemberAndContentId(optionalMember.get(),request.getContentId());
+	  DibsDto.Response dibsDto = DibsDto.Response.builder()
+	                   .diId(data.get().getDiId())
+	                   .dibsDate(data.get().getDibsDate())
+	                   .contentId(data.get().getContentId())
+	                   .contentName(data.get().getContentName())
+	                   .contentImageUrl(data.get().getContentImageUrl())
+	                   .build();
+	  
+	return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,dibsDto,null,null);
   }
 	
 	public ApiResponse<T> dibs(DibsDto.Request request) {

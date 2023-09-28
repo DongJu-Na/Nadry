@@ -50,21 +50,21 @@ public class ReviewService<T> {
 	public ApiResponse<ListResponse> list(ReviewDto.ListRequest request,Pageable pageable) {
 		Page<Review> reviews = reviewRepository.findByContentId(request.getContentId().toString(),pageable);
 		List<ReviewDto> reviewList =  reviews.getContent().stream().map(review ->{
-			System.out.println(review.getCreateBy());
 		    return new ReviewDto(review);
 		} ).collect(Collectors.toList());
-        int totalLikes = reviewRepository.countReviewsByContentId(request.getContentId().toString());
-        BigDecimal averageRating = reviewRepository.findAverageRatingByContentId(request.getContentId().toString());
-        BigDecimal averageRatingValue = new BigDecimal("0.0");
-        if(!(averageRating == null)) {
-        	averageRatingValue = averageRating;
-        }
-        ReviewDto.ListResponse response = new ReviewDto.ListResponse(reviewList, averageRatingValue, totalLikes);
+        //int totalLikes = reviewRepository.countReviewsByContentId(request.getContentId().toString());
+        //BigDecimal averageRating = reviewRepository.findAverageRatingByContentId(request.getContentId().toString());
+        //BigDecimal averageRatingValue = new BigDecimal("0.0");
+        //if(!(averageRating == null)) {
+        //	averageRatingValue = averageRating;
+        //}
+		
+        ReviewDto.ListResponse response = new ReviewDto.ListResponse(reviewList);
 		  
 		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, response, null, null);
 	 }
 	
-	public ApiResponse<List<Review>> myList(Pageable pageable) {
+	public ApiResponse<ListResponse> myList(Pageable pageable) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
         
@@ -76,9 +76,15 @@ public class ReviewService<T> {
         }
         
 		Page<Review> reviews = reviewRepository.findByMemberMemId(optionalMember.get().getMemId(),pageable);
-		List<Review> reviewList = reviews.getContent(); 
-		  
-		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, reviewList, null, null);
+		List<ReviewDto> reviewList =  reviews.getContent().stream().map(review ->{
+			System.out.println(review.getCreateBy());
+		    return new ReviewDto(review);
+		} ).collect(Collectors.toList()); 
+		
+
+        ReviewDto.ListResponse response = new ReviewDto.ListResponse(reviewList);
+        
+		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, response, null, null);
 	 }
 	
 	public ApiResponse<List<BestListResponse>> bestList(Pageable pageable) {

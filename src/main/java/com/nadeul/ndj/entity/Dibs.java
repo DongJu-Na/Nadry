@@ -2,6 +2,8 @@ package com.nadeul.ndj.entity;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,7 @@ public class Dibs {
   @GeneratedValue
   private Integer diId;
   
+  @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "memId", insertable = true, updatable = true)
   public Member member;

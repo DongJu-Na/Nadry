@@ -133,14 +133,17 @@ export const getBestTripReview = (payload) => {
 };
 
 // 찜
+// 이미 찜한 경우 같은 API 호출 시 찜 삭제
 export const addWish = (payload) => {
   return instance.post('/api/v2/dibs/', payload);
 };
 
-// 찜 여행지 목록
-export const getWishList = () => {
-  return instance.get('/api/v2/dibs/dibsList');
+// 찜 여부 체크
+export const getWishDetail = (payload) => {
+  return instance.post('/api/v2/dibs/contentDibsCheck',payload);
 };
 
-// 찜제거
-export const removeWish = (payload) => {};
+// 찜 여행지 목록
+export const getWishList = (payload) => {
+  return instance.get('/api/v2/dibs/dibsList' + makeDynamicUrl(payload));
+};
