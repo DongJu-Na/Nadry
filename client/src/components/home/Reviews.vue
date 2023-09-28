@@ -10,7 +10,7 @@
     </div>
 
     <!-- list -->
-    <div v-if="isLoaded">
+    <div>
       <Swiper
         :slides-per-view="2.5"
         :space-between="10"
@@ -29,16 +29,12 @@
                 <span>{{ review.likes }}</span>
               </div>
             </div>
-                <img
-                    v-if="review.reviewImageUrl"
-                    :src="storageUrl + review.reviewImageUrl"
-                    class="w-full h-[220px] object-cover"
-                  />
-                  <img
-                    v-else
-                    src="/svg/empty_face.svg"
-                    class="w-full h-[220px] object-cover"
-                  />
+            <img
+              v-if="review.reviewImageUrl"
+              :src="storageUrl + review.reviewImageUrl"
+              class="w-full h-[220px] object-cover"
+            />
+            <img v-else src="/svg/empty_face.svg" class="w-full h-[220px] object-cover" />
           </div>
         </SwiperSlide>
       </Swiper>
@@ -66,6 +62,7 @@ const fetchReviews = async () => {
       status,
       data: { data },
     } = await getBestTripReview(payload);
+    console.log(data);
     if (status === 200 && data) {
       reviews.value = data;
     }
