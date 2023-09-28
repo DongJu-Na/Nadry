@@ -135,6 +135,10 @@ router.beforeEach((to, from, next) => {
     }
   }
 
+  if (to.meta.auth && !store.user.isLoggedIn) {
+    router.push('/login');
+  }
+
   window.scrollTo(0, 0);
   next();
 });
