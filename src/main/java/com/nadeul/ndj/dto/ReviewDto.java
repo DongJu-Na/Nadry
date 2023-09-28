@@ -36,13 +36,9 @@ public class ReviewDto {
     public static class ListResponse {
 	  @Schema(description = "여행 리뷰 목록" , example = "객체 반환")
 	  private List<ReviewDto> review;
-	  private BigDecimal averageRating;
-	  private int totalLikes;
 	  
-	  public ListResponse(List<ReviewDto> review, BigDecimal averageRating, int totalLikes) {
+	  public ListResponse(List<ReviewDto> review) {
 	        this.review = review;
-	        this.averageRating = averageRating;
-	        this.totalLikes = totalLikes;
 	  }
 	  
 	  
