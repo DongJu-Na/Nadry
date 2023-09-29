@@ -21,10 +21,16 @@ public class DibsDto {
     public static class Request {
     	@Schema(description = "관광지 ID" , example = "1001")
         private String contentId;
+    	
+    	@Schema(description = "관광지 타입 ID" , example = "17")
+        private String contentTypeId;
+    	
     	@Schema(description = "관광지 명" , example = "불국사")
         private String contentName;
+    	
     	@Schema(description = "관광지 이미지 URL Path" , example = "공공API 이미지 URL")
         private String contentImageUrl;
+    	
 
     }
     
@@ -46,6 +52,7 @@ public class DibsDto {
     	  private Integer diId;
     	  private LocalDateTime dibsDate;
     	  private String contentId;
+    	  private String contentTypeId;
     	  private String contentName;
     	  private String contentImageUrl;
     	  
