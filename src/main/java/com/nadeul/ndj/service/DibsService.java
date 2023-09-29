@@ -58,15 +58,22 @@ public class DibsService<T> {
         }
 	    
 	  Optional<Dibs> data = dibsRepository.findByMemberAndContentId(optionalMember.get(),request.getContentId());
-	  DibsDto.Response dibsDto = DibsDto.Response.builder()
-	                   .diId(data.get().getDiId())
-	                   .dibsDate(data.get().getDibsDate())
-	                   .contentId(data.get().getContentId())
-	                   .contentName(data.get().getContentName())
-	                   .contentImageUrl(data.get().getContentImageUrl())
-	                   .build();
 	  
-	return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,dibsDto,null,null);
+	  if(data.isPresent()) {
+		  DibsDto.Response dibsDto = DibsDto.Response.builder()
+                  .diId(data.get().getDiId())
+                  .dibsDate(data.get().getDibsDate())
+                  .contentId(data.get().getContentId())
+                  .contentName(data.get().getContentName())
+                  .contentImageUrl(data.get().getContentImageUrl())
+                  .build();
+ 
+		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,dibsDto,null,null);
+	  }else {
+		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,null,null,null);
+	  }
+	  
+	
   }
 	
 	public ApiResponse<T> dibs(DibsDto.Request request) {
