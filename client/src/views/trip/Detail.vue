@@ -36,7 +36,7 @@
         </div>
         <div
           @click="clickWish"
-          class="absolute top-0 right-0 flex flex-col items-center gap-[3px] transition-all active:scale-90"
+          class="absolute top-0 right-0 flex flex-col items-center gap-[3px] transition-all active:scale-90 cursor-pointer"
           :class="hasWished ? 'text-rose-600 font-semibold' : 'text-zinc-400'"
         >
           <HeartIcon class="w-[25px]" />
@@ -86,7 +86,7 @@
       </div>
 
       <!-- reviews -->
-      <div class="mt-10">
+      <div class="mt-10 cursor-pointer">
         <h3 class="mb-3 font-medium">리뷰</h3>
         <!-- 리뷰 작성 버튼 -->
         <a @click="writeReview" class="button">
