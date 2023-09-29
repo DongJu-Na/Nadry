@@ -142,6 +142,7 @@ const clickWish = async () => {
   console.log(detailCommon.value.title, detailCommon.value.firstimage);
   const payload = {
     contentId: route.params.id,
+    contentTypeId: route.params.type,
     contentName: detailCommon.value.title,
     contentImageUrl: detailCommon.value.firstimage,
   };
