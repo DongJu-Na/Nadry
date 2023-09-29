@@ -26,17 +26,17 @@
       <div class="flex items-center justify-between mb-5">
         <!-- user profile image -->
         <div
-          class="w-[40px] h-[40px] bg-zinc-100 mr-3 rounded-full flex justify-center itencen overflow-hidden"
+          class="w-[40px] h-[40px] bg-zinc-100 mr-3 rounded-full flex justify-center itencen overflow-hidden border border-zinc-100"
         >
           <img v-if="review.profileUrl" :src="storageUrl + review.profileUrl" />
           <UserIcon v-else class="w-5 opacity-10" />
         </div>
         <div class="flex flex-col leading-none">
-          <div class="mb-1">
-            <span class="mr-2 font-semibold">{{ review.createBy }}</span>
+          <div class="mb-[4px]">
+            <span class="mr-2 font-semibold">{{ review.name }}</span>
             <span>{{ review.email }}</span>
           </div>
-          <div class="text-xs text-zinc-400">{{ transDate(review.createDate) }}</div>
+          <div class="text-xs leading-none text-zinc-400">{{ transDate(review.createDate) }}</div>
         </div>
         <div class="flex gap-5 ml-auto">
           <!-- rating -->
@@ -71,7 +71,45 @@
       :key="review.rvId + 'my'"
       class="flex flex-col pb-10 mt-10 border-b"
     >
-      {{ review }}
+      <div class="flex items-center justify-between mb-5">
+        <!-- user profile image -->
+        <div
+          class="w-[40px] h-[40px] bg-zinc-100 mr-3 rounded-full flex justify-center itencen overflow-hidden border border-zinc-100"
+        >
+          <img v-if="review.member.profileUrl" :src="storageUrl + review.member.profileUrl" />
+          <UserIcon v-else class="w-5 opacity-10" />
+        </div>
+        <div class="flex flex-col leading-none">
+          <div class="mb-[4px]">
+            <span class="mr-2 font-semibold">{{ review.member.name }}</span>
+            <span>{{ review.email }}</span>
+          </div>
+          <div class="text-xs leading-none text-zinc-400">{{ transDate(review.createDate) }}</div>
+        </div>
+        <div class="flex gap-5 ml-auto">
+          <!-- rating -->
+          <div v-if="review.reviewGrade" class="flex items-center gap-1">
+            <StarIcon class="w-4 text-yellow-400" />
+            <span>{{ review.reviewGrade[0].rating }}</span>
+          </div>
+          <!-- like -->
+          <div
+            @click="like(review.rvId)"
+            class="flex items-center gap-1 p-2 leading-none transition-all border rounded border-rose-300 text-rose-500 active:scale-95"
+          >
+            <HandThumbUpIcon class="w-4" />
+            <div>{{ review.like }}</div>
+          </div>
+        </div>
+      </div>
+      <!-- image -->
+      <img
+        v-if="review.reviewImageUrl"
+        :src="`${storageUrl}${review.reviewImageUrl}`"
+        class="mb-5 rounded-md"
+      />
+      <!-- content -->
+      <div class="p-5 text-sm rounded-md bg-zinc-50 text-zinc-500">{{ review.content }}</div>
     </div>
   </div>
 </template>
@@ -132,9 +170,9 @@ const fetchMyReviews = async () => {
       status,
       data: { data },
     } = await getMyTripReview(payload);
-    // console.log('MyTripReview: ', data);
+    console.log('MyTripReview: ', data);
     if (status === 200 && data) {
-      myReviews.value = data;
+      myReviews.value = data.review;
     }
   } catch (error) {
     console.log(error);
