@@ -36,9 +36,10 @@
         </div>
         <div
           @click="clickWish"
-          class="absolute top-0 right-0 flex flex-col items-center gap-[3px] text-rose-600"
+          class="absolute top-0 right-0 flex flex-col items-center gap-[3px] transition-all active:scale-90"
+          :class="hasWished ? 'text-rose-600 font-semibold' : 'text-zinc-400'"
         >
-          <HeartOutlineIcon class="w-[25px]" />
+          <HeartIcon class="w-[25px]" />
           <span class="text-xs leading-none">찜하기</span>
         </div>
       </div>
@@ -111,6 +112,7 @@ import {
   getTripDetailImage,
   getTripDetailCommon,
   addWish,
+  getWishDetail,
 } from '@/api';
 import { useMainStore } from '@/store';
 import { Pagination } from 'swiper';
@@ -119,8 +121,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import ReviewModal from '@/components/modal/ReviewModal.vue';
 import ReviewList from '@/components/review/ReviewList.vue';
-import { HeartIcon as HeartSolidIcon } from '@heroicons/vue/24/solid';
-import { HeartIcon as HeartOutlineIcon } from '@heroicons/vue/24/outline';
+import { HeartIcon } from '@heroicons/vue/24/solid';
 import { usageKeys } from '@/uilts/usageKeys.js';
 
 const modules = [Pagination];
@@ -136,10 +137,11 @@ const detailCommon = ref(null);
 const imageLoading = ref(false);
 const reviews = ref([]);
 const showReviewModal = ref(false);
+const hasWished = ref(false);
 
 // 찜하기
 const clickWish = async () => {
-  console.log(detailCommon.value.title, detailCommon.value.firstimage);
+  // console.log(detailCommon.value.title, detailCommon.value.firstimage);
   const payload = {
     contentId: route.params.id,
     contentTypeId: route.params.type,
@@ -150,10 +152,34 @@ const clickWish = async () => {
   try {
     const {
       status,
-      data: { resultMsg },
+      data: { data, resultMsg },
     } = await addWish(payload);
+    // console.log(data, resultMsg);
     if (status === 200 && resultMsg) {
-      alert(resultMsg);
+      // alert(resultMsg);
+      hasWished.value = !hasWished.value;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const fetchWishDetail = async () => {
+  try {
+    const payload = {
+      contentId: route.params.id,
+      contentTypeId: route.params.type,
+      contentName: detailCommon.value.title,
+      contentImageUrl: detailCommon.value.firstimage,
+    };
+    const {
+      status,
+      data: { data },
+    } = await getWishDetail(payload);
+    if (status === 200 && data) {
+      hasWished.value = true;
+    } else {
+      hasWished.value = false;
     }
   } catch (error) {
     console.log(error);
@@ -305,6 +331,7 @@ const fetchTripData = async () => {
 // 문서 로딩 완료 시 : fetch data
 onMounted(async () => {
   await router.isReady();
-  fetchTripData();
+  await fetchTripData();
+  fetchWishDetail();
 });
 </script>
