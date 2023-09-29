@@ -161,7 +161,7 @@ const submit = async () => {
       tripItems.value = body.items.item;
       pageInfo.value = {
         numOfRows: body['numOfRows'],
-        pageNo: body['pageNo'],
+        pageNo: body['numOfRows'] != 0 ? body['pageNo'] : 1,
         totalCount: body['totalCount'],
       };
 

@@ -95,6 +95,7 @@ const fetchPhotoList = async () => {
       numOfRows: 10,
       pageNo: randomVal,
       arrange: 'A',
+      _type: 'json',
     };
     const {
       status,

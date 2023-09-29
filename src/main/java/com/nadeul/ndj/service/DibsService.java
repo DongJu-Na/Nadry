@@ -42,7 +42,6 @@ public class DibsService<T> {
 	    
 	  Page<Dibs> data = dibsRepository.findByMemberOrderByDibsDateDesc(optionalMember.get(),pageable);
 	  List<Dibs> list = data.getContent();
-	  System.out.println("왜 데이터가 조회가 안되는거야? > " + list.size());
 	  
 	return ApiResponse.successResponse(ApiResponseEnum.SUCCESS,list,null,null);
   }
@@ -89,6 +88,7 @@ public class DibsService<T> {
 		        			       .member(optionalMember.get())
 		        			       .dibsDate(LocalDateTime.now())
 		        			       .contentId(request.getContentId())
+		        			       .contentTypeId(request.getContentTypeId())
 		        			       .contentName(request.getContentName())
 		        			       .contentImageUrl(request.getContentImageUrl())
 		        				   .build();
