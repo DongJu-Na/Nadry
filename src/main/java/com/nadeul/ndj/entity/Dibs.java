@@ -35,6 +35,8 @@ public class Dibs {
   
   private String contentId;
   
+  private String contentTypeId;
+  
   private String contentName;
   
   private String contentImageUrl;
