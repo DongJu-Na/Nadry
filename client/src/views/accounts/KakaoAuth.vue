@@ -14,7 +14,10 @@ const store = useMainStore();
 
 onMounted(async () => {
   await router.isReady();
-  console.log(route.query);
+  if (Object.keys(route.query).length === 0) {
+    router.push('/');
+  }
+  
   const { status, data } = await userKakaoLogin(route.query);
 
   if (status === 200 && data) {
