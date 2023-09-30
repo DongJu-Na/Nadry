@@ -85,7 +85,9 @@ const login = async () => {
 
 // 카카오 로그인
 const kakaoLogin = () => {
-  console.log("카카오 로그인");
-  window.location.href="http://localhost:8080/oauth2/authorization/kakao";
+  const CLIENT_ID =  import.meta.env.VITE_APP_KAKAO_KEY;
+  const REDIRECT_URI = import.meta.env.VITE_APP_REDIRECT_URL;
+  window.location.href=`https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  
 };
 </script>
