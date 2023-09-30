@@ -82,7 +82,7 @@
         <div class="flex flex-col leading-none">
           <div class="mb-[4px]">
             <span class="mr-2 font-semibold">{{ review.member.name }}</span>
-            <span>{{ review.email }}</span>
+            <span>{{ review.member.email }}</span>
           </div>
           <div class="text-xs leading-none text-zinc-400">{{ transDate(review.createDate) }}</div>
         </div>
