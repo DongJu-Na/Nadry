@@ -39,7 +39,9 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
     
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        log.info("OAuth2 Login 성공!");
+    	response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().write("소셜 로그인 성공! 서버 로그를 확인해주세요.");
+        /*
         try {
         		OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         		log.info("oAuth2User 정보 : {} " , oAuth2User.toString());
@@ -94,7 +96,7 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
         } catch (Exception e) {
             throw e;
         }
-
+        */
     }
 
 
