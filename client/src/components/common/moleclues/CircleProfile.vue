@@ -37,8 +37,4 @@ const props = defineProps({
     type: Number,
   },
 });
-
-onMounted(() => {
-  console.log(store);
-});
 </script>
