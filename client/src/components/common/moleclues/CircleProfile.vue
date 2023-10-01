@@ -11,7 +11,7 @@
       <img
         class="object-cover rounded-full aspect-square"
         v-if="store.user.userInfo.profileUrl"
-        :src="storageUrl + store.user.userInfo.profileUrl"
+        :src="store.user.userInfo.profileUrl.includes('http') ? store.user.userInfo.profileUrl : storageUrl + store.user.userInfo.profileUrl"
         :width="props.size"
       />
       <UserIcon v-else class="w-[30px] opacity-10" />

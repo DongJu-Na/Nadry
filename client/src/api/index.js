@@ -45,6 +45,11 @@ export const userLogin = (payload) => {
   return instanceWithNoAuth.post('/api/v1/auth/authenticate', payload);
 };
 
+// 카카오 로그인
+export const userKakaoLogin = (payload) => {
+  return instanceWithNoAuth.post('/api/v1/kakao/authenticate', payload);
+};
+
 // 회원가입
 export const join = (payload) => {
   return instanceWithNoAuth.post('/api/v1/auth/register', payload);

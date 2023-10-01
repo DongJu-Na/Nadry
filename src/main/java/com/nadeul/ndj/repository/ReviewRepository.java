@@ -31,7 +31,7 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
 	 @Query("SELECT new com.nadeul.ndj.dto.BestListResponse(" +
 		        "r.rvId, r.contentId, r.content, r.reviewImageUrl, " +
 		        "r.createDate, r.createBy, r.updateDate, r.updateBy, " +
-		        "COALESCE(SUM(rl.likes), 0) as likes, COALESCE(SUM(rg.rating), 0.0) as rating, " +
+		        "COALESCE(SUM(rl.likes), 0) as likes, COALESCE(MAX(rg.rating), 0.0) as rating, " +
 		        "m.memId, m.name, m.email, m.profileUrl) " +
 		        "FROM Review r " +
 		        "LEFT JOIN r.reviewLike rl " +

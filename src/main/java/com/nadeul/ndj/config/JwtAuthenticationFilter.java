@@ -14,6 +14,9 @@ import org.springframework.util.AntPathMatcher;
 
 import java.util.Arrays;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nadeul.ndj.dto.ApiResponse;
+import com.nadeul.ndj.enums.ApiResponseEnum;
 import com.nadeul.ndj.repository.TokenRepository;
 import com.nadeul.ndj.service.JwtService;
 
@@ -58,10 +61,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     // whilteList에 포함 되어 있지 않고  "Authorization" 헤더가 요청에 없거나 "Bearer "로 시작하지 않는 경우 401 반환
     if(authHeader == null || !authHeader.startsWith("Bearer ") && !Arrays.asList(SecurityConfig.whiteListedRoutes).contains(request.getServletPath())) {
     	response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
+    	response.setContentType("application/json; charset=UTF-8");
+    	ApiResponse<?> aa = ApiResponse.errorResponse(ApiResponseEnum.UNAUTHORIZED);
+    	
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonResponse = objectMapper.writeValueAsString(aa);
+	    response.getWriter().write(jsonResponse);
+	    
       return;
     }
     
     jwt = authHeader.substring(7);
+    if(jwt.equals("null")) {
+    	response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
+    	response.setContentType("application/json; charset=UTF-8");
+    	ApiResponse<?> aa = ApiResponse.errorResponse(ApiResponseEnum.UNAUTHORIZED);
+    	
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonResponse = objectMapper.writeValueAsString(aa);
+	    response.getWriter().write(jsonResponse);
+	    return;
+    }
+    
     userEmail = jwtService.extractUsername(jwt);
   
     if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {

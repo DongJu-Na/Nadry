@@ -40,9 +40,9 @@
         </div>
         <div class="flex gap-5 ml-auto">
           <!-- rating -->
-          <div v-if="review.reviewGrade" class="flex items-center gap-1">
+          <div class="flex items-center gap-1">
             <StarIcon class="w-4 text-yellow-400" />
-            <span>{{ review.reviewGrade[0].rating }}</span>
+            <span>{{ review.rating }}</span>
           </div>
           <!-- like -->
           <div
@@ -82,7 +82,7 @@
         <div class="flex flex-col leading-none">
           <div class="mb-[4px]">
             <span class="mr-2 font-semibold">{{ review.member.name }}</span>
-            <span>{{ review.email }}</span>
+            <span>{{ review.member.email }}</span>
           </div>
           <div class="text-xs leading-none text-zinc-400">{{ transDate(review.createDate) }}</div>
         </div>
@@ -119,7 +119,7 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { getMyTripReview, getBestTripReview } from '@/api';
 import dayjs from 'dayjs';
-import { UserIcon, HandThumbUpIcon } from '@heroicons/vue/20/solid';
+import { UserIcon, HandThumbUpIcon ,StarIcon } from '@heroicons/vue/20/solid';
 
 const router = useRouter();
 
@@ -164,7 +164,7 @@ const fetchMyReviews = async () => {
     const payload = {
       page: 1,
       size: 10,
-      sort: ['createDate'],
+      sort: ['createDate,desc'],
     };
     const {
       status,

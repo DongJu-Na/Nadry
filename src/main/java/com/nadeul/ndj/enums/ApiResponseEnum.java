@@ -13,7 +13,7 @@ public enum ApiResponseEnum {
 	
   SUCCESS("0000", "성공"),
   BAD_REQUEST("0001", "Bad Request"),
-  UNAUTHORIZED("0002", "Unauthorized"),
+  UNAUTHORIZED("0002", "권한이 없습니다."),
   FORBIDDEN("0003", "Forbidden"),
   NOT_FOUND("0004", "Not Found"),
   INTERNAL_SERVER_ERROR("0005", "서버에서 오류가 발생하였습니다."),

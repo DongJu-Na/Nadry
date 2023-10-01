@@ -5,7 +5,7 @@
       <div
         class="w-[80px] h-[80px] bg-zinc-100 rounded-full flex justify-center itencen overflow-hidden"
       >
-        <img v-if="user.profileUrl" :src="storageUrl + user.profileUrl" />
+        <img v-if="user.profileUrl" :src="user.profileUrl.includes('http') ? user.profileUrl : storageUrl + user.profileUrl" />
         <UserIcon v-else class="w-10 opacity-10" />
       </div>
       <div class="mt-3">{{ user.name }}</div>
