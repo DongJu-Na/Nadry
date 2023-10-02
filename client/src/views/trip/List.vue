@@ -98,14 +98,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref , onMounted } from 'vue';
 import { useMainStore } from '@/store';
 import { searchTrip } from '@/api';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import Pagination from '@/components/common/moleclues/Pagination.vue';
 
 const store = useMainStore();
 const router = useRouter();
+const route = useRoute();
 
 const pageInfo = ref({
   pageNo: 1,
@@ -117,12 +118,12 @@ const searchWord = ref('');
 const emptyResult = ref(false);
 const tripItems = ref([]);
 
-const testSubmit = (name) => {
+const testSubmit = (name,category) => {
   searchWord.value = name;
-  submit();
+  submit(category);
 };
 
-const submit = async () => {
+const submit = async (category) => {
   if (!searchWord.value) {
     alert('검색어를 입력하세요.');
     return;
@@ -130,7 +131,7 @@ const submit = async () => {
 
   // 로딩중 출력
   store.state.setLoading(true);
-
+  
   try {
     const payload = {
       numOfRows: pageInfo.value.numOfRows,
@@ -139,7 +140,7 @@ const submit = async () => {
       MobileApp: 'AppTest',
       _type: 'json',
       listYN: 'Y',
-      contentTypeId: '',
+      contentTypeId: typeof(category) === 'object'?  '' : category,
       arrange: 'A',
       areaCode: '',
       sigunguCode: '',
@@ -160,7 +161,7 @@ const submit = async () => {
       // console.log(body);
       tripItems.value = body.items.item;
       pageInfo.value = {
-        numOfRows: body['numOfRows'],
+        numOfRows: 10,
         pageNo: body['numOfRows'] != 0 ? body['pageNo'] : 1,
         totalCount: body['totalCount'],
       };
@@ -179,4 +180,16 @@ const submit = async () => {
     router.go();
   }
 };
+
+
+onMounted(async () => {
+  await router.isReady();
+  if(Object.keys(route.query).length !== 0){
+    if(route.query.searchType === 'keyword'){
+      testSubmit(route.query.keyword);
+    }else if(route.query.searchType === 'category'){
+      testSubmit('%',route.query.contentTypeId);
+    }
+  }
+});
 </script>
