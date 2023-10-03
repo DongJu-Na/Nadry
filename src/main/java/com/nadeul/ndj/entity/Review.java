@@ -30,6 +30,8 @@ public class Review {
   
   private String contentId;
   
+  private String contentTypeId;
+  
   private String content;
   
   private String reviewImageUrl;

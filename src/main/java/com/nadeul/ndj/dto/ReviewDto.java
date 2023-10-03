@@ -60,6 +60,18 @@ public class ReviewDto {
     	private MultipartFile reviewImage;
     	@Schema(description = "리뷰 평점" , example = "0.0" , defaultValue = "0.0")
     	private String reviewRating;
+    	
+    	// 포인트 적립
+    	@Schema(description = "tourAPI 위도")
+    	private Float posX;
+    	@Schema(description = "tourAPI 경도")
+    	private Float posY;
+    	@Schema(description = "실제 위도")
+    	private Float realPosX;
+    	@Schema(description = "실제 경도")
+    	private Float realPosY;
+    	@Schema(description = "관광지 타입 ID" , example = "17")
+        private String contentTypeId;
 
     }
     

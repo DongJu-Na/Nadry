@@ -9,7 +9,7 @@
       v-show="isLoaded"
     >
       <SwiperSlide v-for="photoData in photoList" :key="photoData.galContentId">
-        <router-link :to="`/trips/${photoData.galContentId}/${photoData.galContentTypeId}`">
+        <router-link :to="{name: 'trip list', query: {keyword: photoData.galTitle , searchType: 'keyword' }}">
           <div class="overflow-hidden bg-zinc-50 rounded-2xl">
             <dl class="absolute bottom-0 z-10 p-5 text-white drop-shadow-sm">
               <dt class="text-sm">{{ photoData.galPhotographyLocation }}</dt>

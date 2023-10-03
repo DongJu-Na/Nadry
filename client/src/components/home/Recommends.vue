@@ -3,10 +3,12 @@
     <h2 class="text-lg font-semibold">어떤 여행을 찾으세요?</h2>
     <ul class="grid grid-cols-4 gap-4 mt-5">
       <li v-for="item in categories" :key="item.id">
-        <a href="" class="flex flex-col items-center">
+        <router-link :to="{name: 'trip list', query: {contentTypeId : item.id , searchType: 'category' }}" class="flex flex-col items-center">
+        <!-- <a href="" class="flex flex-col items-center"> -->
           <img :src="`/svg/recommend_${item.icon}.svg`" />
           <span class="mt-2 text-sm font-medium text-zinc-800">{{ item.name }}</span>
-        </a>
+        <!-- </a> -->
+        </router-link>
       </li>
     </ul>
   </div>
