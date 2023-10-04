@@ -152,3 +152,8 @@ export const getWishDetail = (payload) => {
 export const getWishList = (payload) => {
   return instance.get('/api/v2/dibs/dibsList' + makeDynamicUrl(payload));
 };
+
+// 날짜 조회 - 초단기실황조회
+export const getUltraSrtNcst = (payload) => {
+  return instanceWithNoAuth.post('/api/v1/Fcst/getUltraSrtNcst',payload);
+};
