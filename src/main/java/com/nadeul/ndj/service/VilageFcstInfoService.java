@@ -75,6 +75,7 @@ public class VilageFcstInfoService {
  
  public ResponseEntity<Map<String,Object>> execute(Call<Map<String,Object>> call) {
     try {
+    	log.info(this.getClass().toString() + " url > "  + call.request().url());
         Response<Map<String,Object>> response = call.execute();
         log.info(this.getClass().toString() + " param > "  + response.toString());
         if (response.isSuccessful()) {
