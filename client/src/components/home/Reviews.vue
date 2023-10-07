@@ -2,9 +2,9 @@
   <div class="flex flex-col my-10">
     <!-- title -->
     <div class="flex items-center justify-between w-full px-5 mb-3">
-      <h2 class="text-lg font-semibold">지금 뜨는 리뷰</h2>
+      <h2 class="text-lg font-semibold">{{$t('homeSubTitleMsg3')}}</h2>
       <router-link to="/review" class="px-1 text-zinc-400">
-        <span class="mr-1 text-sm font-medium">전체보기</span>
+        <span class="mr-1 text-sm font-medium">{{ $t('homeSubTitleMsg3_1')}}</span>
         <i class="las la-arrow-right"></i>
       </router-link>
     </div>

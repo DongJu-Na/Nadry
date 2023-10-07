@@ -1,13 +1,13 @@
 <template>
   <div class="flex items-center justify-between px-5 my-5">
-    <h2 class="text-2xl font-medium">오늘, 나들이는<br />어디로 떠나볼까요?</h2>
+    <h2 class="text-2xl font-medium">{{ $t('homeTitleMsg1') }}<br />{{ $t('homeTitleMsg2') }}</h2>
     <CircleProfile v-if="store.user.isLoggedIn" />
   </div>
   <div v-if="ultraSrtNcstList" class="grid grid-cols-5 mx-2 mt-3 mb-6 divide-x">
     <div class="flex flex-col items-center gap-2">
       <div class="flex items-center text-xs font-medium opacity-40">
         <img src="/svg/icons8-temperature.svg" class="w-4" />
-        <span>{{ ultraSrtNcstList[3].korTxt }}</span>
+        <span>{{ $t('weatherMsg1') }}</span>
       </div>
       <div class="flex items-end gap-1">
         <div class="font-semibold leading-none text-indigo-500">
@@ -19,7 +19,7 @@
     <div class="flex flex-col items-center gap-2">
       <div class="flex items-center text-xs font-medium opacity-40">
         <img src="/svg/icons8-humidity.svg" class="w-4 mr-1" />
-        <span>{{ ultraSrtNcstList[1].korTxt }}</span>
+        <span>{{ $t('weatherMsg2') }}</span>
       </div>
       <div class="flex items-end gap-1">
         <div class="font-semibold leading-none text-sky-500">
@@ -31,7 +31,7 @@
     <div class="flex flex-col items-center gap-2">
       <div class="flex items-center text-xs font-medium opacity-40">
         <img src="/svg/icons8-rain.svg" class="w-4 mr-1" />
-        <span>{{ ultraSrtNcstList[2].korTxt }}</span>
+        <span>{{ $t('weatherMsg3') }}</span>
       </div>
       <div class="flex items-end gap-1">
         <div class="font-semibold leading-none text-blue-500">
@@ -43,7 +43,7 @@
     <div class="flex flex-col items-center gap-2">
       <div class="flex items-center text-xs font-medium opacity-40">
         <img src="/svg/icons8-flag.svg" class="w-4 mr-1" />
-        <span>{{ ultraSrtNcstList[5].korTxt }}</span>
+        <span>{{ $t('weatherMsg4') }}</span>
       </div>
       <div class="flex items-end gap-1">
         <div class="font-semibold leading-none text-teal-500">
@@ -55,7 +55,7 @@
     <div class="flex flex-col items-center gap-2">
       <div class="flex items-center text-xs font-medium opacity-40">
         <img src="/svg/icons8-wind.svg" class="w-4 mr-1" />
-        <span>{{ ultraSrtNcstList[7].korTxt }}</span>
+        <span>{{ $t('weatherMsg5') }}</span>
       </div>
       <div class="flex items-end gap-1">
         <div class="font-semibold leading-none text-emerald-500">

@@ -39,7 +39,12 @@
         :size="20"
         :color="route.fullPath.includes(menu.link) ? '#059669' : '#D9D9D9'"
       />
-      <span class="text-xs text-zinc-400 mt-[1px]">{{ menu.name }}</span>
+      <span v-if="menu.icon === 'home'" class="text-xs text-zinc-400 mt-[1px]">{{ $t('bottomBtn1') }}</span>
+      <span v-if="menu.icon === 'trip'" class="text-xs text-zinc-400 mt-[1px]">{{ $t('bottomBtn2') }}</span>
+      <span v-if="menu.icon === 'stamp'" class="text-xs text-zinc-400 mt-[1px]">{{ $t('bottomBtn3') }}</span>
+      <span v-if="menu.icon === 'review'" class="text-xs text-zinc-400 mt-[1px]">{{ $t('bottomBtn4') }}</span>
+      <span v-if="menu.icon === 'heart'" class="text-xs text-zinc-400 mt-[1px]">{{ $t('bottomBtn5') }}</span>
+      <span v-if="menu.icon === 'basket'" class="text-xs text-zinc-400 mt-[1px]">{{ $t('bottomBtn6') }}</span>
     </router-link>
   </nav>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col mt-10">
-    <h2 class="px-5 mb-3 text-lg font-semibold">주변을 둘러 보세요</h2>
+    <h2 class="px-5 mb-3 text-lg font-semibold">{{$t('homeSubTitleMsg2')}}</h2>
     <div id="map" class="w-full h-[500px]">
       <!-- input -->
       <div class="absolute z-[99] p-3 w-full">
