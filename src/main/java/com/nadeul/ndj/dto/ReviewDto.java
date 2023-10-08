@@ -72,6 +72,9 @@ public class ReviewDto {
     	private Float realPosY;
     	@Schema(description = "관광지 타입 ID" , example = "17")
         private String contentTypeId;
+    	@Schema(description = "지역코드" , example = "1")
+        private String areacode;
+    	
 
     }
     

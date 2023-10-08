@@ -44,6 +44,8 @@ public class Review {
   
   private String updateBy;
   
+  private String areaCode;
+  
   @OneToMany(mappedBy="review")
   private List<ReviewLike> reviewLike;
   

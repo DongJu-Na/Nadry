@@ -1,11 +1,10 @@
 package com.nadeul.ndj.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +23,7 @@ public class StampMaster {
   
   private String stampName;
   
-  private Date stampCreateDate; 
+  private LocalDateTime stampCreateDate; 
   
   private String stampImageUrl;
   
