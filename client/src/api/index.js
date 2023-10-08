@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useMainStore } from '@/store';
 import { setInterceptors } from './interceptors';
+import { i18n } from "../i18n/i18n" 
 
 // token 필요한 instance
 const createInstance = () => {
@@ -68,24 +69,24 @@ export const getGalleryList = (payload) => {
 
 // 여행지 검색
 export const searchTrip = (payload) => {
-  return instanceWithNoAuth.post('/api/v1/tour/searchKeyword1/Kor', payload);
+  return instanceWithNoAuth.post('/api/v1/tour/searchKeyword1/' + i18n.global.locale, payload);
 };
 
 // 여행지 상세 조회 - Intro
 export const getTripDetailIntro = (payload) => {
-  return instanceWithNoAuth.post('/api/v1/tour/detailIntro1/Kor', payload);
+  return instanceWithNoAuth.post('/api/v1/tour/detailIntro1/' + i18n.global.locale, payload);
 };
 // 여행지 상세 조회 - Info
 export const getTripDetailInfo = (payload) => {
-  return instanceWithNoAuth.post('/api/v1/tour/detailInfo1/Kor', payload);
+  return instanceWithNoAuth.post('/api/v1/tour/detailInfo1/' + i18n.global.locale, payload);
 };
 // 여행지 상세 조회 - Image
 export const getTripDetailImage = (payload) => {
-  return instanceWithNoAuth.post('/api/v1/tour/detailImage1/Kor', payload);
+  return instanceWithNoAuth.post('/api/v1/tour/detailImage1/' + i18n.global.locale, payload);
 };
 // 여행지 상세 조회 - Common
 export const getTripDetailCommon = (payload) => {
-  return instanceWithNoAuth.post('/api/v1/tour/detailCommon1/Kor', payload);
+  return instanceWithNoAuth.post('/api/v1/tour/detailCommon1/' + i18n.global.locale, payload);
 };
 
 // 여행리뷰 조회

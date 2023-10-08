@@ -11,17 +11,17 @@ import es from '@/locales/es.json'
 import py from '@/locales/py.json'
 
 export const i18n = new createI18n({
-    locale: 'ko',
-    fallbacklocale: 'ko', 
+    locale: 'Kor',
+    fallbacklocale: 'Kor', 
     messages: {
-    	'ko': ko,
-        'en': en,
-        'chs': chs,
-        'cht': cht,
-        'jp': jp,
-        'de': de,
-        'fr': fr,
-        'es': es,
-        'py': py,
+    	'Kor': ko,
+        'Eng': en,
+        'Chs': chs,
+        'Cht': cht,
+        'Jpn': jp,
+        'Ger': de,
+        'Fre': fr,
+        'Spn': es,
+        'Rus': py,
     }
 })
