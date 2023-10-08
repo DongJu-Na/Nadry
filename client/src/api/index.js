@@ -158,3 +158,8 @@ export const getWishList = (payload) => {
 export const getUltraSrtNcst = (payload) => {
   return instanceWithNoAuth.post('/api/v1/Fcst/getUltraSrtNcst',payload);
 };
+
+// 스탬프 수집 리스트
+export const getMyStampList = () => {
+  return instance.get('/api/v2/stamp/myStampList' );
+};
