@@ -85,14 +85,19 @@
         </table>
       </div>
 
-      <!-- reviews -->
-      <div class="mt-10 cursor-pointer">
-        <h3 class="mb-3 font-medium">리뷰</h3>
-        <!-- 리뷰 작성 버튼 -->
+      <!-- 리뷰 작성 버튼 -->
+      <div class="mt-[3rem] mb-[5rem]">
         <a @click="writeReview" class="button">
           <i class="las la-pen"></i>
-          <span>리뷰 작성</span>
+          <span>리뷰를 작성해주세요!</span>
         </a>
+      </div>
+      <!-- reviews -->
+      <div class="mt-10">
+        <h3 class="flex items-center gap-1 font-medium text-indigo-500">
+          <ChatBubbleBottomCenterTextIcon class="w-6" />
+          <span>리뷰를 확인해보세요</span>
+        </h3>
         <!-- 리뷰 리스트 -->
         <ReviewList />
       </div>
@@ -100,7 +105,13 @@
   </div>
 
   <!-- review modal -->
-  <ReviewModal :open="showReviewModal" @close="showReviewModal = false"></ReviewModal>
+  <ReviewModal
+    v-if="detailCommon"
+    :open="showReviewModal"
+    :originPosition="{ lat: detailCommon.mapy, lng: detailCommon.mapx }"
+    :areaCode="detailCommon.areacode"
+    @close="closeReviewModal"
+  ></ReviewModal>
 </template>
 
 <script setup>
@@ -121,7 +132,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import ReviewModal from '@/components/modal/ReviewModal.vue';
 import ReviewList from '@/components/review/ReviewList.vue';
-import { HeartIcon } from '@heroicons/vue/24/solid';
+import { HeartIcon, ChatBubbleBottomCenterTextIcon } from '@heroicons/vue/24/solid';
 import { usageKeys } from '@/uilts/usageKeys.js';
 
 const modules = [Pagination];
@@ -138,6 +149,14 @@ const imageLoading = ref(false);
 const reviews = ref([]);
 const showReviewModal = ref(false);
 const hasWished = ref(false);
+
+// 리뷰모달 닫기
+const closeReviewModal = (value) => {
+  showReviewModal.value = false;
+  if (value) {
+    route.go();
+  }
+};
 
 // 찜하기
 const clickWish = async () => {
@@ -194,7 +213,7 @@ const fetchWishDetail = async () => {
 
 // review
 const writeReview = () => {
-  // alert('리뷰 작성');
+  console.log('write riview');
   showReviewModal.value = true;
 };
 

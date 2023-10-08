@@ -4,21 +4,21 @@
     <div class="flex items-center justify-between mb-5">
       <!-- user profile image -->
       <div
-        class="w-[40px] h-[40px] bg-zinc-100 mr-3 rounded-full flex justify-center itencen overflow-hidden"
+        class="w-[40px] h-[40px] bg-zinc-100 mr-3 rounded-full border border-zinc-200/10 flex justify-center itencen overflow-hidden"
       >
         <img v-if="review.member.profileUrl" :src="storageUrl + review.member.profileUrl" />
         <UserIcon v-else class="w-5 opacity-10" />
       </div>
       <div class="flex flex-col leading-none">
-        <div class="mb-1">
-          <span class="mr-2 font-semibold">{{ review.member.name }}</span>
-          <span>{{ review.member.email }}</span>
+        <div class="mb-0 text-zinc-600">
+          <span class="text-sm font-semibold">{{ review.member.name }}</span>
+          <!-- <span>{{ review.member.email }}</span> -->
         </div>
         <div class="text-xs text-zinc-400">{{ transDate(review.createDate) }}</div>
       </div>
       <div class="flex gap-5 ml-auto">
         <!-- rating -->
-        <div v-if="review.reviewGrade" class="flex items-center gap-1">
+        <div v-if="review.reviewGrade.length > 0" class="flex items-center gap-1">
           <StarIcon class="w-4 text-yellow-400" />
           <span>{{ review.reviewGrade[0].rating }}</span>
         </div>
@@ -84,7 +84,7 @@ const fetchReviews = async () => {
 const like = async (rvId) => {
   console.log(rvId);
   const payload = {
-    rvId: rvId
+    rvId: rvId,
   };
   try {
     const { status, data } = await postTripLike(payload);

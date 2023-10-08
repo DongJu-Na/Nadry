@@ -88,7 +88,7 @@
         </div>
         <div class="flex gap-5 ml-auto">
           <!-- rating -->
-          <div v-if="review.reviewGrade" class="flex items-center gap-1">
+          <div v-if="review.reviewGrade.length > 0" class="flex items-center gap-1">
             <StarIcon class="w-4 text-yellow-400" />
             <span>{{ review.reviewGrade[0].rating }}</span>
           </div>
@@ -119,7 +119,7 @@ import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { getMyTripReview, getBestTripReview } from '@/api';
 import dayjs from 'dayjs';
-import { UserIcon, HandThumbUpIcon ,StarIcon } from '@heroicons/vue/20/solid';
+import { UserIcon, HandThumbUpIcon, StarIcon } from '@heroicons/vue/20/solid';
 
 const router = useRouter();
 
