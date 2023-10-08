@@ -1,12 +1,19 @@
 <template>
   <div class="px-5 my-10">
-    <h2 class="text-lg font-semibold">어떤 여행을 찾으세요?</h2>
+    <h2 class="text-lg font-semibold">{{$t('homeSubTitleMsg1')}}</h2>
     <ul class="grid grid-cols-4 gap-4 mt-5">
       <li v-for="item in categories" :key="item.id">
         <router-link :to="{name: 'trip list', query: {contentTypeId : item.id , searchType: 'category' }}" class="flex flex-col items-center">
         <!-- <a href="" class="flex flex-col items-center"> -->
           <img :src="`/svg/recommend_${item.icon}.svg`" />
-          <span class="mt-2 text-sm font-medium text-zinc-800">{{ item.name }}</span>
+          <span class="mt-2 text-sm font-medium text-zinc-800" v-if="item.id === 12">{{ $t('homeSubBtnText1') }}</span>
+          <span class="mt-2 text-sm font-medium text-zinc-800" v-if="item.id === 14">{{ $t('homeSubBtnText2') }}</span>
+          <span class="mt-2 text-sm font-medium text-zinc-800" v-if="item.id === 15">{{ $t('homeSubBtnText3') }}</span>
+          <span class="mt-2 text-sm font-medium text-zinc-800" v-if="item.id === 25">{{ $t('homeSubBtnText4') }}</span>
+          <span class="mt-2 text-sm font-medium text-zinc-800" v-if="item.id === 28">{{ $t('homeSubBtnText5') }}</span>
+          <span class="mt-2 text-sm font-medium text-zinc-800" v-if="item.id === 32">{{ $t('homeSubBtnText6') }}</span>
+          <span class="mt-2 text-sm font-medium text-zinc-800" v-if="item.id === 38">{{ $t('homeSubBtnText7') }}</span>
+          <span class="mt-2 text-sm font-medium text-zinc-800" v-if="item.id === 39">{{ $t('homeSubBtnText8') }}</span>
         <!-- </a> -->
         </router-link>
       </li>

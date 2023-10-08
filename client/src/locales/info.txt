@@ -1,0 +1,10 @@
+파일명  |   설명        |   Api url Path
+ko          국문             Kor
+en          영문             Eng
+chs         중문 간체        Chs
+cht         중문 번체        Cht
+jp          일문             Jpn
+de          독어             Ger
+fr          불어             Fre
+es          서어             Spn
+py          노어             Rus

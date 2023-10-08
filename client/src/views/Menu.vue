@@ -15,11 +15,20 @@
     <!-- menu -->
     <nav class="menu">
       <template v-if="!store.user.isLoggedIn">
-        <router-link to="/login">로그인</router-link>
-        <router-link to="/join">회원가입</router-link>
+        <router-link to="/login">{{ $t('menuLogin') }}</router-link>
+        <router-link to="/join">{{ $t('menuRegister') }}</router-link>
       </template>
       <router-link v-if="store.user.isLoggedIn" to="/logout">로그아웃</router-link>
     </nav>
+      <button @click="$i18n.locale='ko'"> 한국어 </button>
+      <button @click="$i18n.locale='en'"> 영문 </button>
+      <button @click="$i18n.locale='chs'"> 중문 간체 </button>
+      <button @click="$i18n.locale='cht'"> 중문 번체 </button>
+      <button @click="$i18n.locale='jp'"> 일문 </button>
+      <button @click="$i18n.locale='de'"> 독어 </button>
+      <button @click="$i18n.locale='fr'"> 불어 </button>
+      <button @click="$i18n.locale='es'"> 서어 </button>
+      <button @click="$i18n.locale='py'"> 노어 </button>
   </div>
 </template>
 

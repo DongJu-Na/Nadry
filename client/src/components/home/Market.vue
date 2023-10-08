@@ -2,7 +2,7 @@
   <div class="flex flex-col px-5 my-10">
     <!-- title -->
     <div class="flex items-center justify-between w-full mb-5">
-      <h2 class="text-lg font-semibold">마켓</h2>
+      <h2 class="text-lg font-semibold">{{ $t('homeSubTitleMsg5') }}</h2>
       <!-- <a href="" class="px-1 text-zinc-400">
         <span class="mr-1 text-sm font-medium">내 포인트</span>
         <span class="text-sm font-medium text-black">35,000</span>
