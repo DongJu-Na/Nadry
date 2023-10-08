@@ -2,9 +2,14 @@ package com.nadeul.ndj.entity;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,9 +26,14 @@ public class Stamp {
   @GeneratedValue
   private Integer stId;
   
-  private Integer memId;
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "memId")
+  private Member member;
   
-  private Integer stmId;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "stmId")
+  private StampMaster stampMaster;
   
   private LocalDateTime stampCollectDate;
   
