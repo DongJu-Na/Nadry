@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useMainStore } from '@/store';
 import { setInterceptors } from './interceptors';
-import { i18n } from "../i18n/i18n" 
+import { i18n } from '../i18n/i18n';
 
 // token 필요한 instance
 const createInstance = () => {
@@ -103,8 +103,14 @@ export const postTripReview = (payload) => {
   const formData = new FormData();
   formData.append('contentId', payload.contentId);
   formData.append('content', payload.content);
+  formData.append('contentTypeId', payload.contentTypeId);
+  formData.append('areaCode', payload.areaCode);
   formData.append('reviewRating', payload.reviewRating);
   formData.append('reviewImage', payload.reviewImage);
+  formData.append('posX', payload.posX);
+  formData.append('posY', payload.posY);
+  formData.append('realPosX', payload.realPosX);
+  formData.append('realPosY', payload.realPosY);
   return instance.post('/api/v2/review/', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -146,7 +152,7 @@ export const addWish = (payload) => {
 
 // 찜 여부 체크
 export const getWishDetail = (payload) => {
-  return instance.post('/api/v2/dibs/contentDibsCheck',payload);
+  return instance.post('/api/v2/dibs/contentDibsCheck', payload);
 };
 
 // 찜 여행지 목록
@@ -156,10 +162,10 @@ export const getWishList = (payload) => {
 
 // 날짜 조회 - 초단기실황조회
 export const getUltraSrtNcst = (payload) => {
-  return instanceWithNoAuth.post('/api/v1/Fcst/getUltraSrtNcst',payload);
+  return instanceWithNoAuth.post('/api/v1/Fcst/getUltraSrtNcst', payload);
 };
 
 // 스탬프 수집 리스트
 export const getMyStampList = () => {
-  return instance.get('/api/v2/stamp/myStampList' );
+  return instance.get('/api/v2/stamp/myStampList');
 };

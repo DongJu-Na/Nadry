@@ -160,6 +160,9 @@ const props = defineProps({
   areaCode: {
     type: String,
   },
+  contentTypeId: {
+    type: String,
+  },
   originPosition: {
     type: Object,
   },
@@ -272,6 +275,11 @@ const submit = async () => {
     content: reviewContent.value,
     reviewRating: reviewRating.value.toFixed(1),
     reviewImage: reviewImage.value[0],
+    posX: props.originPosition.lng,
+    posY: props.originPosition.lat,
+    realPosX: photoPosition.value ? photoPosition.value.lng : userPosition.value.lng,
+    realPosY: photoPosition.value ? photoPosition.value.lat : userPosition.value.lat,
+    contentTypeId: props.contentTypeId,
     areaCode: props.areaCode,
   };
   console.log(payload);

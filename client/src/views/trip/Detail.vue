@@ -110,6 +110,7 @@
     :open="showReviewModal"
     :originPosition="{ lat: detailCommon.mapy, lng: detailCommon.mapx }"
     :areaCode="detailCommon.areacode"
+    :contentTypeId="detailCommon.contenttypeid"
     @close="closeReviewModal"
   ></ReviewModal>
 </template>
@@ -154,7 +155,7 @@ const hasWished = ref(false);
 const closeReviewModal = (value) => {
   showReviewModal.value = false;
   if (value) {
-    route.go();
+    router.go();
   }
 };
 
