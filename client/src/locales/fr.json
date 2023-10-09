@@ -72,5 +72,8 @@
     "tripReviewTxt": "Voir les avis",
     "__comment8": "페이징",
     "pagePrev": "Précédent",
-    "pageNext": "Suivant"
+    "pageNext": "Suivant",
+    "__comment9" : "맵",
+    "mapPlaceHolader" : "Recherchez des attractions touristiques dès maintenant !",
+    "mapInfoDetail" : "Voir les détails"
 }

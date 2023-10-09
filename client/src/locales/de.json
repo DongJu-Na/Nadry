@@ -73,5 +73,8 @@
     "tripReviewTxt": "Bewertungen anzeigen",
     "__comment8": "페이징",
     "pagePrev": "Vorherige",
-    "pageNext": "Nächste"
+    "pageNext": "Nächste",
+    "__comment9" : "맵",
+    "mapPlaceHolader" : "Suchen Sie jetzt nach Sehenswürdigkeiten!",
+    "mapInfoDetail" : "Details anzeigen"
 }

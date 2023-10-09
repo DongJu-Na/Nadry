@@ -10,7 +10,7 @@
             v-model="searchWord"
             @keyup.enter="submit(searchWord)"
             type="text"
-            placeholder="지금, 경주를 검색해보세요!"
+            :placeholder="$t('mapPlaceHolader')"
             class="w-full p-2"
           />
         </div>
@@ -45,7 +45,7 @@
                 :to="`/trips/${item.contentid}/${item.contenttypeid}`"
                 class="flex justify-center w-full px-2 py-2 mt-2 text-xs font-semibold text-gray-900 bg-white rounded shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
               >
-                자세히보기
+                {{$t('mapInfoDetail')}}
               </router-link>
             </div>
           </div>

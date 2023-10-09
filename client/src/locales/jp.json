@@ -72,5 +72,8 @@
     "tripReviewTxt": "レビューを確認",
     "__comment8": "페이징",
     "pagePrev": "前へ",
-    "pageNext": "次へ"
+    "pageNext": "次へ",
+    "__comment9" : "맵",
+    "mapPlaceHolader" : "今、観光地を検索してみてください！",
+    "mapInfoDetail" : "詳細を見る"
     }

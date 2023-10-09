@@ -72,5 +72,8 @@
     "tripReviewTxt": "查看评论",
     "__comment8": "페이징",
     "pagePrev": "上一页",
-    "pageNext": "下一页"
+    "pageNext": "下一页",
+    "__comment9" : "맵",
+    "mapPlaceHolader" : "现在，搜索旅游景点吧！",
+    "mapInfoDetail" : "查看详情"
 }

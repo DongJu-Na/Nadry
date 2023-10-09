@@ -72,6 +72,9 @@
     "tripReviewTxt" : "리뷰를 확인해보세요",
     "__comment8" : "페이징",
     "pagePrev" : "이전",
-    "pageNext" : "다음"
+    "pageNext" : "다음",
+    "__comment9" : "맵",
+    "mapPlaceHolader" : "지금, 관광지를 검색해보세요!",
+    "mapInfoDetail" : "자세히보기"
 
 }
