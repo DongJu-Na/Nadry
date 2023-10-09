@@ -36,7 +36,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PointService<T> {
-	private static final int EARTH_RADIUS = 6371; // 지구의 반지름 (단위: km)
 	private final TripRepository tripRepository;
 	private final PointRepository pointRepository;
 	private final PointHistoryRepository pointHistoryRepository;
@@ -57,8 +56,8 @@ public class PointService<T> {
 			Optional<Member>  optionalMember = memberRepository.findByEmail(email);
 				if (optionalMember.isPresent()) {
 			    // Member 엔티티를 사용하여 필요한 작업을 수행합니다.
-					// process 0 거리가 유효거리 50m안으로 들어왔는지 체크
-						if(calculateDistance(dto.getRealPosX(), dto.getRealPosY(), dto.getPosX(), dto.getPosY()) < 50) {
+					// process 0 거리가 유효거리 1km안으로 들어왔는지 체크
+						if(distance(dto.getRealPosX(), dto.getRealPosY(), dto.getPosX(), dto.getPosY(),"kilometer") < 1.0) {
 							return ApiResponse.failResponse(ApiResponseEnum.POSITION_UNAVAILABLE, ""); 
 						}
 				    
@@ -198,35 +197,43 @@ public class PointService<T> {
 	
 
 	/**
-	 * @param lat1 첫 번째 지점의 위도 x
-	 * @param lon1 첫 번째 지점의 경도 y
-	 * @param lat2 두 번째 지점의 위도 x
-	 * @param lon2 두 번째 지점의 경도 y
-	 * @return 두 지점 사이의 거리 (미터 단위)
+	 * 두 지점간의 거리 계산
 	 * 
-	 * 1은 출발점
-	 * 2는 도착점
-	 * 위도(latitude)와 경도(longitude)를 기반으로 두 지점 간의 거리를 계산합니다.
-	 * lat1과 lon1은 첫 번째 지점의 위도와 경도이고, lat2와 lon2는 두 번째 지점의 위도와 경도입니다.
-	 * 거리는 미터 단위로 반환됩니다.
+	 * @param lat1 지점 1 위도
+	 * @param lon1 지점 1 경도 
+	 * @param lat2 지점 2 위도
+	 * @param lon2 지점 2 경도
+	 * @param unit 거리 표출단위 
+	 * @return
 	 */
-  public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-  	double distance = 0;
-  	try {
-  		double dLat = Math.toRadians(lat2 - lat1);
-      double dLon = Math.toRadians(lon2 - lon1);
-      double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-          Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
-          Math.sin(dLon / 2) * Math.sin(dLon / 2);
-      double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      distance = EARTH_RADIUS * c * 1000.0; // km를 m로 변환
-  	}catch (Exception e) {
-  		e.printStackTrace();
-  		return 0;
-		}
-    
-    return distance;
-  }
+	private static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
+		
+		double theta = lon1 - lon2;
+		double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+		
+		dist = Math.acos(dist);
+		dist = rad2deg(dist);
+		dist = dist * 60 * 1.1515;
+		
+		if (unit == "kilometer") {
+			dist = dist * 1.609344;
+		} else if(unit == "meter"){
+			dist = dist * 1609.344;
+		} 
+
+		return (dist);
+	}
+	
+
+	// This function converts decimal degrees to radians
+	private static double deg2rad(double deg) {
+		return (deg * Math.PI / 180.0);
+	}
+	
+	// This function converts radians to decimal degrees
+	private static double rad2deg(double rad) {
+		return (rad * 180 / Math.PI);
+	}
   
   
 }

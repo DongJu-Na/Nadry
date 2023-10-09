@@ -24,25 +24,42 @@ import com.nadeul.ndj.dto.BestListResponse;
 import com.nadeul.ndj.dto.ReviewDto;
 import com.nadeul.ndj.dto.ReviewDto.ListResponse;
 import com.nadeul.ndj.entity.Member;
+import com.nadeul.ndj.entity.Point;
+import com.nadeul.ndj.entity.PointHistory;
 import com.nadeul.ndj.entity.Post;
 import com.nadeul.ndj.entity.Review;
 import com.nadeul.ndj.entity.ReviewGrade;
 import com.nadeul.ndj.entity.ReviewLike;
+import com.nadeul.ndj.entity.Stamp;
+import com.nadeul.ndj.entity.StampMaster;
 import com.nadeul.ndj.enums.ApiResponseEnum;
+import com.nadeul.ndj.enums.Location;
 import com.nadeul.ndj.repository.MemberRepository;
+import com.nadeul.ndj.repository.PointHistoryRepository;
+import com.nadeul.ndj.repository.PointRepository;
 import com.nadeul.ndj.repository.ReviewGradeRepository;
 import com.nadeul.ndj.repository.ReviewLikeRepository;
 import com.nadeul.ndj.repository.ReviewRepository;
+import com.nadeul.ndj.repository.StampMasterRepository;
+import com.nadeul.ndj.repository.StampRepository;
+import com.nadeul.ndj.repository.TripRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ReviewService<T> {
 	 private final MemberRepository memberRepository;
 	 private final ReviewRepository reviewRepository;
 	 private final ReviewLikeRepository reviewLikeRepository;
 	 private final ReviewGradeRepository reviewGradeRepository;
+	 
+	 private final PointRepository pointRepository;
+	 private final PointHistoryRepository pointHistoryRepository;
+	 private final StampRepository stampRepository;
+	 private final StampMasterRepository stampMasterRepository;
 	 
 	 @Value("${file.savePath}")
 	 private String savePath;
@@ -133,6 +150,8 @@ public class ReviewService<T> {
 				        .member(member)
 				        .content(request.getContent())
 				        .contentId(request.getContentId())
+				        .areaCode(request.getAreaCode())
+				        .contentTypeId(request.getContentTypeId())
 				        .reviewImageUrl(saveSuccessPath)
 				        .createBy(member.getEmail())
 				        .createDate(LocalDateTime.now())
@@ -148,6 +167,65 @@ public class ReviewService<T> {
 		
 		  reviewRepository.save(reivew);
 		  reviewGradeRepository.save(reviewGrade);
+		  
+		  // 포인트 적립
+		  try {
+			  if(request.getRealPosX() != null && request.getRealPosY() != null) {
+				  if(distance(request.getRealPosX(), request.getRealPosY(), request.getPosX(), request.getPosY(),"kilometer") <= 1.0) {
+					  Optional<Point> pointEt =  pointRepository.findByMemberMemId(optionalMember.get().getMemId());
+					  
+					  Point point = pointEt.map(p -> {
+						    	p.setPoint(p.getPoint() + 10);
+						    	return p;
+							}).orElseGet(() -> {
+								Point newPoint = Point.builder()
+							            .point(10)
+							            .member(optionalMember.get())
+							            .blackYn("N")
+							            .build();
+							    return newPoint;
+							});
+							
+							Point savePoint = pointRepository.save(point);
+							// process 3 포인트 히스토리 Insert
+							PointHistory pointHistory = PointHistory.builder()
+									.poId(savePoint.getPoId())
+									.usePoint(10)
+									.usedBy(optionalMember.get().getEmail())
+									.useDate(LocalDateTime.now())
+									.build();
+							
+							pointHistoryRepository.save(pointHistory);
+				  }
+			  }  
+		  }catch (Exception e) {
+			log.warn("포인트 적립 중 오류 발생" + request.toString());
+			e.printStackTrace();
+		  }
+
+		  
+		  // 스탬프
+		  try {
+			  Location location = Location.getByAreaCode(request.getAreaCode());
+			  if (location != null) {
+				  Optional<Stamp> optionalStamp = stampRepository.findByMemberMemIdAndStampMasterStmId(optionalMember.get().getMemId(),Integer.parseInt(location.getAreaCode()));
+				  if(!optionalStamp.isPresent()) {
+					  Optional<StampMaster> stampMaster = stampMasterRepository.findByStampType(request.getAreaCode());
+					  if(stampMaster.isPresent()) {
+						  Stamp stamp = Stamp.builder()
+							  		.member(optionalMember.get())
+							  		.stampMaster(stampMaster.get())
+							  		.stampCollectDate(LocalDateTime.now())
+							  		.build();
+						  stampRepository.save(stamp);
+					  }
+				  }
+			  } 
+		  }catch(Exception e){
+			  log.warn("스탬프 적립 중 오류 발생" + request.toString());
+			  e.printStackTrace();  
+		  }
+		  
 		  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null, null, null);
 	}
 	  
@@ -236,6 +314,47 @@ public class ReviewService<T> {
         }
         
         return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null, null, null);
+	}
+	
+	
+	
+	/**
+	 * 두 지점간의 거리 계산
+	 * 
+	 * @param lat1 지점 1 위도
+	 * @param lon1 지점 1 경도 
+	 * @param lat2 지점 2 위도
+	 * @param lon2 지점 2 경도
+	 * @param unit 거리 표출단위 
+	 * @return
+	 */
+	private static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
+		
+		double theta = lon1 - lon2;
+		double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+		
+		dist = Math.acos(dist);
+		dist = rad2deg(dist);
+		dist = dist * 60 * 1.1515;
+		
+		if (unit == "kilometer") {
+			dist = dist * 1.609344;
+		} else if(unit == "meter"){
+			dist = dist * 1609.344;
+		} 
+
+		return (dist);
+	}
+	
+
+	// This function converts decimal degrees to radians
+	private static double deg2rad(double deg) {
+		return (deg * Math.PI / 180.0);
+	}
+	
+	// This function converts radians to decimal degrees
+	private static double rad2deg(double rad) {
+		return (rad * 180 / Math.PI);
 	}
 }
 
