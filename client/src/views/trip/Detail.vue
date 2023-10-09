@@ -161,6 +161,7 @@ const closeReviewModal = (value) => {
 
 // 찜하기
 const clickWish = async () => {
+  checkLogin();
   // console.log(detailCommon.value.title, detailCommon.value.firstimage);
   const payload = {
     contentId: route.params.id,
@@ -212,9 +213,16 @@ const fetchWishDetail = async () => {
 //   return [];
 // });
 
+const checkLogin = () => {
+  if (!store.user.isLoggedIn) {
+    alert('로그인이 필요합니다.');
+    router.push('/login');
+  }
+};
+
 // review
 const writeReview = () => {
-  console.log('write riview');
+  checkLogin();
   showReviewModal.value = true;
 };
 
