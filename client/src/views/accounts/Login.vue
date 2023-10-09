@@ -1,34 +1,34 @@
 <template>
   <div class="px-5">
-    <h2 class="text-xl font-medium">로그인</h2>
-    <p class="mb-5 text-sm text-zinc-400">이메일과 비밀번호를 입력하세요</p>
+    <h2 class="text-xl font-medium">{{ $t('loginLabel1') }}</h2>
+    <p class="mb-5 text-sm text-zinc-400">{{ $t('loginLabel2') }}</p>
     <form @submit.prevent="login">
       <!-- email -->
       <div class="mb-3">
-        <label class="block mb-1 text-sm text-zinc-600">이메일</label>
+        <label class="block mb-1 text-sm text-zinc-600">{{ $t('loginLabel3') }}</label>
         <input
           v-model="email"
           type="email"
           class="input"
-          placeholder="이메일 입력"
+          :placeholder="$t('loginEmailPlaceholder')"
           autocomplete="0"
         />
       </div>
       <!-- password -->
       <div class="mb-5">
-        <label class="block mb-1 text-sm text-zinc-600">비밀번호</label>
+        <label class="block mb-1 text-sm text-zinc-600">{{ $t('loginLabel4') }}</label>
         <input
           v-model="password"
           type="password"
           class="input"
-          placeholder="비밀번호 입력"
+          :placeholder="$t('loginPwPlaceholder')"
           autocomplete="0"
         />
       </div>
       <!-- button -->
       <button>
         <ButtonSpinner v-if="isLoading" />
-        <span v-else>로그인</span>
+        <span v-else>{{ $t('loginBtn') }}</span>
       </button>
     </form>
 
@@ -36,7 +36,7 @@
     <div class="flex flex-col mt-3">
       <!-- 카카오 로그인 -->
       <button @click="kakaoLogin" class="bg-yellow-300 text-zinc-900">
-        <span>카카오 로그인</span>
+        <span>{{ $t('kakaoLoginBtn') }}</span>
       </button>
     </div>
   </div>

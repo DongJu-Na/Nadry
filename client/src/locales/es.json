@@ -33,5 +33,17 @@
     "bottomBtn3" : "Sellos",
     "bottomBtn4" : "Opiniones",
     "bottomBtn5" : "Favoritos",
-    "bottomBtn6" : "Mercado"
+    "bottomBtn6" : "Mercado",
+    "__comment4" : "로그인",
+    "loginLabel1" : "Iniciar sesión",
+    "loginLabel2" : "Ingrese su correo electrónico y contraseña",
+    "loginLabel3" : "Correo electrónico",
+    "loginLabel4" : "Contraseña",
+    "loginBtn" : "Iniciar sesión",
+    "kakaoLoginBtn" : "Iniciar sesión con Kakao",
+    "loginEmailPlaceholder" : "Introduce tu correo electrónico",
+    "loginPwPlaceholder" : "Introduce tu contraseña",
+    "__comment5" : "로그아웃",
+    "logoutLabel1" : "Cerrar sesión",
+    "logoutLabel2" : "Inicio"
 }

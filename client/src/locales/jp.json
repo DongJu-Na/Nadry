@@ -33,5 +33,17 @@
     "bottomBtn3" : "切手",
     "bottomBtn4" : "レビュー",
     "bottomBtn5" : "お気に入り",
-    "bottomBtn6" : "マーケット"
+    "bottomBtn6" : "マーケット",
+    "__comment4" : "로그인",
+    "loginLabel1" : "ログイン",
+    "loginLabel2" : "メールアドレスとパスワードを入力してください",
+    "loginLabel3" : "メールアドレス",
+    "loginLabel4" : "パスワード",
+    "loginBtn" : "ログイン",
+    "kakaoLoginBtn" : "カカオでログイン",
+    "loginEmailPlaceholder" : "メールアドレスを入力",
+    "loginPwPlaceholder" : "パスワードを入力",
+    "__comment5" : "로그아웃",
+    "logoutLabel1" : "ログアウト",
+    "logoutLabel2" : "ホーム"
     }

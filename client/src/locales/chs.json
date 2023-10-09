@@ -33,5 +33,17 @@
     "bottomBtn3" : "邮票",
     "bottomBtn4" : "评论",
     "bottomBtn5" : "收藏",
-    "bottomBtn6" : "市场"
+    "bottomBtn6" : "市场",
+    "__comment4" : "로그인",
+    "loginLabel1" : "登录",
+    "loginLabel2" : "请输入您的电子邮件和密码",
+    "loginLabel3" : "电子邮件",
+    "loginLabel4" : "密码",
+    "loginBtn" : "登录",
+    "kakaoLoginBtn" : "使用Kakao登录",
+    "loginEmailPlaceholder" : "请输入电子邮件",
+    "loginPwPlaceholder" : "请输入密码",
+    "__comment5" : "로그아웃",
+    "logoutLabel1" : "登出",
+    "logoutLabel2" : "主页"
 }

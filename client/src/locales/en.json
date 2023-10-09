@@ -33,5 +33,17 @@
     "bottomBtn3" : "Stamps",
     "bottomBtn4" : "Reviews",
     "bottomBtn5" : "Favorites",
-    "bottomBtn6" : "Market"
+    "bottomBtn6" : "Market",
+    "__comment4" : "로그인",
+    "loginLabel1" : "Login",
+    "loginLabel2" : "Enter your email and password",
+    "loginLabel3" : "Email",
+    "loginLabel4" : "Password",
+    "loginBtn" : "Login",
+    "kakaoLoginBtn" : "Login with Kakao",
+    "loginEmailPlaceholder" : "Enter email",
+    "loginPwPlaceholder" : "Enter password",
+    "__comment5" : "로그아웃",
+    "logoutLabel1" : "Logout",
+    "logoutLabel2" : "Home"
 }

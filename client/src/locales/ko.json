@@ -33,5 +33,17 @@
     "bottomBtn3" : "스탬프",
     "bottomBtn4" : "리뷰",
     "bottomBtn5" : "찜",
-    "bottomBtn6" : "마켓"
+    "bottomBtn6" : "마켓",
+    "__comment4" : "로그인",
+    "loginLabel1" : "로그인",
+    "loginLabel2" : "이메일과 비밀번호를 입력하세요",
+    "loginLabel3" : "이메일",
+    "loginLabel4" : "비밀번호",
+    "loginBtn" : "로그인",
+    "kakaoLoginBtn" : "카카오 로그인",
+    "loginEmailPlaceholder" : "이메일 입력",
+    "loginPwPlaceholder" : "비밀번호 입력",
+    "__comment5" : "로그아웃",
+    "logoutLabel1" : "로그아웃",
+    "logoutLabel2" : "홈으로"
 }

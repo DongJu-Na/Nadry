@@ -33,5 +33,17 @@
     "bottomBtn3" : "郵票",
     "bottomBtn4" : "評論",
     "bottomBtn5" : "收藏",
-    "bottomBtn6" : "市場"
+    "bottomBtn6" : "市場",
+    "__comment4" : "로그인",
+    "loginLabel1" : "登入",
+    "loginLabel2" : "輸入您的電子郵件和密碼",
+    "loginLabel3" : "電子郵件",
+    "loginLabel4" : "密碼",
+    "loginBtn" : "登入",
+    "kakaoLoginBtn" : "用Kakao登入",
+    "loginEmailPlaceholder" : "請輸入電子郵件",
+    "loginPwPlaceholder" : "請輸入密碼",
+    "__comment5" : "로그아웃",
+    "logoutLabel1" : "登出",
+    "logoutLabel2" : "首頁"
 }

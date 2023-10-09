@@ -33,5 +33,17 @@
     "bottomBtn3" : "Timbres",
     "bottomBtn4" : "Avis",
     "bottomBtn5" : "Favoris",
-    "bottomBtn6" : "Marché"
+    "bottomBtn6" : "Marché",
+    "__comment4" : "로그인",
+    "loginLabel1" : "Connexion",
+    "loginLabel2" : "Entrez votre e-mail et votre mot de passe",
+    "loginLabel3" : "E-mail",
+    "loginLabel4" : "Mot de passe",
+    "loginBtn" : "Connexion",
+    "kakaoLoginBtn" : "Connexion avec Kakao",
+    "loginEmailPlaceholder" : "Saisissez votre adresse e-mail",
+    "loginPwPlaceholder" : "Saisissez votre mot de passe",
+    "__comment5" : "로그아웃",
+    "logoutLabel1" : "Déconnexion",
+    "logoutLabel2" : "Accueil"
 }

@@ -34,5 +34,17 @@
     "bottomBtn3" : "Марки",
     "bottomBtn4" : "Отзывы",
     "bottomBtn5" : "Избранное",
-    "bottomBtn6" : "Рынок"
+    "bottomBtn6" : "Рынок",
+    "__comment4" : "로그인",
+    "loginLabel1" : "Logg inn",
+    "loginLabel2" : "Skriv inn e-post og passord",
+    "loginLabel3" : "E-post",
+    "loginLabel4" : "Passord",
+    "loginBtn" : "Logg inn",
+    "kakaoLoginBtn" : "Logg inn med Kakao",
+    "loginEmailPlaceholder" : "Skriv inn e-post",
+    "loginPwPlaceholder" : "Skriv inn passord",
+    "__comment5" : "로그아웃",
+    "logoutLabel1" : "Logg ut",
+    "logoutLabel2" : "Hjem"
 }

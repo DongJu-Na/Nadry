@@ -34,5 +34,17 @@
     "bottomBtn3" : "Briefmarken",
     "bottomBtn4" : "Bewertungen",
     "bottomBtn5" : "Favoriten",
-    "bottomBtn6" : "Markt"
+    "bottomBtn6" : "Markt",
+    "__comment4" : "로그인",
+    "loginLabel1" : "Anmelden",
+    "loginLabel2" : "Geben Sie Ihre E-Mail-Adresse und Ihr Passwort ein",
+    "loginLabel3" : "E-Mail",
+    "loginLabel4" : "Passwort",
+    "loginBtn" : "Anmelden",
+    "kakaoLoginBtn" : "Mit Kakao anmelden",
+    "loginEmailPlaceholder" : "E-Mail eingeben",
+    "loginPwPlaceholder" : "Passwort eingeben",
+    "__comment5" : "로그아웃",
+    "logoutLabel1" : "Abmelden",
+    "logoutLabel2" : "Startseite"
 }
