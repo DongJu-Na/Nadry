@@ -46,5 +46,21 @@
     "loginPwPlaceholder" : "Skriv inn passord",
     "__comment5" : "로그아웃",
     "logoutLabel1" : "Logg ut",
-    "logoutLabel2" : "Hjem"
+    "logoutLabel2" : "Hjem",
+    "__comment6" : "회원가입",
+    "joinLabel1" : "Registracija",
+    "joinLabel2" : "Prašome įvesti žemiau pateiktą informaciją",
+    "joinLabel3" : "Vardas",
+    "joinLabel4" : "El. paštas",
+    "joinLabel5" : "Slaptažodis",
+    "joinLabel6" : "Patvirtinkite slaptažodį",
+    "joinLabel7" : "Gimimo data",
+    "joinLabel8" : "Profilio nuotrauka",
+    "joinPlaceholder1" : "Įveskite savo vardą",
+    "joinPlaceholder2" : "Įveskite savo el. pašto adresą",
+    "joinPlaceholder3" : "Įveskite savo slaptažodį",
+    "joinPlaceholder4" : "Įveskite tą patį slaptažodį",
+    "joinPlaceholder5" : "Įveskite savo gimimo datą",
+    "joinFileUploadTxt" : "Filopplasting",
+    "joinBtnTxt" : "Registracija"
 }

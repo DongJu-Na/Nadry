@@ -45,5 +45,21 @@
     "loginPwPlaceholder" : "パスワードを入力",
     "__comment5" : "로그아웃",
     "logoutLabel1" : "ログアウト",
-    "logoutLabel2" : "ホーム"
+    "logoutLabel2" : "ホーム",
+    "__comment6" : "회원가입",
+    "joinLabel1" : "登録",
+    "joinLabel2" : "以下の情報を入力してください",
+    "joinLabel3" : "名前",
+    "joinLabel4" : "メールアドレス",
+    "joinLabel5" : "パスワード",
+    "joinLabel6" : "パスワード確認",
+    "joinLabel7" : "生年月日",
+    "joinLabel8" : "プロフィール画像",
+    "joinPlaceholder1" : "名前を入力してください",
+    "joinPlaceholder2" : "メールアドレスを入力してください",
+    "joinPlaceholder3" : "パスワードを入力してください",
+    "joinPlaceholder4" : "同じパスワードを入力してください",
+    "joinPlaceholder5" : "生年月日を入力してください",
+    "joinFileUploadTxt" : "ファイルアップロード",
+    "joinBtnTxt" : "登録"
     }

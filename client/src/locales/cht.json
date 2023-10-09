@@ -45,5 +45,21 @@
     "loginPwPlaceholder" : "請輸入密碼",
     "__comment5" : "로그아웃",
     "logoutLabel1" : "登出",
-    "logoutLabel2" : "首頁"
+    "logoutLabel2" : "首頁",
+    "__comment6" : "회원가입",
+    "joinLabel1" : "註冊",
+    "joinLabel2" : "請輸入以下信息",
+    "joinLabel3" : "姓名",
+    "joinLabel4" : "電子郵件",
+    "joinLabel5" : "密碼",
+    "joinLabel6" : "確認密碼",
+    "joinLabel7" : "出生日期",
+    "joinLabel8" : "個人資料圖片",
+    "joinPlaceholder1" : "請輸入您的姓名",
+    "joinPlaceholder2" : "請輸入您的電子郵件",
+    "joinPlaceholder3" : "請輸入您的密碼",
+    "joinPlaceholder4" : "請輸入相同的密碼",
+    "joinPlaceholder5" : "請輸入您的出生日期",
+    "joinFileUploadTxt" : "文件上傳",
+    "joinBtnTxt" : "註冊"
 }

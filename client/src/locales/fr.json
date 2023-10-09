@@ -45,5 +45,21 @@
     "loginPwPlaceholder" : "Saisissez votre mot de passe",
     "__comment5" : "로그아웃",
     "logoutLabel1" : "Déconnexion",
-    "logoutLabel2" : "Accueil"
+    "logoutLabel2" : "Accueil",
+    "__comment6" : "회원가입",
+    "joinLabel1" : "Inscription",
+    "joinLabel2" : "Veuillez entrer les informations suivantes",
+    "joinLabel3" : "Nom",
+    "joinLabel4" : "E-mail",
+    "joinLabel5" : "Mot de passe",
+    "joinLabel6" : "Confirmer le mot de passe",
+    "joinLabel7" : "Date de naissance",
+    "joinLabel8" : "Image de profil",
+    "joinPlaceholder1" : "Entrez votre nom",
+    "joinPlaceholder2" : "Entrez votre adresse e-mail",
+    "joinPlaceholder3" : "Entrez votre mot de passe",
+    "joinPlaceholder4" : "Entrez le même mot de passe",
+    "joinPlaceholder5" : "Entrez votre date de naissance",
+    "joinFileUploadTxt" : "Téléchargement de fichier",
+    "joinBtnTxt" : "Inscription"
 }

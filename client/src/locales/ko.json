@@ -45,5 +45,21 @@
     "loginPwPlaceholder" : "비밀번호 입력",
     "__comment5" : "로그아웃",
     "logoutLabel1" : "로그아웃",
-    "logoutLabel2" : "홈으로"
+    "logoutLabel2" : "홈으로",
+    "__comment6" : "회원가입",
+    "joinLabel1" : "회원 가입",
+    "joinLabel2" : "아래 정보들을 입력해주세요",
+    "joinLabel3" : "이름",
+    "joinLabel4" : "이메일",
+    "joinLabel5" : "비밀번호",
+    "joinLabel6" : "비밀번호 확인",
+    "joinLabel7" : "생년월일",
+    "joinLabel8" : "프로필 이미지",
+    "joinPlaceholder1" : "이름을 입력하세요",
+    "joinPlaceholder2" : "이메일을 입력하세요",
+    "joinPlaceholder3" : "비밀번호를 입력하세요",
+    "joinPlaceholder4" : "동일한 비밀번호를 입력하세요",
+    "joinPlaceholder5" : "생년월일을 입력하세요",
+    "joinFileUploadTxt" : "파일 업로드",
+    "joinBtnTxt" : "회원 가입"
 }

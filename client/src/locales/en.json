@@ -45,5 +45,21 @@
     "loginPwPlaceholder" : "Enter password",
     "__comment5" : "로그아웃",
     "logoutLabel1" : "Logout",
-    "logoutLabel2" : "Home"
+    "logoutLabel2" : "Home",
+    "__comment6" : "Sign Up",
+    "joinLabel1" : "Sign Up",
+    "joinLabel2" : "Please enter the following information",
+    "joinLabel3" : "Name",
+    "joinLabel4" : "Email",
+    "joinLabel5" : "Password",
+    "joinLabel6" : "Confirm Password",
+    "joinLabel7" : "Date of Birth",
+    "joinLabel8" : "Profile Image",
+    "joinPlaceholder1" : "Enter your name",
+    "joinPlaceholder2" : "Enter your email",
+    "joinPlaceholder3" : "Enter your password",
+    "joinPlaceholder4" : "Enter the same password",
+    "joinPlaceholder5" : "Enter your date of birth",
+    "joinFileUploadTxt" : "File Upload",
+    "joinBtnTxt" : "Sign Up"
 }

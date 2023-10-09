@@ -45,5 +45,21 @@
     "loginPwPlaceholder" : "Introduce tu contraseña",
     "__comment5" : "로그아웃",
     "logoutLabel1" : "Cerrar sesión",
-    "logoutLabel2" : "Inicio"
+    "logoutLabel2" : "Inicio",
+    "__comment6" : "회원가입",
+    "joinLabel1" : "Aangemeld",
+    "joinLabel2" : "Voer de volgende informatie in",
+    "joinLabel3" : "Naam",
+    "joinLabel4" : "E-pos",
+    "joinLabel5" : "Wagwoord",
+    "joinLabel6" : "Bevestig wagwoord",
+    "joinLabel7" : "Geboortedatum",
+    "joinLabel8" : "Profielbeeld",
+    "joinPlaceholder1" : "Voer jou naam in",
+    "joinPlaceholder2" : "Voer jou e-posadres in",
+    "joinPlaceholder3" : "Voer jou wagwoord in",
+    "joinPlaceholder4" : "Voer dieselfde wagwoord in",
+    "joinPlaceholder5" : "Voer jou geboortedatum in",
+    "joinFileUploadTxt" : "Subir archivo",
+    "joinBtnTxt" : "Aangemeld"
 }

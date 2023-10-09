@@ -46,5 +46,21 @@
     "loginPwPlaceholder" : "Passwort eingeben",
     "__comment5" : "로그아웃",
     "logoutLabel1" : "Abmelden",
-    "logoutLabel2" : "Startseite"
+    "logoutLabel2" : "Startseite",
+    "__comment6" : "회원가입",
+    "joinLabel1" : "Registrierung",
+    "joinLabel2" : "Bitte geben Sie die folgenden Informationen ein",
+    "joinLabel3" : "Name",
+    "joinLabel4" : "E-Mail",
+    "joinLabel5" : "Passwort",
+    "joinLabel6" : "Passwort bestätigen",
+    "joinLabel7" : "Geburtsdatum",
+    "joinLabel8" : "Profilbild",
+    "joinPlaceholder1" : "Geben Sie Ihren Namen ein",
+    "joinPlaceholder2" : "Geben Sie Ihre E-Mail-Adresse ein",
+    "joinPlaceholder3" : "Geben Sie Ihr Passwort ein",
+    "joinPlaceholder4" : "Geben Sie das gleiche Passwort ein",
+    "joinPlaceholder5" : "Geben Sie Ihr Geburtsdatum ein",
+    "joinFileUploadTxt" : "Datei hochladen",
+    "joinBtnTxt" : "Registrierung"
 }
