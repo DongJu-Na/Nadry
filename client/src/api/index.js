@@ -53,7 +53,18 @@ export const userKakaoLogin = (payload) => {
 
 // 회원가입
 export const join = (payload) => {
-  return instanceWithNoAuth.post('/api/v1/auth/register', payload);
+  const formData = new FormData();
+  formData.append('name', payload.name);
+  formData.append('email', payload.email);
+  formData.append('password', payload.password);
+  formData.append('birthDay', payload.birthDay);
+  formData.append('profileImage', payload.profileImage);
+  formData.append('role', payload.role);
+  return instanceWithNoAuth.post('/api/v1/auth/register', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };
 
 // 상품 조회 - market products
