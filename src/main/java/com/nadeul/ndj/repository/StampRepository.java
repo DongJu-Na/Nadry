@@ -1,6 +1,7 @@
 package com.nadeul.ndj.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,5 +13,7 @@ public interface StampRepository extends JpaRepository<Stamp, Integer> {
 //    List<StampDto> customFindByMemId(@Param("memId") String memId);
 	
 	 List<Stamp> findByMemberMemId(Integer memId);
+	 
+	 Optional<Stamp> findByMemberMemIdAndStampMasterStmId(Integer memId, Integer stmId);
 
 }
