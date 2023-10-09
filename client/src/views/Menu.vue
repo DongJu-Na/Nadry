@@ -1,8 +1,8 @@
 <template>
   <div class="px-5">
     <div class="mt-5 mb-10 text-2xl text-center">
-      <p class="">안녕하세요.</p>
-      <p class="font-semibold text-emerald-500">오늘도 즐거운 나드리!</p>
+      <p class="">{{ $t('menuHelloTxt1') }}</p>
+      <p class="font-semibold text-emerald-500">{{ $t('menuHelloTxt2') }}</p>
     </div>
     <!-- user info -->
     <div v-if="store.user.isLoggedIn" class="flex flex-col items-center justify-center mb-10">
@@ -25,7 +25,7 @@
         <router-link to="/login">{{ $t('menuLogin') }}</router-link>
         <router-link to="/join">{{ $t('menuRegister') }}</router-link>
       </template>
-      <router-link v-if="store.user.isLoggedIn" to="/logout">로그아웃</router-link>
+      <router-link v-if="store.user.isLoggedIn" to="/logout">{{ $t('menuLogout') }}</router-link>
     </nav>
 
     <div class="grid grid-cols-3 gap-2 mt-8">
