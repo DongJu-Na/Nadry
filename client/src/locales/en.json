@@ -61,5 +61,16 @@
     "joinPlaceholder4" : "Enter the same password",
     "joinPlaceholder5" : "Enter your date of birth",
     "joinFileUploadTxt" : "File Upload",
-    "joinBtnTxt" : "Sign Up"
+    "joinBtnTxt" : "Sign Up",
+    "__comment7": "여행",
+    "tripSearchBtn": "Search",
+    "tripSearchPlaceholder": "Enter search keyword",
+    "tripSearchResult": "Search Results",
+    "tripWish": "Wishlist",
+    "tripInfoTxt": "Usage Guide",
+    "tripReviewBtn": "Write a Review!",
+    "tripReviewTxt": "Check Reviews",
+    "__comment8": "페이징",
+    "pagePrev": "Previous",
+    "pageNext": "Next"
 }

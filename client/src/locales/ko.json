@@ -61,5 +61,17 @@
     "joinPlaceholder4" : "동일한 비밀번호를 입력하세요",
     "joinPlaceholder5" : "생년월일을 입력하세요",
     "joinFileUploadTxt" : "파일 업로드",
-    "joinBtnTxt" : "회원 가입"
+    "joinBtnTxt" : "회원 가입",
+    "__comment7" : "여행",
+    "tripSearchBtn" : "검색",
+    "tripSearchPlaceholder" : "검색어를 입력하세요",
+    "tripSearchResult" : "검색 결과",
+    "tripWish" : "찜하기",
+    "tripInfoTxt" : "이용안내",
+    "tripReviewBtn" : "리뷰를 작성해주세요!",
+    "tripReviewTxt" : "리뷰를 확인해보세요",
+    "__comment8" : "페이징",
+    "pagePrev" : "이전",
+    "pageNext" : "다음"
+
 }

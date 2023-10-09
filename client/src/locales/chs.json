@@ -61,5 +61,16 @@
     "joinPlaceholder4" : "请输入相同的密码",
     "joinPlaceholder5" : "请输入您的出生日期",
     "joinFileUploadTxt" : "文件上传",
-    "joinBtnTxt" : "注册"
+    "joinBtnTxt" : "注册",
+    "__comment7": "여행",
+    "tripSearchBtn": "搜索",
+    "tripSearchPlaceholder": "请输入搜索关键词",
+    "tripSearchResult": "搜索结果",
+    "tripWish": "收藏",
+    "tripInfoTxt": "使用指南",
+    "tripReviewBtn": "撰写评论！",
+    "tripReviewTxt": "查看评论",
+    "__comment8": "페이징",
+    "pagePrev": "上一页",
+    "pageNext": "下一页"
 }

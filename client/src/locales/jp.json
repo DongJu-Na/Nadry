@@ -61,5 +61,16 @@
     "joinPlaceholder4" : "同じパスワードを入力してください",
     "joinPlaceholder5" : "生年月日を入力してください",
     "joinFileUploadTxt" : "ファイルアップロード",
-    "joinBtnTxt" : "登録"
+    "joinBtnTxt" : "登録",
+    "__comment7": "여행",
+    "tripSearchBtn": "検索",
+    "tripSearchPlaceholder": "検索キーワードを入力",
+    "tripSearchResult": "検索結果",
+    "tripWish": "お気に入り",
+    "tripInfoTxt": "利用案内",
+    "tripReviewBtn": "レビューを書く！",
+    "tripReviewTxt": "レビューを確認",
+    "__comment8": "페이징",
+    "pagePrev": "前へ",
+    "pageNext": "次へ"
     }

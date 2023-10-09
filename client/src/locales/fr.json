@@ -61,5 +61,16 @@
     "joinPlaceholder4" : "Entrez le même mot de passe",
     "joinPlaceholder5" : "Entrez votre date de naissance",
     "joinFileUploadTxt" : "Téléchargement de fichier",
-    "joinBtnTxt" : "Inscription"
+    "joinBtnTxt" : "Inscription",
+    "__comment7": "여행",
+    "tripSearchBtn": "Rechercher",
+    "tripSearchPlaceholder": "Entrez un mot-clé de recherche",
+    "tripSearchResult": "Résultats de recherche",
+    "tripWish": "Ajouter aux favoris",
+    "tripInfoTxt": "Guide d'utilisation",
+    "tripReviewBtn": "Écrire un avis !",
+    "tripReviewTxt": "Voir les avis",
+    "__comment8": "페이징",
+    "pagePrev": "Précédent",
+    "pageNext": "Suivant"
 }

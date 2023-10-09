@@ -28,7 +28,7 @@
     "menuLogout" : "Logg ut",
     "menuHelloTxt1" : "Hei.",
     "menuHelloTxt2" : "Ha en fin dag i dag!",
-    "__comment3" : "하단메뉴",
+    "__comment3" : "하단 메뉴",
     "bottomBtn1" : "Домой",
     "bottomBtn2" : "Путешествия",
     "bottomBtn3" : "Марки",
@@ -62,5 +62,16 @@
     "joinPlaceholder4" : "Įveskite tą patį slaptažodį",
     "joinPlaceholder5" : "Įveskite savo gimimo datą",
     "joinFileUploadTxt" : "Filopplasting",
-    "joinBtnTxt" : "Registracija"
-}
+    "joinBtnTxt" : "Registracija",
+    "__comment7": "여행",
+    "tripSearchBtn": "Søk",
+    "tripSearchPlaceholder": "Skriv inn søkeord",
+    "tripSearchResult": "Søkeresultater",
+    "tripWish": "Ønskeliste",
+    "tripInfoTxt": "Bruksanvisning",
+    "tripReviewBtn": "Skriv en anmeldelse!",
+    "tripReviewTxt": "Sjekk anmeldelser",
+    "__comment8": "페이징",
+    "pagePrev": "Forrige",
+    "pageNext": "Neste"
+    }

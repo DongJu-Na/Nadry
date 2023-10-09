@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center justify-between mt-10" v-if="items && items.length > 0">
     <div @click="searchPage('prev')" :disabled="pageInfo.pageNo === 1">
-      <span class="">이전</span>
+      <span class="">{{$t('pagePrev')}}</span>
     </div>
     <div
       v-for="item in displayedPages()"
@@ -12,7 +12,7 @@
       <span>{{ item }}</span>
     </div>
     <div @click="searchPage('next')" :disabled="pageInfo.totalCount === pageInfo.pageNo">
-      <span class="">다음</span>
+      <span class="">{{$t('pageNext')}}</span>
     </div>
   </div>
 </template>

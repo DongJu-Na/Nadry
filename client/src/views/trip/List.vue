@@ -13,9 +13,9 @@
           v-model="searchWord"
           type="text"
           class="flex-grow input"
-          placeholder="검색어를 입력하세요"
+          :placeholder="$t('tripSearchPlaceholder')"
         />
-        <button class="w-[100px]">검색</button>
+        <button class="w-[100px]">{{$t('tripSearchBtn')}}</button>
       </div>
     </form>
 
@@ -31,7 +31,7 @@
 
     <!-- result -->
     <div v-if="tripItems && tripItems.length > 0" class="mt-10">
-      <h2 class="mb-3 font-semibold">검색 결과</h2>
+      <h2 class="mb-3 font-semibold">{{$t('tripSearchResult')}}</h2>
       <div class="flex flex-col gap-3">
         <router-link
           v-for="item in tripItems"

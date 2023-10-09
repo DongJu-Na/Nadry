@@ -61,5 +61,16 @@
     "joinPlaceholder4" : "Voer dieselfde wagwoord in",
     "joinPlaceholder5" : "Voer jou geboortedatum in",
     "joinFileUploadTxt" : "Subir archivo",
-    "joinBtnTxt" : "Aangemeld"
+    "joinBtnTxt" : "Aangemeld",
+    "__comment7": "여행",
+    "tripSearchBtn": "Buscar",
+    "tripSearchPlaceholder": "Introduce la palabra clave",
+    "tripSearchResult": "Resultados de la búsqueda",
+    "tripWish": "Lista de deseos",
+    "tripInfoTxt": "Guía de uso",
+    "tripReviewBtn": "¡Escribe una reseña!",
+    "tripReviewTxt": "Ver reseñas",
+    "__comment8": "페이징",
+    "pagePrev": "Anterior",
+    "pageNext": "Siguiente"
 }

@@ -40,7 +40,7 @@
           :class="hasWished ? 'text-rose-600 font-semibold' : 'text-zinc-400'"
         >
           <HeartIcon class="w-[25px]" />
-          <span class="text-xs leading-none">찜하기</span>
+          <span class="text-xs leading-none">{{$t('tripWish')}}</span>
         </div>
       </div>
       <!-- rating & reviews -->
@@ -89,14 +89,14 @@
       <div class="mt-[3rem] mb-[5rem]">
         <a @click="writeReview" class="button">
           <i class="las la-pen"></i>
-          <span>리뷰를 작성해주세요!</span>
+          <span>{{$t('tripReviewBtn')}}</span>
         </a>
       </div>
       <!-- reviews -->
       <div class="mt-10">
         <h3 class="flex items-center gap-1 font-medium text-indigo-500">
           <ChatBubbleBottomCenterTextIcon class="w-6" />
-          <span>리뷰를 확인해보세요</span>
+          <span>{{$t('tripReviewTxt')}}</span>
         </h3>
         <!-- 리뷰 리스트 -->
         <ReviewList />
