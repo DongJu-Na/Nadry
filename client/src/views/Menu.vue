@@ -12,6 +12,7 @@
         <img
           v-if="user.profileUrl"
           :src="user.profileUrl.includes('http') ? user.profileUrl : storageUrl + user.profileUrl"
+          class="object-cover w-full h-full"
         />
         <UserIcon v-else class="w-10 opacity-10" />
       </div>
