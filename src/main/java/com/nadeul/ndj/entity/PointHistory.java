@@ -36,5 +36,7 @@ public class PointHistory {
   @ManyToOne
   @JoinColumn(name = "poId", referencedColumnName = "poId")
   private Point point;
+  
+  private String remarks;
 		
 }
