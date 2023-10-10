@@ -29,13 +29,17 @@ public class PointHistory {
   
   private String usedBy;
   
-  @ManyToOne
+  @ManyToOne(optional = true)
   @JoinColumn(name = "pdId", referencedColumnName = "pdId")
   private Product product;
   
   @ManyToOne
   @JoinColumn(name = "poId", referencedColumnName = "poId")
   private Point point;
+  
+  @ManyToOne
+  @JoinColumn(name = "memId", referencedColumnName = "memId")
+  private Member member;
   
   private String remarks;
 		

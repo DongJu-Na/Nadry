@@ -72,7 +72,7 @@ public class PointService<T> {
 									.contentId(dto.getContentId())
 									.build();
 						
-						var saveTripHistory = tripRepository.save(trip);
+						   tripRepository.save(trip);
 						// process 2 최종 포인트 merge 
 						var pointEt =  pointRepository.findByMemberMemId(optionalMember.get().getMemId());
 						 
@@ -91,13 +91,13 @@ public class PointService<T> {
 						var savePoint = pointRepository.save(point);
 						// process 3 포인트 히스토리 Insert
 						var pointHistory = PointHistory.builder()
-								.poId(savePoint.getPoId())
+								.point(savePoint)
 								.usePoint(10)
 								.usedBy(optionalMember.get().getEmail())
 								.useDate(LocalDateTime.now())
 								.build();
 						
-						var savePointHistory = pointHistoryRepository.save(pointHistory);
+						pointHistoryRepository.save(pointHistory);
 				} else {
 				    // Member가 존재하지 않는 경우 처리 로직을 작성합니다.
 						return ApiResponse.failResponse(ApiResponseEnum.UNKNOWN_MEMBER, ""); 
@@ -183,10 +183,12 @@ public class PointService<T> {
 
         // 6. 포인트 히스토리에 사용 내역 저장
         PointHistory pointHistory = new PointHistory();
-        pointHistory.setPoId(point.getPoId());
+        pointHistory.setPoint(point);
         pointHistory.setUseDate(LocalDateTime.now());
         pointHistory.setUsePoint(usePoints);
         pointHistory.setUsedBy(member.getEmail());
+        pointHistory.setRemarks("상품 구매");
+        pointHistory.setMember(member);
         pointHistoryRepository.save(pointHistory);
 
         // 성공적으로 포인트 사용이 완료되었을 때 성공 응답 반환

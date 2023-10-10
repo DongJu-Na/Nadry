@@ -42,7 +42,6 @@ import com.nadeul.ndj.repository.ReviewLikeRepository;
 import com.nadeul.ndj.repository.ReviewRepository;
 import com.nadeul.ndj.repository.StampMasterRepository;
 import com.nadeul.ndj.repository.StampRepository;
-import com.nadeul.ndj.repository.TripRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -175,12 +174,12 @@ public class ReviewService<T> {
 					  Optional<Point> pointEt =  pointRepository.findByMemberMemId(optionalMember.get().getMemId());
 					  
 					  Point point = pointEt.map(p -> {
-						    	p.setPoint(p.getPoint() + 10);
+						    	p.setPoint(p.getPoint() + 100);
 						    	return p;
 							}).orElseGet(() -> {
 								Point newPoint = Point.builder()
-							            .point(10)
-							            .member(optionalMember.get())
+							            .point(100)
+							            .member(member)
 							            .blackYn("N")
 							            .build();
 							    return newPoint;
@@ -189,10 +188,12 @@ public class ReviewService<T> {
 							Point savePoint = pointRepository.save(point);
 							// process 3 포인트 히스토리 Insert
 							PointHistory pointHistory = PointHistory.builder()
-									.poId(savePoint.getPoId())
-									.usePoint(10)
-									.usedBy(optionalMember.get().getEmail())
+									.point(savePoint)
+									.usePoint(100)
+									.usedBy(member.getEmail())
 									.useDate(LocalDateTime.now())
+									.remarks("여행 리뷰 포인트 적립")
+									.member(member)
 									.build();
 							
 							pointHistoryRepository.save(pointHistory);
