@@ -12,7 +12,7 @@
     <router-link v-if="$route.name !== 'menu'" to="/menu" class="block p-[18px]">
       <IconMenu />
     </router-link>
-    <a v-else @click="goToBack" class="block p-[18px]">
+    <a v-else @click="goToBack" class="block p-[18px] cursor-pointer">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         x="0px"
