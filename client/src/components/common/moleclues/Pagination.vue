@@ -35,7 +35,7 @@ const displayedPages = () => {
   let startPage;
   let endPage;
 
-  if(props.pageInfo.totalCount < 5){
+  if(props.pageInfo.totalCount <= 5){
     return [1];
   }
 
