@@ -1,7 +1,11 @@
 package com.nadeul.ndj.controller;
 
+import java.util.List;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nadeul.ndj.dto.ApiResponse;
 import com.nadeul.ndj.dto.PointEarnDto;
+import com.nadeul.ndj.dto.PointHistoryDto;
 import com.nadeul.ndj.dto.PointUseDto;
 import com.nadeul.ndj.enums.ApiResponseEnum;
 import com.nadeul.ndj.service.PointService;
@@ -24,7 +29,14 @@ import lombok.RequiredArgsConstructor;
 @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MANAGER')")
 public class PointController<T> {
   
-	private final PointService<T> service;
+  private final PointService<T> service;
+  
+  @GetMapping("/myPointHistoryList")
+  @Operation(summary = "포인트 사용내역 조회", description = "포인트 사용 내역 목록 조회")
+  public ResponseEntity<ApiResponse<List<PointHistoryDto>>> myPointHistoryList(Pageable pageable) {
+      return ResponseEntity.ok(service.myPointHistoryList(pageable));
+  }
+	
 	
   @PostMapping("/earn")
   @Operation(summary = "포인트 적립", description = "나드리 포인트 적립")

@@ -1,8 +1,12 @@
 package com.nadeul.ndj.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nadeul.ndj.dto.ApiResponse;
 import com.nadeul.ndj.dto.PointEarnDto;
+import com.nadeul.ndj.dto.PointHistoryDto;
 import com.nadeul.ndj.dto.PointUseDto;
 import com.nadeul.ndj.entity.Cart;
 import com.nadeul.ndj.entity.CartProduct;
@@ -44,6 +49,27 @@ public class PointService<T> {
 	private final CartRepository cartRepository;
 	private final OrdersRepository ordersRepository;
 	private final CartProductRepository cartProductRepository;
+	
+	public ApiResponse<List<PointHistoryDto>> myPointHistoryList(Pageable pageable) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Object principal = authentication.getPrincipal();
+		
+		if(principal instanceof UserDetails) {
+			String email = ((UserDetails) principal).getUsername();
+			Optional<Member>  optionalMember = memberRepository.findByEmail(email);
+			
+			Page<PointHistory> pointHistorys = pointHistoryRepository.findByMemberMemId(optionalMember.get().getMemId(),pageable);
+			List<PointHistoryDto> pointHistoryList =  pointHistorys.getContent().stream().map(rowData ->{
+			    return new PointHistoryDto(rowData);
+			} ).collect(Collectors.toList());
+			  
+			  return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, pointHistoryList, null, null);
+			  
+		}else {
+		    // principal이 UserDetails 타입이 아닌 경우 처리 로직 -> 응답 객체를 null 로 반환
+			return ApiResponse.failResponse(ApiResponseEnum.UNKNOWN_MEMBER, ""); 
+		}
+	 }
 	
 	@Transactional
 	public ApiResponse<T> earn(PointEarnDto dto) {
