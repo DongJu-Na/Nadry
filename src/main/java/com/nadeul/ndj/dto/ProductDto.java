@@ -14,9 +14,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ProductDto {
-	/** exif.js 메타데이터 값들 보고 엔티티 , 컬럼값들도 변경 필요함   
-	* 
-	**/
 	@Schema(description = "상품 번호" , example = "1")
     private Integer pdId;
 	@Schema(description = "상품명" , example = "1")
