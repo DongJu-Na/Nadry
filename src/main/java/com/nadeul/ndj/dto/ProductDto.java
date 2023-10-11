@@ -42,17 +42,31 @@ public class ProductDto {
     private String description;
     
     public ProductDto(Product p) {
-    	this.pdId = p.getPdId();
-        this.name = p.getName();
-        this.stockQty = p.getStockQty();
-        this.thumbnailUrl = p.getThumbnailUrl();
-        this.shortDescription = p.getShortDescription();
-        this.productType = p.getProductType().getTitle();
-        this.createDate = p.getCreateDate();
-        this.createBy = p.getCreateBy();
-        this.updateDate = p.getUpdateDate();
-        this.updateBy = p.getUpdateBy();
-        this.description = p.getDescription();
+        if (p != null) {
+            this.pdId = p.getPdId();
+            this.name = p.getName();
+            this.stockQty = p.getStockQty();
+            this.thumbnailUrl = p.getThumbnailUrl();
+            this.shortDescription = p.getShortDescription();
+            this.productType = (p.getProductType() != null) ? p.getProductType().getTitle() : null;
+            this.createDate = p.getCreateDate();
+            this.createBy = p.getCreateBy();
+            this.updateDate = p.getUpdateDate();
+            this.updateBy = p.getUpdateBy();
+            this.description = p.getDescription();
+        } else {
+            this.pdId = -1;
+            this.name = null;
+            this.stockQty = null;
+            this.thumbnailUrl = null;
+            this.shortDescription = null;
+            this.productType = null;
+            this.createDate = null;
+            this.createBy = null;
+            this.updateDate = null;
+            this.updateBy = null;
+            this.description = null;
+        }
     }
 	
 }
