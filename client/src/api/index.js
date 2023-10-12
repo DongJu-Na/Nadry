@@ -180,3 +180,8 @@ export const getUltraSrtNcst = (payload) => {
 export const getMyStampList = () => {
   return instance.get('/api/v2/stamp/myStampList');
 };
+
+// 포인트 사용내역
+export const getMyPointHistoryList = () => {
+  return instance.get('/api/v2/point/myPointHistoryList');
+};

@@ -26,7 +26,10 @@
         <router-link to="/login">{{ $t('menuLogin') }}</router-link>
         <router-link to="/join">{{ $t('menuRegister') }}</router-link>
       </template>
-      <router-link v-if="store.user.isLoggedIn" to="/logout">{{ $t('menuLogout') }}</router-link>
+      <template v-if="store.user.isLoggedIn">
+        <router-link to="/logout">{{ $t('menuLogout') }}</router-link>
+        <router-link to="/myPoint">포인트 사용내역</router-link>
+      </template>
     </nav>
 
     <div class="grid grid-cols-3 gap-2 mt-8">

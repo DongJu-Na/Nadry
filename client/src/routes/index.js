@@ -116,6 +116,14 @@ const routes = [
     name: '404',
     component: () => import('@/views/404.vue'),
   },
+  {
+    path: '/myPoint',
+    name: 'myPoint',
+    component: () => import('@/views/PointHistory.vue'),
+    meta: {
+      auth: true,
+    },
+  },
 ];
 
 export const router = createRouter({
