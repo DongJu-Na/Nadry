@@ -27,6 +27,8 @@
     "menuLogout" : "로그아웃",
     "menuHelloTxt1" : "안녕하세요.",
     "menuHelloTxt2" : "오늘도 즐거운 나드리!",
+    "menuPointHistory" : "포인트 사용내역",
+    "menuOrder" : "주문내역",
     "__comment3" : "하단메뉴",
     "bottomBtn1" : "홈",
     "bottomBtn2" : "여행",

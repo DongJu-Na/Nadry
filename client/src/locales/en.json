@@ -27,6 +27,8 @@
     "menuLogout" : "Logout",
     "menuHelloTxt1" : "Hello.",
     "menuHelloTxt2" : "Have a pleasant day today!",
+    "menuPointHistory" : "Point Usage History",
+    "menuOrder" : "Order History",
     "__comment3" : "하단메뉴",
     "bottomBtn1" : "Home",
     "bottomBtn2" : "Travel",

@@ -28,8 +28,8 @@
       </template>
       <template v-if="store.user.isLoggedIn">
         <router-link to="/logout">{{ $t('menuLogout') }}</router-link>
-        <router-link to="/myPoint">포인트 사용내역</router-link>
-        <router-link to="/myOrder">주문내역</router-link>
+        <router-link to="/myPoint">{{ $t('menuPointHistory')}}</router-link>
+        <router-link to="/myOrder">{{ $t('menuOrder')}}</router-link>
       </template>
     </nav>
 
