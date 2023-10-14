@@ -60,11 +60,17 @@ const storageUrl = import.meta.env.VITE_APP_STORAGE_URL;
 const myPoints = ref(null);
 
 const fetchMyPoint = async () => {
+  const payload = {
+    "page": 1,
+    "size": 100,
+    "sort": ["phId,desc"]
+  }
+
   try {
     const {
       status,
       data: { data },
-    } = await getMyPointHistoryList();
+    } = await getMyPointHistoryList(payload);
     console.log('fetchMyPoint: ', data);
     if (status === 200 && data) {
       console.log(data);
