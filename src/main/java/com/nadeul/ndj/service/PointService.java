@@ -200,6 +200,7 @@ public class PointService<T> {
         	   orders.setStatus(OrderStatus.CREATED);
         	   orders.setCart(cart);
         	   orders.setMember(member);
+        	   orders.setOrderDate(LocalDateTime.now());
         
         cartRepository.save(cart);
         cartProductRepository.save(cartProduct);
