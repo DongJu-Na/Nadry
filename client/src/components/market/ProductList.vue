@@ -13,7 +13,7 @@
               class="bg-lime-500 w-[16px] h-[16px] leading-none flex justify-center items-center rounded-full text-2xs text-white"
               >P</span
             >
-            <span class="font-medium">{{ item.point }}</span>
+            <span class="font-medium">{{ item.point.toLocaleString('ko-KR') }}</span>
           </dd>
         </dl>
       </router-link>

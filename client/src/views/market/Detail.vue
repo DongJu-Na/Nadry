@@ -9,7 +9,7 @@
         class="bg-lime-500 w-[16px] h-[16px] leading-none flex justify-center items-center rounded-full text-2xs text-white"
         >P</span
       >
-      <span class="font-medium">{{ product.point }}</span>
+      <span class="font-medium">{{ product.point.toLocaleString('ko-KR') }}</span>
     </div>
     <ul class="mt-3 text-sm font-medium text-zinc-400">
       <li class="flex gap-5">
