@@ -73,6 +73,11 @@ export const getProducts = () => {
   return instanceWithNoAuth.get('/api/v2/product/list');
 };
 
+// 주문하기
+export const addOrder = (payload) => {
+  return instance.post('/api/v2/point/use', payload);
+};
+
 // 관광사진 검색
 export const getGalleryList = (payload) => {
   return instanceWithNoAuth.post('/api/v1/photoGallery/galleryList1', payload);
@@ -182,6 +187,6 @@ export const getMyStampList = () => {
 };
 
 // 포인트 사용내역
-export const getMyPointHistoryList = () => {
-  return instance.get('/api/v2/point/myPointHistoryList');
+export const getMyPointHistoryList = (payload) => {
+  return instance.get('/api/v2/point/myPointHistoryList' + makeDynamicUrl(payload));
 };
