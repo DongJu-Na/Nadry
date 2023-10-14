@@ -14,6 +14,7 @@ import com.nadeul.ndj.dto.StampDto;
 import com.nadeul.ndj.entity.Stamp;
 import com.nadeul.ndj.service.StampService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +27,7 @@ public class StampController<T> {
 	private final StampService<T> stampService;
 	
 	@GetMapping("/myStampList")
+	@Operation(summary = "스탬프 조회", description = "스탬프 목록 조회")
     public ResponseEntity<ApiResponse<List<StampDto>>> myStampList() {
         return ResponseEntity.ok(stampService.myStampList());
     }
