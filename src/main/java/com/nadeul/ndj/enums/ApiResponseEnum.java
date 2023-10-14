@@ -23,6 +23,7 @@ public enum ApiResponseEnum {
   POSITION_UNAVAILABLE("0009","위치 정보가 유효하지 않습니다."),
   
   
+  POINT_USE_SUCCESS("7777", "포인트를 사용하여 주문 완료 되었습니다."),
   REVIEW_NOT_FOUND("9995","리뷰가 존재 하지 않습니다."),
   LACK_POINT("9996","포인트가 부족합니다."),
   NOTFOUND_POINT("9996","포인트 정보를 찾을 수 없습니다."),

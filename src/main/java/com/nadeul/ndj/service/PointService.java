@@ -179,7 +179,7 @@ public class PointService<T> {
             // 포인트가 부족할 때 에러 반환
             return ApiResponse.errorResponse(ApiResponseEnum.LACK_POINT);
         }
-
+        
         // 4. 포인트 사용 로직
         // 여기서 카트 테이블에 상품을 담고, 주문 내역에 카트를 옮기는 등의 작업을 수행할 수 있습니다.
         // 해당 로직은 프로젝트의 요구사항에 따라 구현해야 합니다.
@@ -190,8 +190,10 @@ public class PointService<T> {
         CartProduct cartProduct = new CartProduct();
         cartProduct.setProduct(productOptional.get()); // product는 제품 엔티티의 인스턴스
         cartProduct.setCount(1); // 제품의 수량 설정 등
+        cartProduct.setCart(cart);
+        cartProduct.setProduct(productOptional.get());
         
-        cart.setIncludedProducts(null);
+        cart.getIncludedProducts().add(cartProduct);
         cart.setMember(member);
         
         Orders orders = new Orders();
@@ -199,8 +201,8 @@ public class PointService<T> {
         	   orders.setCart(cart);
         	   orders.setMember(member);
         
-        cartProductRepository.save(cartProduct);
         cartRepository.save(cart);
+        cartProductRepository.save(cartProduct);
         ordersRepository.save(orders);
 
         // 5. 포인트 차감 및 업데이트
@@ -218,7 +220,7 @@ public class PointService<T> {
         pointHistoryRepository.save(pointHistory);
 
         // 성공적으로 포인트 사용이 완료되었을 때 성공 응답 반환
-        return ApiResponse.successResponse(ApiResponseEnum.SUCCESS, null , null, null);
+        return ApiResponse.successResponse(ApiResponseEnum.POINT_USE_SUCCESS, null , null, null);
   }
 
 	

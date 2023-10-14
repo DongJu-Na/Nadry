@@ -17,7 +17,7 @@
         <div>{{ product.productType }}</div>
       </li>
     </ul>
-    <button class="mt-5">주문하기</button>
+    <button class="mt-5" @click="clickOrder">주문하기</button>
     <div class="mt-[3rem]">
       <img :src="storageUrl + product.thumbnailUrl" class="rounded-md" />
     </div>
@@ -30,6 +30,7 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
 import { onMounted, ref } from 'vue';
+import { addOrder } from '@/api';
 import { useMainStore } from '@/store';
 
 // store
@@ -50,6 +51,42 @@ const getProductDetail = (id) => {
   });
   return product;
 };
+
+const checkLogin = () => {
+    if (!store.user.isLoggedIn) {
+      alert('로그인이 필요합니다.');
+      router.push('/login');
+      return false;  
+    }
+    return true;
+};
+
+const clickOrder = async () => {
+  if(!checkLogin()){
+    return false;
+  }
+  
+  // console.log(detailCommon.value.title, detailCommon.value.firstimage);
+  const payload = {
+    pdId : route.params.id
+  };
+
+  console.log(payload);
+
+    try {
+      const {
+        status,
+        data: { data, resultMsg },
+      } = await addOrder(payload);
+      // console.log(data, resultMsg);
+      if (status === 200 ) {
+        alert(resultMsg);
+        console.log(resultMsg);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 onMounted(async () => {
   await router.isReady();
