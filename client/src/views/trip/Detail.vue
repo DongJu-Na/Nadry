@@ -217,7 +217,9 @@ const checkLogin = () => {
   if (!store.user.isLoggedIn) {
     alert('로그인이 필요합니다.');
     router.push('/login');
+    return false;
   }
+  return true;
 };
 
 // review
