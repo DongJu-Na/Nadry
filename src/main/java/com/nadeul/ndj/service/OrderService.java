@@ -48,10 +48,9 @@ public class OrderService<T> {
       		        orderData.put("status", order.getStatus());
       		        orderData.put("pdId", order.getCart().getIncludedProducts().get(0).getProduct().getPdId());
       		        orderData.put("name", order.getCart().getIncludedProducts().get(0).getProduct().getName());
+      		        orderData.put("point", order.getCart().getIncludedProducts().get(0).getProduct().getPoint());
       		        orderData.put("thumbnailUrl", order.getCart().getIncludedProducts().get(0).getProduct().getThumbnailUrl());
       		        orderData.put("orderDate", order.getOrderDate());
-      		        //orderData.put("cart", order.getCart());
-      		        //orderData.put("member", order.getMember());
       		        return orderData;
       		    })
       		    .sorted((order1, order2) -> {

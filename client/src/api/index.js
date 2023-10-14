@@ -190,3 +190,8 @@ export const getMyStampList = () => {
 export const getMyPointHistoryList = (payload) => {
   return instance.get('/api/v2/point/myPointHistoryList' + makeDynamicUrl(payload));
 };
+
+// 주문내역
+export const getMyOrderList = () => {
+  return instance.get('/api/v2/order/myOrderList');
+};

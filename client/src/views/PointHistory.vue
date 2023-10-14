@@ -26,7 +26,7 @@
               v-for="points in myPoints"
               :key="points.phId"
             >
-                <td scope="row" class="flex items-center px-4 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                <td scope="row" class="items-center px-4 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                     {{points.phId}}
                 </td>
                 <td class="px-5 py-4">
@@ -39,7 +39,7 @@
                     {{points.remarks}}
                 </td>
                 <td class="px-4 py-4">
-                    <div class="flex items-center">
+                    <div class="items-center">
                         {{transDate(points.useDate)}}
                     </div>
                 </td>

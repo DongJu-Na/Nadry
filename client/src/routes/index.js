@@ -124,6 +124,14 @@ const routes = [
       auth: true,
     },
   },
+  {
+    path: '/myOrder',
+    name: 'myOrder',
+    component: () => import('@/views/Order.vue'),
+    meta: {
+      auth: true,
+    },
+  },
 ];
 
 export const router = createRouter({
