@@ -1,5 +1,7 @@
 package com.nadeul.ndj.entity;
 
+import java.time.LocalDateTime;
+
 import com.nadeul.ndj.enums.OrderStatus;
 
 import jakarta.persistence.Entity;
@@ -34,14 +36,16 @@ public class Orders {
     private OrderStatus status;
     
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ctId", insertable = true, updatable = true)
     private Cart cart;
     
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "memId", insertable = true, updatable = true)
     private Member member;
+    
+    private LocalDateTime orderDate;
     
     
     
