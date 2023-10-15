@@ -34,13 +34,15 @@
           </div>
           <div v-html="detailCommon.homepage" class="mt-1 text-sm text-blue-600"></div>
         </div>
+        <!-- 좋아요 -->
         <div
+          v-if="store.user.isLoggedIn"
           @click="clickWish"
           class="absolute top-0 right-0 flex flex-col items-center gap-[3px] transition-all active:scale-90 cursor-pointer"
           :class="hasWished ? 'text-rose-600 font-semibold' : 'text-zinc-400'"
         >
           <HeartIcon class="w-[25px]" />
-          <span class="text-xs leading-none">{{$t('tripWish')}}</span>
+          <span class="text-xs leading-none">{{ $t('tripWish') }}</span>
         </div>
       </div>
       <!-- rating & reviews -->
@@ -89,14 +91,14 @@
       <div class="mt-[3rem] mb-[5rem]">
         <a @click="writeReview" class="button">
           <i class="las la-pen"></i>
-          <span>{{$t('tripReviewBtn')}}</span>
+          <span>{{ $t('tripReviewBtn') }}</span>
         </a>
       </div>
       <!-- reviews -->
       <div class="mt-10">
         <h3 class="flex items-center gap-1 font-medium text-indigo-500">
           <ChatBubbleBottomCenterTextIcon class="w-6" />
-          <span>{{$t('tripReviewTxt')}}</span>
+          <span>{{ $t('tripReviewTxt') }}</span>
         </h3>
         <!-- 리뷰 리스트 -->
         <ReviewList />

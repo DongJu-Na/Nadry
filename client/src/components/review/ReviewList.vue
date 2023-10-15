@@ -24,6 +24,7 @@
         </div>
         <!-- like -->
         <div
+          v-if="store.user.isLoggedIn"
           @click="like(review.rvId)"
           class="flex items-center gap-1 p-2 leading-none transition-all border rounded border-rose-300 text-rose-500 active:scale-95"
         >
@@ -44,11 +45,14 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount, computed } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 import { useRoute } from 'vue-router';
+import { useMainStore } from '@/store';
 import { getTripReview, postTripLike } from '@/api';
 import dayjs from 'dayjs';
 import { UserIcon, HandThumbUpIcon, StarIcon } from '@heroicons/vue/24/solid';
+
+const store = useMainStore();
 
 const route = useRoute();
 const reviews = ref(null);
