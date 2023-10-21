@@ -1,5 +1,5 @@
 <template>
-  <div class="px-5">
+  <div class="px-5 mt-[80px] mb-[50px]">
     <!-- tab -->
     <div class="py-3 sticky top-[60px] bg-white z-[9999]">
       <nav class="flex space-x-4" aria-label="Tabs">
@@ -46,7 +46,7 @@
           </div>
           <!-- like -->
           <div
-            @click="like(review.rvId)"
+            @click="like(review)"
             class="flex items-center gap-1 p-2 leading-none transition-all border rounded border-rose-300 text-rose-500 active:scale-95"
           >
             <HandThumbUpIcon class="w-4" />
@@ -94,7 +94,7 @@
           </div>
           <!-- like -->
           <div
-            @click="like(review.rvId)"
+            @click="like(review)"
             class="flex items-center gap-1 p-2 leading-none transition-all border rounded border-rose-300 text-rose-500 active:scale-95"
           >
             <HandThumbUpIcon class="w-4" />
@@ -117,7 +117,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { getMyTripReview, getBestTripReview } from '@/api';
+import { getMyTripReview, getBestTripReview, postTripLike } from '@/api';
 import dayjs from 'dayjs';
 import { UserIcon, HandThumbUpIcon, StarIcon } from '@heroicons/vue/20/solid';
 
@@ -193,6 +193,19 @@ const fetchBestReviews = async () => {
     if (status === 200 && data) {
       bestReviews.value = data;
     }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const like = async (review) => {
+  console.log(review.likes);
+  const payload = {
+    rvId: review.rvId,
+  };
+  try {
+    const result = await postTripLike(payload);
+    console.log(result);
   } catch (error) {
     console.log(error);
   }

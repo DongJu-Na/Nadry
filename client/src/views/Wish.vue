@@ -1,5 +1,5 @@
 <template>
-  <div class="px-5 overflow-hidden">
+  <div class="px-5 mt-[80px] mb-[50px]">
     <div v-if="wishList.length > 0" class="flex flex-col gap-5">
       <div
         v-for="wish in wishList"

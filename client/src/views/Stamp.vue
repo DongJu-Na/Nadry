@@ -1,39 +1,6 @@
 <template>
-  <div class="flex justify-center items-center text-zinc-300 h-full text-xs">
-    
- <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    스탬프명
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    설명
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    수집일자
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-              v-for="stamp in myStamps"
-              :key="stamp.stId"
-            >
-                <td scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                    <img class="w-10 h-10 rounded-full" :src="storageUrl + stamp.stampImageUrl" alt="stamp">
-                </td>
-                <td class="px-6 py-4">
-                    {{stamp.stampName}}
-                </td>
-                <td class="px-6 py-4">
-                    <div class="flex items-center">
-                        {{transDate(stamp.stampCollectDate)}}
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <div class="mt-[80px] px-5 mb-[50px]">
+    <h1>test</h1>
   </div>
 </template>
 
@@ -55,7 +22,6 @@ const fetchMyStamps = async () => {
     } = await getMyStampList();
     console.log('fetchMyStamps: ', data);
     if (status === 200 && data) {
-      console.log(data);
       myStamps.value = data;
     }
   } catch (error) {
