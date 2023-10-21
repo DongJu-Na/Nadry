@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, onUnmounted } from 'vue';
+import { onMounted, ref, onUnmounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import IconMenu from '@/components/common/icons/IconMenu.vue';
 
@@ -45,6 +45,12 @@ const watchScrollY = () => {
     header.value.classList.remove('bg-white');
   }
 };
+
+watch(route, () => {
+  if (route.meta.title) {
+    title.value = route.meta.title;
+  }
+});
 
 onMounted(async () => {
   await router.isReady();
