@@ -132,6 +132,8 @@ const routes = [
     component: () => import('@/views/PointHistory.vue'),
     meta: {
       auth: true,
+      header: false,
+      title: '포인트 내역',
     },
   },
   {
@@ -140,6 +142,8 @@ const routes = [
     component: () => import('@/views/Order.vue'),
     meta: {
       auth: true,
+      header: false,
+      title: '주문 내역',
     },
   },
 ];
