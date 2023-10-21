@@ -1,51 +1,35 @@
 <template>
-  <div class="flex justify-center items-center text-zinc-300 h-full text-xs">
-    
- <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-4 py-3">
-                    번호
-                </th>
-                <th scope="col" class="px-5 py-3">
-                    사용 포인트
-                </th>
-                <th scope="col" class="px-5 py-3">
-                    잔여 포인트
-                </th>
-                <th scope="col" class="px-4 py-3">
-                    비고
-                </th>
-                <th scope="col" class="px-4 py-3">
-                    사용일자
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-              v-for="points in myPoints"
-              :key="points.phId"
-            >
-                <td scope="row" class="items-center px-4 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                    {{points.phId}}
-                </td>
-                <td class="px-5 py-4">
-                    {{points.usePoint.toLocaleString('ko-KR')}}
-                </td>
-                <td class="px-5 py-4">
-                    {{points.point.point.toLocaleString('ko-KR')}}
-                </td>
-                <td class="px-4 py-4">
-                    {{points.remarks}}
-                </td>
-                <td class="px-4 py-4">
-                    <div class="items-center">
-                        {{transDate(points.useDate)}}
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <div class="mt-[80px] px-5 mb-[50px]">
+    <div v-if="isLoaded && myPoints.length > 0" class="flex flex-col gap-3">
+      <div v-for="item in myPoints" class="flex items-center w-full p-5 rounded-lg bg-zinc-50">
+        <div class="flex-1 w-full overflow-hidden">
+          <div class="flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-2">
+              <div class="text-sm">{{ item.remarks }}</div>
+              <div class="text-xs text-right text-zinc-400">{{ transDate(item.useDate) }}</div>
+            </div>
+            <div class="flex items-end justify-between">
+              <div class="flex items-center gap-1">
+                <span
+                  class="bg-lime-500 w-[16px] h-[16px] leading-none flex justify-center items-center rounded-full text-2xs text-white"
+                  >P</span
+                >
+                <span class="text-xl font-medium leading-none">{{
+                  item.usePoint.toLocaleString('ko-KR')
+                }}</span>
+              </div>
+              <div class="text-sm text-lime-600">
+                잔여 포인트 :
+                <span class="font-semibold">
+                  {{ item.point.point.toLocaleString('ko-KR') }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-else class="py-10 text-sm text-center text-zinc-400">포인트 내역이 없습니다.</div>
   </div>
 </template>
 
@@ -58,13 +42,14 @@ import dayjs from 'dayjs';
 const router = useRouter();
 const storageUrl = import.meta.env.VITE_APP_STORAGE_URL;
 const myPoints = ref(null);
+const isLoaded = ref(false);
 
 const fetchMyPoint = async () => {
   const payload = {
-    "page": 1,
-    "size": 100,
-    "sort": ["phId,desc"]
-  }
+    page: 1,
+    size: 100,
+    sort: ['phId,desc'],
+  };
 
   try {
     const {
@@ -75,6 +60,7 @@ const fetchMyPoint = async () => {
     if (status === 200 && data) {
       console.log(data);
       myPoints.value = data;
+      isLoaded.value = true;
     }
   } catch (error) {
     console.log(error);
@@ -82,7 +68,7 @@ const fetchMyPoint = async () => {
 };
 
 const transDate = (date) => {
-  return dayjs(date).format('YYYY년 MM월 DD일');
+  return dayjs(date).format('YYYY년 MM월 DD일 hh:mm:ss');
 };
 
 // 문서 로딩 완료 시 : fetch data
