@@ -1,5 +1,6 @@
 /* font : pretendard */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -69,6 +70,10 @@
 @layer utilities {
   .min-h-screen {
     min-height: -webkit-fill-available;
+  }
+
+  .roboto {
+    font-family: 'Roboto Mono';
   }
 }
 
