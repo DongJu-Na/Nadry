@@ -184,7 +184,7 @@ const distance = ref(null);
 const availableDistance = ref(false);
 
 // 거리비교 상수(km)
-const DISTANCE_LIMIT = 20;
+const DISTANCE_LIMIT = 200;
 
 // 사진 메타 정보 & 유저 위치 조회 & distance 계산
 const getPosition = async (file) => {
@@ -227,6 +227,8 @@ const calculateDistance = (lat1, lng1, lat2, lng2) => {
     Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = R * c; // 거리 (단위: 킬로미터)
+
+  console.log(distance);
 
   if (distance <= DISTANCE_LIMIT) {
     availableDistance.value = true;
