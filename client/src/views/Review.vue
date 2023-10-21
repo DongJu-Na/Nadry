@@ -1,15 +1,15 @@
 <template>
-  <div class="px-5 mt-[80px] mb-[50px]">
+  <div class="px-5 mt-[60px] mb-[50px]">
     <!-- tab -->
     <div class="py-3 sticky top-[60px] bg-white z-[9999]">
-      <nav class="flex space-x-4" aria-label="Tabs">
+      <nav class="flex space-x-2" aria-label="Tabs">
         <a
           v-for="(tab, index) in tabs"
           @click="clickTab(index)"
           :key="tab.name"
           :class="[
-            tab.current ? 'bg-green-100 text-green-700' : 'text-zinc-400',
-            'rounded-md px-3 py-2 text-sm font-medium transition-all',
+            tab.current ? '!bg-emerald-500 text-white' : 'text-zinc-400',
+            'rounded px-3 py-2 text-sm font-medium transition-all flex-1 text-center bg-zinc-100',
           ]"
           >{{ tab.name }}</a
         >
