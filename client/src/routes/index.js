@@ -42,6 +42,10 @@ const routes = [
         name: 'trip list',
         component: () => import('@/views/trip/List.vue'),
         props: true,
+        meta: {
+          header: false,
+          title: '여행',
+        },
       },
       {
         path: ':id/:type',
@@ -61,6 +65,8 @@ const routes = [
     component: () => import('@/views/Stamp.vue'),
     meta: {
       auth: true,
+      header: false,
+      title: '스탬프',
     },
   },
   {
@@ -69,6 +75,8 @@ const routes = [
     component: () => import('@/views/Review.vue'),
     meta: {
       auth: true,
+      header: false,
+      title: '리뷰',
     },
   },
   {
@@ -77,6 +85,8 @@ const routes = [
     component: () => import('@/views/Wish.vue'),
     meta: {
       auth: true,
+      header: false,
+      title: '찜',
     },
   },
   {
