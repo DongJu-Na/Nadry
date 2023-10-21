@@ -1,7 +1,7 @@
 <template>
   <header
     ref="header"
-    class="fixed top-0 flex justify-between items-center w-full h-[60px] z-[100] transition-all duration-300"
+    class="fixed top-0 flex justify-between items-center w-full h-[60px] z-[100]"
     :style="`width:var(--app-width)`"
   >
     <!-- back button -->
