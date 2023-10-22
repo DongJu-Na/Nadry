@@ -9,16 +9,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nadeul.ndj.dto.ApiResponse;
@@ -31,8 +26,6 @@ import com.nadeul.ndj.model.Role;
 import com.nadeul.ndj.model.TokenType;
 import com.nadeul.ndj.repository.MemberRepository;
 import com.nadeul.ndj.repository.TokenRepository;
-import com.nimbusds.jose.shaded.gson.JsonElement;
-import com.nimbusds.jose.shaded.gson.JsonObject;
 
 import lombok.RequiredArgsConstructor;
 
