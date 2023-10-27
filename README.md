@@ -7,9 +7,9 @@
 <br/><b>(이미지 출처 : hands님)</b>
 
 ## Environment 🛠
-Front Vue.js
-Back Spring boot
-Server Nginx
+Front Vue.js <br/>
+Back Spring boot <br/>
+Server Nginx <br/>
 
 
 ## CI & CD
