@@ -7,10 +7,12 @@
 <br/><b>(이미지 출처 : hands님)</b>
 
 ## Environment 🛠
-Front Vue.js <br/>
-Back Spring boot <br/>
-Server Nginx <br/>
 
+| Type   | URL                                |
+| ------ | ---------------------------------- |
+| Front   | Vue.js         |
+| Back   | Spring boot |
+| Server   | Nginx |
 
 ## CI & CD
 ![architecture drawio](https://github.com/DongJu-Na/Nadry/assets/79893048/e29ad48a-50a9-496d-83ef-2a7c00d51ac6)
