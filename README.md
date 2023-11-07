@@ -14,6 +14,12 @@
 | Back   | Spring boot |
 | Server   | Nginx |
 
+
+
+## Preveiw 
+![보물](https://github.com/DongJu-Na/Nadry/assets/79893048/95e5dc71-9067-46c6-884f-1e6f3c319e47)
+
+
 ## CI & CD
 ![architecture drawio](https://github.com/DongJu-Na/Nadry/assets/79893048/e29ad48a-50a9-496d-83ef-2a7c00d51ac6)
 
