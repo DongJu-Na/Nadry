@@ -13,6 +13,7 @@
 | Front   | Vue.js         |
 | Back   | Spring boot |
 | Server   | Nginx |
+| RDBMS   | Maria |
 
 
 
